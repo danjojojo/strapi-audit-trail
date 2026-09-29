@@ -8,7 +8,7 @@ export function homepageService() {
   async function getAllCollections() {
     try {
       const res = await get(`/${PLUGIN_ID}/collections`);
-      return res.data as GetAllCollectionsResponse[];
+      return res.data as GetAllCollectionsResponse;
     } catch (error) {
       console.error(error);
     }

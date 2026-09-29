@@ -1,14 +1,34 @@
 import { useState, useEffect } from 'react';
 import { homepageService } from '../services/homepage.service';
-import type { GetAllCollectionsResponse } from '../types/homepage.service.types';
+import type { CollectionData } from '../types/homepage.service.types';
 
 export function useCollections() {
   const { getAllCollections } = homepageService();
-  const [collections, setCollections] = useState<GetAllCollectionsResponse[]>([]);
+
+  const [allCollections, setAllCollections] = useState<CollectionData[]>([]);
+  const [targetCollection, setTargetCollection] = useState<string>('');
+  const [filteredCollections, setFilteredCollections] = useState<CollectionData[]>([]);
+  const [selectedCollection, setSelectedCollection] = useState<CollectionData | null>(null);
 
   const fetchCollections = async () => {
     const data = await getAllCollections();
-    if (data) setCollections(data);
+    if (data) {
+      setAllCollections(data);
+      setFilteredCollections(data);
+    }
+  };
+
+  const selectCollection = (collection: CollectionData) => {
+    setSelectedCollection(collection);
+  };
+
+  const filterCollection = (keyword: string) => {
+    if (!keyword) setFilteredCollections(allCollections);
+
+    setTargetCollection(keyword);
+    setFilteredCollections(
+      allCollections.filter((collection) => collection.name.toLowerCase().startsWith(keyword))
+    );
   };
 
   useEffect(() => {
@@ -16,6 +36,14 @@ export function useCollections() {
   }, []);
 
   return {
-    collections,
+    // STATES
+    allCollections,
+    targetCollection,
+    selectedCollection,
+    filteredCollections,
+
+    // METHODS
+    selectCollection,
+    filterCollection,
   };
 }
