@@ -30,7 +30,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@strapi/strapi": "^5.55.1",
     "@strapi/sdk-plugin": "^6.1.1",
     "prettier": "^3.9.9",
     "@strapi/design-system": "^2.2.4",
