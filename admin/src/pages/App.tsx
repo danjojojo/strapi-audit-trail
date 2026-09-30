@@ -17,8 +17,14 @@ const App = () => {
           <ContentLayout>
             <Routes>
               <Route index element={<HomePage />} />
-              <Route path=":collectionUid" element={<HomePage />} />
-              <Route path=":collectionUid/:documentId" element={<DetailPage />} />
+              <Route path="recents" element={<HomePage />} />
+              
+              <Route path="single-types/:collectionUid" element={<HomePage />} />
+              <Route path="single-types/:collectionUid/:documentId?" element={<DetailPage />} />
+
+              <Route path="collection-types/:collectionUid" element={<HomePage />} />
+              <Route path="collection-types/:collectionUid/:documentId?" element={<DetailPage />} />
+              
               <Route path="*" element={<Page.Error />} />
             </Routes>
           </ContentLayout>

@@ -7,7 +7,7 @@ export interface SearchInputProps {
 
 export interface SidebarListItemProps {
   active: boolean;
-  onClick: () => void;
+  href: string;
   label: string;
 }
 

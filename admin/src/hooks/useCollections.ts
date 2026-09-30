@@ -2,6 +2,7 @@ import { RECENTS } from '../constants';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { homepageService } from '../services/homepage.service';
+import { appendCollectionPath, stripPath } from '../utils/routing';
 import type { CollectionData } from '../types/homepage.service.types';
 
 export function useCollections() {
@@ -24,7 +25,7 @@ export function useCollections() {
 
   const selectCollection = (collection: CollectionData) => {
     setSelectedCollection(collection);
-    navigate(collection.uid, { replace: true });
+    navigate(stripPath(appendCollectionPath(collection)), { replace: true });
   };
 
   const filterCollection = (keyword: string) => {
@@ -41,15 +42,12 @@ export function useCollections() {
   }, []);
 
   useEffect(() => {
-    const uid = params['*']?.split('/')[0];
+    console.log('params: ', params['*']?.split('/'));
+    const uid = params['*']?.split('/')[1];
 
     if (!uid) {
-      navigate(RECENTS.uid, { replace: true });
-      return;
-    }
-
-    if (uid === RECENTS.uid) {
       setSelectedCollection(RECENTS);
+      navigate(RECENTS.uid, { replace: true });
       return;
     }
 
@@ -60,13 +58,13 @@ export function useCollections() {
   }, [params.uid, params['*'], allCollections]);
 
   return {
-    // STATES
-    allCollections,
+    /** STATES */
     targetCollection,
     selectedCollection,
-    filteredCollections,
+    collectionTypes: filteredCollections.filter((c) => c.kind === 'collectionType'),
+    singleTypes: filteredCollections.filter((c) => c.kind === 'singleType'),
 
-    // METHODS
+    /** METHODS */
     selectCollection,
     filterCollection,
   };

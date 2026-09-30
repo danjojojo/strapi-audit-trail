@@ -2,6 +2,7 @@
 export const RECENTS = {
   uid: 'recents',
   name: 'Recents',
+  kind: 'none' as const,
 };
 
 // Default Message for the EmptyState
