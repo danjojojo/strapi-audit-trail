@@ -1,12 +1,16 @@
+import { RECENTS } from '../constants';
 import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { homepageService } from '../services/homepage.service';
 import type { CollectionData } from '../types/homepage.service.types';
 
 export function useCollections() {
+  const navigate = useNavigate();
+  const params = useParams();
   const { getAllCollections } = homepageService();
 
-  const [allCollections, setAllCollections] = useState<CollectionData[]>([]);
   const [targetCollection, setTargetCollection] = useState<string>('');
+  const [allCollections, setAllCollections] = useState<CollectionData[]>([]);
   const [filteredCollections, setFilteredCollections] = useState<CollectionData[]>([]);
   const [selectedCollection, setSelectedCollection] = useState<CollectionData | null>(null);
 
@@ -20,13 +24,7 @@ export function useCollections() {
 
   const selectCollection = (collection: CollectionData) => {
     setSelectedCollection(collection);
-  };
-
-  const selectRecents = () => {
-    setSelectedCollection({
-      uid: 'recents',
-      name: 'Recents',
-    });
+    navigate(collection.uid, { replace: true });
   };
 
   const filterCollection = (keyword: string) => {
@@ -42,6 +40,25 @@ export function useCollections() {
     fetchCollections();
   }, []);
 
+  useEffect(() => {
+    const uid = params['*']?.split('/')[0];
+
+    if (!uid) {
+      navigate(RECENTS.uid, { replace: true });
+      return;
+    }
+
+    if (uid === RECENTS.uid) {
+      setSelectedCollection(RECENTS);
+      return;
+    }
+
+    const matched = allCollections.find((collection) => collection.uid === uid);
+    if (matched) {
+      setSelectedCollection(matched);
+    }
+  }, [params.uid, params['*'], allCollections]);
+
   return {
     // STATES
     allCollections,
@@ -50,7 +67,6 @@ export function useCollections() {
     filteredCollections,
 
     // METHODS
-    selectRecents,
     selectCollection,
     filterCollection,
   };
