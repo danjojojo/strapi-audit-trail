@@ -1,14 +1,12 @@
-import { RECENTS } from '../constants';
 import { useRouting } from './useRouting';
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { OTHERS, RECENTS } from '../constants';
+import { appendCollectionPath } from '../utils/routing';
 import { homepageService } from '../services/homepage.service';
-import { appendCollectionPath, stripPath } from '../utils/routing';
 import type { CollectionData } from '../types/homepage.service.types';
 
 export function useCollections() {
-  const navigate = useNavigate();
-  const { collectionUid } = useRouting();
+  const { collectionUid, overrideNavigate } = useRouting();
   const { getAllCollections } = homepageService();
 
   const [targetCollection, setTargetCollection] = useState<string>('');
@@ -19,14 +17,15 @@ export function useCollections() {
   const fetchCollections = async () => {
     const data = await getAllCollections();
     if (data) {
-      setAllCollections(data);
-      setFilteredCollections(data);
+      const allData = [...data, ...OTHERS];
+      setAllCollections(allData);
+      setFilteredCollections(allData);
     }
   };
 
   const selectCollection = (collection: CollectionData) => {
     setSelectedCollection(collection);
-    navigate(stripPath(appendCollectionPath(collection)), { replace: true });
+    overrideNavigate(appendCollectionPath(collection));
   };
 
   const filterCollection = (keyword: string) => {
@@ -36,7 +35,7 @@ export function useCollections() {
 
     setFilteredCollections(
       allCollections.filter((collection) =>
-        collection.name.toLowerCase().startsWith(keyword.toLowerCase())
+        collection.name.toLowerCase().includes(keyword.toLowerCase())
       )
     );
   };
@@ -47,12 +46,14 @@ export function useCollections() {
 
   useEffect(() => {
     if (!collectionUid) {
+      /** Navigate to Recents */
       return selectCollection(RECENTS);
     }
 
     const matched = allCollections.find((collection) => collection.uid === collectionUid);
     if (matched) {
-      selectCollection(matched);
+      /** Just set the collection as selected to make the list item active */
+      setSelectedCollection(matched);
     }
   }, [collectionUid, allCollections]);
 
@@ -62,6 +63,7 @@ export function useCollections() {
     selectedCollection,
     collectionTypes: filteredCollections.filter((c) => c.kind === 'collectionType'),
     singleTypes: filteredCollections.filter((c) => c.kind === 'singleType'),
+    otherCollections: filteredCollections.filter((c) => c.kind === 'others'),
 
     /** METHODS */
     selectCollection,

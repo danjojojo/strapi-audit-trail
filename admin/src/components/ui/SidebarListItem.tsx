@@ -1,11 +1,11 @@
-import { useNavigate } from 'react-router-dom';
 import { stripPath } from '../../utils/routing';
+import { useRouting } from '../../hooks/useRouting';
 import { Box, Typography, LinkButton } from '@strapi/design-system';
 import type { MouseEvent } from 'react';
 import type { SidebarListItemProps } from '../../types/ui.types';
 
 export function SidebarListItem({ active, href, label }: SidebarListItemProps) {
-  const navigate = useNavigate();
+  const { overrideNavigate } = useRouting();
 
   return (
     <Box
@@ -19,10 +19,7 @@ export function SidebarListItem({ active, href, label }: SidebarListItemProps) {
         width="100%"
         justifyContent="flex-start"
         href={href}
-        onClick={(e: MouseEvent<HTMLButtonElement>) => {
-          e.preventDefault();
-          navigate(stripPath(href), { replace: true });
-        }}
+        onClick={(e: MouseEvent<HTMLButtonElement>) => overrideNavigate(href, e)}
         paddingLeft="8px"
       >
         <Typography

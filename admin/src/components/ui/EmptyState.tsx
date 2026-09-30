@@ -1,13 +1,21 @@
 import { ArrowLeft } from '@strapi/icons';
+import { styled } from 'styled-components';
 import { EMPTY_STATE } from '../../constants';
-import { Flex, Box, Typography, Button } from '@strapi/design-system';
+import { useRouting } from '../../hooks/useRouting';
+import { EmptyDocuments } from '@strapi/icons/symbols';
+import { Flex, Box, Typography, LinkButton } from '@strapi/design-system';
 import type { EmptyStateProps } from '../../types/ui.types';
-import { useNavigate, useParams } from 'react-router-dom';
+import type { MouseEvent } from 'react';
 
-export function EmptyState({ content, action, hideAction = false }: EmptyStateProps) {
-  const navigate = useNavigate();
-  const params = useParams();
-  const collectionPath = params['*']?.split('/')[0];
+const EmptyStateIconWrapper = styled(Box)`
+  svg {
+    height: 22rem;
+    width: 22rem;
+  }
+`;
+
+export function EmptyState({ content, icon, action, hideAction = false }: EmptyStateProps) {
+  const { contentTypePath, overrideNavigate } = useRouting();
 
   return (
     <Box
@@ -28,6 +36,10 @@ export function EmptyState({ content, action, hideAction = false }: EmptyStatePr
         width="100%"
         height="100%"
       >
+        <EmptyStateIconWrapper paddingBottom={6} aria-hidden>
+          {icon ?? <EmptyDocuments />}
+        </EmptyStateIconWrapper>
+
         <Box paddingBottom={4}>
           <Typography
             variant="delta"
@@ -42,13 +54,14 @@ export function EmptyState({ content, action, hideAction = false }: EmptyStatePr
 
         {!hideAction
           ? (action ?? (
-              <Button
+              <LinkButton
                 variant="secondary"
+                href={contentTypePath}
                 startIcon={<ArrowLeft />}
-                onClick={() => navigate(`/content-manager/${collectionPath}`, { replace: true })}
+                onClick={(e: MouseEvent<HTMLButtonElement>) => overrideNavigate(contentTypePath, e)}
               >
                 {EMPTY_STATE.action.label}
-              </Button>
+              </LinkButton>
             ))
           : null}
       </Flex>

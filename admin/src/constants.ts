@@ -5,6 +5,20 @@ export const RECENTS = {
   kind: 'none' as const,
 };
 
+// Other collections
+export const OTHERS = [
+  {
+    uid: 'admin::session',
+    name: 'Login Sessions',
+    kind: 'others' as const,
+  },
+  {
+    uid: 'plugin::upload.file',
+    name: 'Media Uploads',
+    kind: 'others' as const,
+  },
+];
+
 // Default Message for the EmptyState
 export const EMPTY_STATE = {
   content:

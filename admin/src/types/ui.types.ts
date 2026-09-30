@@ -24,5 +24,6 @@ export interface HeaderProps {
 export interface EmptyStateProps {
   content?: string;
   hideAction?: boolean;
+  icon?: React.ReactNode;
   action?: React.ReactNode;
 }
