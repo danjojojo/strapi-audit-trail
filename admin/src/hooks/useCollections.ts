@@ -60,7 +60,7 @@ export function useCollections() {
   }, [params.uid, params['*'], allCollections]);
 
   return {
-    // STATS
+    // STATES
     allCollections,
     targetCollection,
     selectedCollection,
