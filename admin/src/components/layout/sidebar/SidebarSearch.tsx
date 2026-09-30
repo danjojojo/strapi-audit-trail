@@ -1,9 +1,9 @@
 import { Flex } from '@strapi/design-system';
 import { SearchInput } from '../../ui/SearchInput';
-import { useAppContext } from '../../../providers/app.provider';
+import { useCollectionContext } from '../../../providers/collection.provider';
 
 export function SidebarSearch() {
-  const { filterCollection, targetCollection } = useAppContext();
+  const { filterCollection, targetCollection } = useCollectionContext();
 
   return (
     <Flex paddingTop="20px" paddingLeft="20px" paddingRight="20px">

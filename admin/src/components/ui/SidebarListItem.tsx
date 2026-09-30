@@ -21,6 +21,7 @@ export function SidebarListItem({ active, onClick, label }: SidebarListItemProps
           textAlign="left"
           width="100%"
           textColor={active ? 'primary600' : 'neutral1000'}
+          fontWeight={active ? 600 : 400}
         >
           {label}
         </Typography>

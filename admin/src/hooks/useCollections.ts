@@ -22,6 +22,13 @@ export function useCollections() {
     setSelectedCollection(collection);
   };
 
+  const selectRecents = () => {
+    setSelectedCollection({
+      uid: 'recents',
+      name: 'Recents',
+    });
+  };
+
   const filterCollection = (keyword: string) => {
     if (!keyword) setFilteredCollections(allCollections);
 
@@ -43,6 +50,7 @@ export function useCollections() {
     filteredCollections,
 
     // METHODS
+    selectRecents,
     selectCollection,
     filterCollection,
   };
