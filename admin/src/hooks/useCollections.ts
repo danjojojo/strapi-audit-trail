@@ -1,4 +1,5 @@
 import { RECENTS } from '../constants';
+import { useRouting } from './useRouting';
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { homepageService } from '../services/homepage.service';
@@ -7,7 +8,7 @@ import type { CollectionData } from '../types/homepage.service.types';
 
 export function useCollections() {
   const navigate = useNavigate();
-  const params = useParams();
+  const { collectionUid } = useRouting();
   const { getAllCollections } = homepageService();
 
   const [targetCollection, setTargetCollection] = useState<string>('');
@@ -32,8 +33,11 @@ export function useCollections() {
     if (!keyword) setFilteredCollections(allCollections);
 
     setTargetCollection(keyword);
+
     setFilteredCollections(
-      allCollections.filter((collection) => collection.name.toLowerCase().startsWith(keyword))
+      allCollections.filter((collection) =>
+        collection.name.toLowerCase().startsWith(keyword.toLowerCase())
+      )
     );
   };
 
@@ -42,20 +46,17 @@ export function useCollections() {
   }, []);
 
   useEffect(() => {
-    console.log('params: ', params['*']?.split('/'));
-    const uid = params['*']?.split('/')[1];
-
-    if (!uid) {
+    if (!collectionUid) {
       setSelectedCollection(RECENTS);
       navigate(RECENTS.uid, { replace: true });
       return;
     }
 
-    const matched = allCollections.find((collection) => collection.uid === uid);
+    const matched = allCollections.find((collection) => collection.uid === collectionUid);
     if (matched) {
       setSelectedCollection(matched);
     }
-  }, [params.uid, params['*'], allCollections]);
+  }, [collectionUid, allCollections]);
 
   return {
     /** STATES */
