@@ -1,6 +1,7 @@
 import { ArrowLeft } from '@strapi/icons';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Flex, Link } from '@strapi/design-system';
+import type { MouseEvent } from 'react';
 import type { HeaderProps } from '../../types/ui.types';
 
 export function Header({ title, backUrl }: HeaderProps) {
@@ -18,7 +19,14 @@ export function Header({ title, backUrl }: HeaderProps) {
       alignItems="flex-start"
     >
       {backUrl && (
-        <Link onClick={() => navigate(backUrl, { replace: true })} startIcon={<ArrowLeft />}>
+        <Link
+          href={backUrl}
+          onClick={(e: MouseEvent<HTMLAnchorElement>) => {
+            e.preventDefault();
+            navigate(backUrl, { replace: true });
+          }}
+          startIcon={<ArrowLeft />}
+        >
           Back
         </Link>
       )}
