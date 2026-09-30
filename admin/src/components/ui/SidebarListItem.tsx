@@ -1,7 +1,12 @@
-import { Box, Button, Typography } from '@strapi/design-system';
+import { useNavigate } from 'react-router-dom';
+import { stripPath } from '../../utils/routing';
+import { Box, Typography, LinkButton } from '@strapi/design-system';
+import type { MouseEvent } from 'react';
 import type { SidebarListItemProps } from '../../types/ui.types';
 
-export function SidebarListItem({ active, onClick, label }: SidebarListItemProps) {
+export function SidebarListItem({ active, href, label }: SidebarListItemProps) {
+  const navigate = useNavigate();
+
   return (
     <Box
       width="100%"
@@ -9,11 +14,15 @@ export function SidebarListItem({ active, onClick, label }: SidebarListItemProps
       borderRadius="4px"
       background={active ? 'neutral100' : undefined}
     >
-      <Button
+      <LinkButton
         variant="ghost"
         width="100%"
         justifyContent="flex-start"
-        onClick={onClick}
+        href={href}
+        onClick={(e: MouseEvent<HTMLButtonElement>) => {
+          e.preventDefault();
+          navigate(stripPath(href), { replace: true });
+        }}
         paddingLeft="8px"
       >
         <Typography
@@ -25,7 +34,7 @@ export function SidebarListItem({ active, onClick, label }: SidebarListItemProps
         >
           {label}
         </Typography>
-      </Button>
+      </LinkButton>
     </Box>
   );
 }

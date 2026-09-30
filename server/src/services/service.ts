@@ -7,13 +7,11 @@ const service = ({ strapi }: { strapi: Core.Strapi }) => ({
 
   getAllCollections() {
     return Object.values(strapi.contentTypes)
-      .filter(
-        (collection: Struct.CollectionTypeSchema) =>
-          collection.kind === 'collectionType' && collection.uid.startsWith('api::')
-      )
-      .map((collection: Struct.CollectionTypeSchema) => ({
+      .filter((collection: Struct.ContentTypeSchema) => collection.uid.startsWith('api::'))
+      .map((collection: Struct.ContentTypeSchema) => ({
         uid: collection.uid,
         name: collection.info.displayName,
+        kind: collection.kind,
       }));
   },
 });

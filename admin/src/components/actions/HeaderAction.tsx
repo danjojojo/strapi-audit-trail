@@ -7,11 +7,13 @@ export const HeaderAction: HeaderActionType = (props) => {
   const { document, documentId, model, collectionType } = props;
 
   const navigate = useNavigate();
-  const notAllowedToDisplay = !document || !documentId || !model.startsWith('api::');
+  const notAllowedToDisplay = !document || !model.startsWith('api::');
 
-  const navigateToPluginPage = async () => {
-    if (!documentId) return;
-    navigate(`/plugins/${PLUGIN_ID}/${model}/${documentId}`);
+  const navigateToPluginPage = () => {
+    if (!document) return;
+
+    const docId = collectionType === 'single-types' ? document.documentId : documentId;
+    navigate(`/plugins/${PLUGIN_ID}/${collectionType}/${model}/${docId}`);
   };
 
   if (notAllowedToDisplay) return null;
