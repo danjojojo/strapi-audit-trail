@@ -1,1 +1,1 @@
-export const PLUGIN_ID = "strapi-audit-trail";
+export const PLUGIN_ID = "audit-trail";

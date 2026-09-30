@@ -12,7 +12,7 @@ const plugin: StrapiApp["appPlugins"][string] = {
       icon: PluginIcon,
       intlLabel: {
         id: `${PLUGIN_ID}.plugin.name`,
-        defaultMessage: PLUGIN_ID,
+        defaultMessage: 'Audit Trail',
       },
       Component: () => import("./pages/App"),
       permissions: [],
@@ -22,7 +22,7 @@ const plugin: StrapiApp["appPlugins"][string] = {
       id: PLUGIN_ID,
       initializer: Initializer,
       isReady: false,
-      name: PLUGIN_ID,
+      name: 'Audit Trail',
     });
   },
 

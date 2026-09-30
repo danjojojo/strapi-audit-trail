@@ -57,7 +57,7 @@
   },
   "strapi": {
     "kind": "plugin",
-    "name": "strapi-audit-trail",
+    "name": "audit-trail",
     "displayName": "Audit Trail",
     "description": "A custom Strapi plugin for recording activities within the app."
   },
