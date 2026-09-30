@@ -15,3 +15,8 @@ export interface SidebarListTitleProps {
   title: string;
   count: number;
 }
+
+export interface HeaderProps {
+  title: string | null | undefined;
+  backUrl?: string | null;
+}
