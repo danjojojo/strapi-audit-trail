@@ -1,8 +1,5 @@
-import { HomePage } from './HomePage';
-import { DetailPage } from './DetailPage';
-import { Page } from '@strapi/strapi/admin';
+import { AppRoutes } from './AppRoutes';
 import { Main } from '@strapi/design-system';
-import { Routes, Route } from 'react-router-dom';
 import { Layout } from '../components/layout/Layout';
 import { Sidebar } from '../components/layout/Sidebar';
 import { AppProvider } from '../providers/app.provider';
@@ -15,18 +12,7 @@ const App = () => {
         <Layout>
           <Sidebar />
           <ContentLayout>
-            <Routes>
-              <Route index element={<HomePage />} />
-              <Route path="recents" element={<HomePage />} />
-              
-              <Route path="single-types/:collectionUid" element={<HomePage />} />
-              <Route path="single-types/:collectionUid/:documentId?" element={<DetailPage />} />
-
-              <Route path="collection-types/:collectionUid" element={<HomePage />} />
-              <Route path="collection-types/:collectionUid/:documentId?" element={<DetailPage />} />
-              
-              <Route path="*" element={<Page.Error />} />
-            </Routes>
+            <AppRoutes />
           </ContentLayout>
         </Layout>
       </Main>

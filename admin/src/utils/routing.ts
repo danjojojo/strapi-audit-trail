@@ -1,10 +1,15 @@
-import { CollectionData } from 'src/types/homepage.service.types';
 import { PLUGIN_ID } from '../pluginId';
+import { CollectionData } from '../types/homepage.service.types';
 
-const basePath = `/admin/plugins/${PLUGIN_ID}`;
+const contentManagerPath = `/admin/content-manager`;
+const pluginBasePath = `/admin/plugins/${PLUGIN_ID}`;
 
-export const appendToBasePath = (url: string): string => {
-  return `${basePath}/${url}`;
+export const appendToContentManagerPath = (url: string): string => {
+  return `${contentManagerPath}/${url}`;
+};
+
+export const appendToPluginPath = (url: string): string => {
+  return `${pluginBasePath}/${url}`;
 };
 
 export const appendCollectionPath = (collection: CollectionData): string => {
@@ -16,13 +21,16 @@ export const appendCollectionPath = (collection: CollectionData): string => {
     case 'singleType':
       url = `/single-types/${collection.uid}`;
       break;
+    case 'others':
+      url = `/others/${collection.uid}`;
+      break;
     case 'none':
     default:
       url = `/${collection.uid}`;
       break;
   }
 
-  return `${basePath}${url}`;
+  return `${pluginBasePath}${url}`;
 };
 
 export const stripPath = (url: string): string => {
