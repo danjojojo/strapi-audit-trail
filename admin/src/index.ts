@@ -1,12 +1,16 @@
-import { getTranslation } from "./utils/getTranslation";
-import { PLUGIN_ID } from "./pluginId";
-import { Initializer } from "./components/Initializer";
-import { PluginIcon } from "./components/PluginIcon";
+import { PLUGIN_ID } from './pluginId';
+import { PluginIcon } from './components/PluginIcon';
+import { Initializer } from './components/Initializer';
+import { getTranslation } from './utils/getTranslation';
+import { placeHeaderAction } from './utils/placeHeaderAction';
+import { HeaderAction } from './components/actions/HeaderAction';
+import type { AppPluginAPI } from './types/internal.types';
+import type { StrapiApp } from '@strapi/strapi/admin';
 
-import type { StrapiApp } from "@strapi/strapi/admin";
-
-const plugin: StrapiApp["appPlugins"][string] = {
+const plugin: StrapiApp['appPlugins'][string] = {
   register(app) {
+    const appApi = app.getPlugin('content-manager').apis as AppPluginAPI;
+
     app.addMenuLink({
       to: `plugins/${PLUGIN_ID}`,
       icon: PluginIcon,
@@ -14,7 +18,7 @@ const plugin: StrapiApp["appPlugins"][string] = {
         id: `${PLUGIN_ID}.plugin.name`,
         defaultMessage: 'Audit Trail',
       },
-      Component: () => import("./pages/App"),
+      Component: () => import('./pages/App'),
       permissions: [],
     });
 
@@ -24,15 +28,21 @@ const plugin: StrapiApp["appPlugins"][string] = {
       isReady: false,
       name: 'Audit Trail',
     });
+
+    appApi.addDocumentAction((actions) =>
+      placeHeaderAction({
+        actions,
+        component: [HeaderAction],
+        placeBefore: 'delete',
+      })
+    );
   },
 
   registerTrads({ locales }) {
     return Promise.all(
       locales.map(async (locale) => {
         try {
-          const { default: data } = (await import(
-            `./translations/${locale}.json`
-          )) as {
+          const { default: data } = (await import(`./translations/${locale}.json`)) as {
             default: Record<string, string>;
           };
 
@@ -47,7 +57,7 @@ const plugin: StrapiApp["appPlugins"][string] = {
         } catch {
           return { data: {}, locale };
         }
-      }),
+      })
     );
   },
 };
