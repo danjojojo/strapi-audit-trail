@@ -47,14 +47,12 @@ export function useCollections() {
 
   useEffect(() => {
     if (!collectionUid) {
-      setSelectedCollection(RECENTS);
-      navigate(RECENTS.uid, { replace: true });
-      return;
+      return selectCollection(RECENTS);
     }
 
     const matched = allCollections.find((collection) => collection.uid === collectionUid);
     if (matched) {
-      setSelectedCollection(matched);
+      selectCollection(matched);
     }
   }, [collectionUid, allCollections]);
 
