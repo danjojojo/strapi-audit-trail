@@ -20,3 +20,9 @@ export interface HeaderProps {
   title: string | null | undefined;
   backUrl?: string | null;
 }
+
+export interface EmptyStateProps {
+  content?: string;
+  hideAction?: boolean;
+  action?: React.ReactNode;
+}
