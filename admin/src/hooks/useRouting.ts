@@ -12,7 +12,7 @@ export function useRouting() {
   const documentId = path?.[2];
   const contentTypePath = appendToContentManagerPath(`${collectionKind}/${collectionUid}`);
 
-  const overrideNavigate = (url: string, e?: MouseEvent<HTMLButtonElement>) => {
+  const overrideNavigate = (url: string, e?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     if (e) e.preventDefault();
     navigate(stripPath(url), { replace: true });
   };

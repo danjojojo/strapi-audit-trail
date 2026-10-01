@@ -58,7 +58,7 @@ export function EmptyState({ content, icon, action, hideAction = false }: EmptyS
                 variant="secondary"
                 href={contentTypePath}
                 startIcon={<ArrowLeft />}
-                onClick={(e: MouseEvent<HTMLButtonElement>) => overrideNavigate(contentTypePath, e)}
+                onClick={(e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => overrideNavigate(contentTypePath, e)}
               >
                 {EMPTY_STATE.action.label}
               </LinkButton>

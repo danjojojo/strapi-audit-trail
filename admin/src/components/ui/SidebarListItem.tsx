@@ -19,7 +19,9 @@ export function SidebarListItem({ active, href, label }: SidebarListItemProps) {
         width="100%"
         justifyContent="flex-start"
         href={href}
-        onClick={(e: MouseEvent<HTMLButtonElement>) => overrideNavigate(href, e)}
+        onClick={(e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) =>
+          overrideNavigate(href, e)
+        }
         paddingLeft="8px"
       >
         <Typography
