@@ -1,10 +1,6 @@
 import type { Core, Struct } from '@strapi/strapi';
 
-const service = ({ strapi }: { strapi: Core.Strapi }) => ({
-  getWelcomeMessage() {
-    return 'Welcome to Strapi 🚀';
-  },
-
+const collection = ({ strapi }: { strapi: Core.Strapi }) => ({
   getAllCollections() {
     return Object.values(strapi.contentTypes)
       .filter((collection: Struct.ContentTypeSchema) => collection.uid.startsWith('api::'))
@@ -16,4 +12,4 @@ const service = ({ strapi }: { strapi: Core.Strapi }) => ({
   },
 });
 
-export default service;
+export default collection;

@@ -1,9 +1,11 @@
 import { Flex } from '@strapi/design-system';
 import { HomepageHeader } from '../components/home/Header';
 import { useNavigate } from 'react-router-dom';
+import { useAuditLogsContext } from '../providers/audit-logs.provider';
 
 export const HomePage = () => {
   const navigate = useNavigate();
+  const { fetchAuditLogs } = useAuditLogsContext();
 
   const sampleLinks = [
     {
