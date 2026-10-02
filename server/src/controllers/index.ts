@@ -1,5 +1,7 @@
-import controller from "./controller";
+import collection from './collection';
+import auditLogs from './audit-logs';
 
 export default {
-  controller,
+  collection,
+  auditLogs,
 };

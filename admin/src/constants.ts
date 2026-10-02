@@ -12,11 +12,11 @@ export const OTHERS = [
     name: 'Login Sessions',
     kind: 'others' as const,
   },
-  {
-    uid: 'plugin::upload.file',
-    name: 'Media Uploads',
-    kind: 'others' as const,
-  },
+  // {
+  //   uid: 'plugin::upload.file',
+  //   name: 'Media Uploads',
+  //   kind: 'others' as const,
+  // },
 ];
 
 // Default Message for the EmptyState

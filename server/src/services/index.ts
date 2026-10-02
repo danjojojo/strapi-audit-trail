@@ -1,5 +1,7 @@
-import service from "./service";
+import collection from './collection';
+import auditLogs from './audit-logs';
 
 export default {
-  service,
+  collection,
+  auditLogs,
 };
