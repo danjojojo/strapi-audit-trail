@@ -1,8 +1,13 @@
+import { styled } from 'styled-components';
 import { Flex } from '@strapi/design-system';
+
+const StyledFlex = styled(Flex)`
+  overflow-y: auto;
+`;
 
 export function LandingContentLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Flex
+    <StyledFlex
       direction="column"
       gap="40px"
       alignItems="flex-start"
@@ -14,6 +19,6 @@ export function LandingContentLayout({ children }: { children: React.ReactNode }
       paddingBottom="40px"
     >
       {children}
-    </Flex>
+    </StyledFlex>
   );
 }

@@ -5,7 +5,6 @@ import {
   Box,
   Thead,
   Tbody,
-  Badge,
   Typography,
   Table as StrapiTable,
 } from '@strapi/design-system';
@@ -25,7 +24,7 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
   const { overrideNavigate } = useRouting();
 
   return (
-    <Box width="100%">
+    <Box width="100%" height="100%">
       <StrapiTable colCount={columns.show.length} rowCount={data.length}>
         <Thead>
           <Tr>
