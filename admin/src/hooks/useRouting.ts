@@ -14,7 +14,7 @@ export function useRouting() {
 
   const overrideNavigate = (url: string, e?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     if (e) e.preventDefault();
-    navigate(stripPath(url), { replace: true });
+    navigate(stripPath(url));
   };
 
   return {

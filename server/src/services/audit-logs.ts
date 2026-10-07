@@ -5,7 +5,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
   async getAuditLogs({ query, filter }: GetAuditLogs) {
     const data = await strapi.documents('plugin::audit-trail.audit-log').findMany({
       _q: query._q,
-      sort: query.sort,
+      sort: query.sort ?? 'createdAt:DESC',
       pagination: {
         page: query.page,
         pageSize: query.pageSize,
@@ -25,7 +25,15 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
           },
         }),
       },
-      fields: ['action', 'collectionName', 'relatedDocumentId'],
+      fields: [
+        'action',
+        'collectionName',
+        'collectionUid',
+        'contentTypeKind',
+        'relatedDocumentId',
+        'actionFrom',
+        'createdAt',
+      ],
     });
     return data;
   },

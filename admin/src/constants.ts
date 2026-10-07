@@ -9,14 +9,9 @@ export const RECENTS = {
 export const OTHERS = [
   {
     uid: 'admin::session',
-    name: 'Login Sessions',
+    name: 'CMS Logins',
     kind: 'others' as const,
   },
-  // {
-  //   uid: 'plugin::upload.file',
-  //   name: 'Media Uploads',
-  //   kind: 'others' as const,
-  // },
 ];
 
 // Default Message for the EmptyState
@@ -26,4 +21,52 @@ export const EMPTY_STATE = {
   action: {
     label: 'Go back to content manager',
   },
+};
+
+// Hidden columns in the table
+export const HIDDEN_COLUMNS = ['id', 'documentId'];
+
+// Badge colors per action (see https://design-system.strapi.io/?path=/docs/foundations-color--docs)
+export const ACTION_COLORS = {
+  create: {
+    backgroundColor: 'primary100',
+    textColor: 'primary500',
+  },
+  publish: {
+    backgroundColor: 'success100',
+    textColor: 'success500',
+  },
+  update: {
+    backgroundColor: 'alternative100',
+    textColor: 'alternative600',
+  },
+  clone: {
+    backgroundColor: 'alternative100',
+    textColor: 'secondary500',
+  },
+  delete: {
+    backgroundColor: 'danger100',
+    textColor: 'danger500',
+  },
+  unpublish: {
+    backgroundColor: 'danger100',
+    textColor: 'danger500',
+  },
+  discardDraft: {
+    backgroundColor: 'warning100',
+    textColor: 'warning500',
+  },
+};
+
+// Landing page flex props
+export const LANDING_PAGE_PROPS = {
+  direction: 'column',
+  gap: '40px',
+  alignItems: 'flex-start',
+  width: '100%',
+  height: '100%',
+  paddingTop: '40px',
+  paddingLeft: '56px',
+  paddingRight: '56px',
+  paddingBottom: '40px',
 };

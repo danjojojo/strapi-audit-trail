@@ -1,8 +1,6 @@
 import { Flex } from '@strapi/design-system';
-import { DetailPageHeader } from '../components/detail/Header';
-import { EmptyState } from '../components/ui/EmptyState';
 
-export const DetailPage = () => {
+export function LandingContentLayout({ children }: { children: React.ReactNode }) {
   return (
     <Flex
       direction="column"
@@ -15,8 +13,7 @@ export const DetailPage = () => {
       paddingRight="56px"
       paddingBottom="40px"
     >
-      <DetailPageHeader />
-      <EmptyState />
+      {children}
     </Flex>
   );
-};
+}

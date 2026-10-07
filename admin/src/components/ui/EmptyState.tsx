@@ -18,14 +18,7 @@ export function EmptyState({ content, icon, action, hideAction = false }: EmptyS
   const { contentTypePath, overrideNavigate } = useRouting();
 
   return (
-    <Box
-      padding="56px"
-      paddingRight="56px"
-      paddingBottom="40px"
-      paddingTop="0px"
-      width="100%"
-      height="100%"
-    >
+    <Box width="100%" height="100%">
       <Flex
         alignItems="center"
         justifyContent="center"
@@ -58,7 +51,9 @@ export function EmptyState({ content, icon, action, hideAction = false }: EmptyS
                 variant="secondary"
                 href={contentTypePath}
                 startIcon={<ArrowLeft />}
-                onClick={(e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => overrideNavigate(contentTypePath, e)}
+                onClick={(e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) =>
+                  overrideNavigate(contentTypePath, e)
+                }
               >
                 {EMPTY_STATE.action.label}
               </LinkButton>

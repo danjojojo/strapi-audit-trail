@@ -1,6 +1,9 @@
 import { PLUGIN_ID } from '../pluginId';
 import { useFetchClient } from '@strapi/strapi/admin';
-import type { GetAllCollectionsResponse } from '../types/homepage.service.types';
+import type {
+  GetAllCollectionsResponse,
+  GetAuditLogsResponse,
+} from '../types/homepage.service.types';
 
 export function homepageService() {
   const { get } = useFetchClient();
@@ -22,8 +25,7 @@ export function homepageService() {
         if (collectionUid && documentId) paths.push(collectionUid, documentId);
 
         const res = await get(`/${paths.join('/')}`);
-        console.log('res: ', JSON.stringify(res, null, 2));
-        return res;
+        return res.data as GetAuditLogsResponse;
       } catch (error) {
         console.error(error);
       }

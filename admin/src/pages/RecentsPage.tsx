@@ -5,7 +5,7 @@ import { HomepageHeader } from '../components/home/Header';
 import { useAuditLogsContext } from '../providers/audit-logs.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
-export const HomePage = () => {
+export const RecentsPage = () => {
   const { auditLogs } = useAuditLogsContext();
 
   return (
@@ -15,9 +15,10 @@ export const HomePage = () => {
         <Table
           data={auditLogs}
           columns={{
-            show: ['action', 'relatedDocumentId', 'actionFrom', 'createdAt'],
+            show: ['action', 'collectionName', 'relatedDocumentId', 'actionFrom', 'createdAt'],
             override: {
               relatedDocumentId: 'documentId',
+              collectionName: 'collection',
             },
             badge: {
               column: 'action',
@@ -27,7 +28,10 @@ export const HomePage = () => {
           rowLink={['contentTypeKind', 'collectionUid', 'relatedDocumentId']}
         />
       ) : (
-        <EmptyState />
+        <EmptyState
+          content="No activities across content types were recorded yet. Make an event within the content types listed in the sidebar to record an activity."
+          hideAction
+        />
       )}
     </LandingContentLayout>
   );

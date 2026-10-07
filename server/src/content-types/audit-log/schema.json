@@ -20,6 +20,9 @@
     "collectionUid": {
       "type": "string"
     },
+    "contentTypeKind": {
+      "type": "string"
+    },
     "relatedDocumentId": {
       "type": "string"
     },
