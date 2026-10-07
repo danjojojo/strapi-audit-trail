@@ -1,17 +1,20 @@
 import { ACTION_COLORS } from '../constants';
 import { Table } from '../components/ui/Table';
+import { Loader } from '../components/ui/Loader';
+import { useAuditLogs } from '../hooks/useAuditLogs';
 import { EmptyState } from '../components/ui/EmptyState';
 import { HomepageHeader } from '../components/home/Header';
-import { useAuditLogsContext } from '../providers/audit-logs.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const RecentsPage = () => {
-  const { auditLogs } = useAuditLogsContext();
+  const { auditLogs, auditLogsLoading } = useAuditLogs();
 
   return (
     <LandingContentLayout>
-      <HomepageHeader />
-      {auditLogs.length > 0 ? (
+      <HomepageHeader title="Recents" />
+      {auditLogsLoading ? (
+        <Loader />
+      ) : auditLogs.length > 0 ? (
         <Table
           data={auditLogs}
           columns={{
