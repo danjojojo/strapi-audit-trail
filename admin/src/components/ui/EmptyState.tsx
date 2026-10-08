@@ -7,13 +7,6 @@ import { Flex, Box, Typography, LinkButton } from '@strapi/design-system';
 import type { EmptyStateProps } from '../../types/ui.types';
 import type { MouseEvent } from 'react';
 
-const EmptyStateIconWrapper = styled(Box)`
-  svg {
-    height: 22rem;
-    width: 22rem;
-  }
-`;
-
 export function EmptyState({ content, icon, action, hideAction = false }: EmptyStateProps) {
   const { contentTypePath, overrideNavigate } = useRouting();
 
@@ -29,9 +22,9 @@ export function EmptyState({ content, icon, action, hideAction = false }: EmptyS
         width="100%"
         height="100%"
       >
-        <EmptyStateIconWrapper paddingBottom={6} aria-hidden>
-          {icon ?? <EmptyDocuments />}
-        </EmptyStateIconWrapper>
+        <Box paddingBottom={6} aria-hidden>
+          {icon ?? <EmptyDocuments width="22rem" height="22rem" />}
+        </Box>
 
         <Box paddingBottom={4}>
           <Typography

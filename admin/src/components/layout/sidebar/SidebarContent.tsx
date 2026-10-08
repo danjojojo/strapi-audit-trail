@@ -15,7 +15,7 @@ export function SidebarContent() {
         <SidebarListItem
           key={RECENTS.uid}
           label={RECENTS.name}
-          href={appendToPluginPath('/recents')}
+          href={appendToPluginPath('')}
           active={selectedCollection?.uid === RECENTS.uid}
         />
       </Flex>

@@ -1,20 +1,27 @@
-import { ACTION_COLORS } from '../constants';
+import { ErrorPage } from './ErrorPage';
 import { Table } from '../components/ui/Table';
 import { Loader } from '../components/ui/Loader';
+import { ACTION_COLORS, ERROR } from '../constants';
 import { useAuditLogs } from '../hooks/useAuditLogs';
 import { EmptyState } from '../components/ui/EmptyState';
 import { HomepageHeader } from '../components/home/Header';
+import { useCollectionContext } from '../providers/collection.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const HomePage = () => {
   const { auditLogs, auditLogsLoading } = useAuditLogs();
+  const { isInvalidCollection, isCollectionLoading } = useCollectionContext();
+
+  if (isInvalidCollection) {
+    return <ErrorPage content={ERROR.INVALID_COLLECTION} />;
+  }
 
   return (
     <LandingContentLayout>
       <HomepageHeader />
-      {auditLogsLoading ? (
+      {auditLogsLoading || isCollectionLoading ? (
         <Loader />
-      ) : auditLogs.length > 0 ? (
+      ) : !auditLogsLoading && auditLogs.length > 0 ? (
         <Table
           data={auditLogs}
           columns={{

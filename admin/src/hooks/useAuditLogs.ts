@@ -1,47 +1,76 @@
 import { useRouting } from './useRouting';
 import { useEffect, useState } from 'react';
+import { stringToNumber } from '../utils/numbers';
 import { homepageService } from '../services/homepage.service';
 import { getClientDatetime, getActionFrom } from '../helpers/audit-logs-formatters';
-import type { GetAuditLogsResponse } from '../types/homepage.service.types';
+import type { GetAuditLogsResponse, GetAuditLogs } from '../types/homepage.service.types';
 
 export function useAuditLogs() {
   const { getAuditLogs } = homepageService();
-  const { collectionUid, documentId } = useRouting();
-  const [auditLogs, setAuditLogs] = useState<GetAuditLogsResponse>([]);
-  const [auditLogsLoading, setAuditLogsLoading] = useState<boolean>(false);
+  const { collectionUid, documentId, searchParams } = useRouting();
+  const [auditLogs, setAuditLogs] = useState<GetAuditLogsResponse['data']>([]);
+  const [auditLogsLoading, setAuditLogsLoading] = useState<boolean>(true);
+  const [auditLogsMeta, setAuditLogsMeta] = useState<GetAuditLogsResponse['meta']>();
 
-  const fetchAuditLogs = async (
-    collectionUid: string | undefined,
-    documentId: string | undefined
-  ) => {
+  const fetchAuditLogs = async ({ collectionUid, documentId, query }: GetAuditLogs) => {
     try {
       setAuditLogsLoading(true);
 
-      const data = await getAuditLogs(collectionUid, documentId);
+      const res = await getAuditLogs({ collectionUid, documentId, query });
 
-      if (data) {
+      if (res?.data) {
         setAuditLogs(
-          data.map((d) => ({
+          res?.data.map((d) => ({
             ...d,
             createdAt: getClientDatetime(d.createdAt),
             actionFrom: getActionFrom(d.actionFrom),
           }))
         );
       }
+
+      if (res?.meta) {
+        setAuditLogsMeta(res.meta);
+      }
     } catch (error) {
       setAuditLogsLoading(false);
       console.error(error);
     } finally {
       setAuditLogsLoading(false);
+      return;
     }
   };
 
+  const getQuery = () => {
+    const _q = searchParams.get('_q') ?? undefined;
+    const sort = searchParams.get('sort') ?? undefined;
+    const page = stringToNumber({
+      value: searchParams.get('page'),
+      returnedValueIfError: 1,
+      minCap: 1,
+    });
+    const pageSize = stringToNumber({
+      value: searchParams.get('pageSize'),
+      returnedValueIfError: 10,
+      minCap: 10,
+      maxCap: 100,
+    });
+
+    return {
+      _q,
+      sort,
+      page,
+      pageSize,
+    };
+  };
+
   useEffect(() => {
-    fetchAuditLogs(collectionUid, documentId);
-  }, [collectionUid, documentId]);
+    const query = getQuery();
+    fetchAuditLogs({ collectionUid, documentId, query });
+  }, [collectionUid, documentId, searchParams]);
 
   return {
     auditLogs,
     auditLogsLoading,
+    auditLogsMeta,
   };
 }

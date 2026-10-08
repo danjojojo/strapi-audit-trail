@@ -6,13 +6,15 @@ import { homepageService } from '../services/homepage.service';
 import type { CollectionData } from '../types/homepage.service.types';
 
 export function useCollections() {
-  const { collectionUid, overrideNavigate } = useRouting();
+  const { collectionKind, collectionUid, overrideNavigate } = useRouting();
   const { getAllCollections } = homepageService();
 
   const [targetCollection, setTargetCollection] = useState<string>('');
   const [allCollections, setAllCollections] = useState<CollectionData[]>([]);
   const [filteredCollections, setFilteredCollections] = useState<CollectionData[]>([]);
   const [selectedCollection, setSelectedCollection] = useState<CollectionData | null>(null);
+  const [isInvalidCollection, setIsInvalidCollection] = useState<boolean>(false);
+  const [isCollectionLoading, setIsCollectionLoading] = useState<boolean>(true);
 
   const fetchCollections = async () => {
     const data = await getAllCollections();
@@ -45,22 +47,35 @@ export function useCollections() {
   }, []);
 
   useEffect(() => {
-    if (!collectionUid) {
+    setIsInvalidCollection(false);
+    setIsCollectionLoading(true);
+
+    if (!collectionUid && collectionKind === '') {
       /** Navigate to Recents */
-      return selectCollection(RECENTS);
+      setSelectedCollection(RECENTS);
+      setIsInvalidCollection(false);
+      setIsCollectionLoading(false);
+      return;
     }
 
     const matched = allCollections.find((collection) => collection.uid === collectionUid);
+
     if (matched) {
       /** Just set the collection as selected to make the list item active */
+      setIsCollectionLoading(false);
       setSelectedCollection(matched);
+    } else {
+      setIsCollectionLoading(false);
+      setIsInvalidCollection(true);
     }
-  }, [collectionUid, allCollections]);
+  }, [collectionKind, collectionUid, allCollections, isInvalidCollection, isCollectionLoading]);
 
   return {
     /** STATES */
     targetCollection,
     selectedCollection,
+    isInvalidCollection,
+    isCollectionLoading,
     collectionTypes: filteredCollections.filter((c) => c.kind === 'collectionType'),
     singleTypes: filteredCollections.filter((c) => c.kind === 'singleType'),
     otherCollections: filteredCollections.filter((c) => c.kind === 'others'),

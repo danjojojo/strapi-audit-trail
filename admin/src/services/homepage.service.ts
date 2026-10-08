@@ -3,6 +3,7 @@ import { useFetchClient } from '@strapi/strapi/admin';
 import type {
   GetAllCollectionsResponse,
   GetAuditLogsResponse,
+  GetAuditLogs,
 } from '../types/homepage.service.types';
 
 export function homepageService() {
@@ -18,7 +19,7 @@ export function homepageService() {
       }
     },
 
-    async getAuditLogs(collectionUid?: string, documentId?: string) {
+    async getAuditLogs({ collectionUid, documentId, query }: GetAuditLogs) {
       try {
         const paths = [`${PLUGIN_ID}`, 'audit-logs'];
         if (collectionUid) paths.push(collectionUid);

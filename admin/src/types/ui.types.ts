@@ -53,4 +53,7 @@ export interface TableProps<
   };
   /** Pass here the fields that will be joined, which then makes up the link which will happen when a row is clicked */
   rowLink?: (keyof T & string)[];
+  pagination?: {
+    pageCount: number;
+  };
 }

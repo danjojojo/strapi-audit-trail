@@ -35,7 +35,35 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         'createdAt',
       ],
     });
-    return data;
+
+    const total = await strapi.documents('plugin::audit-trail.audit-log').count({
+      filters: {
+        retentionUntil: {
+          $gte: filter.currentDateTime,
+        },
+        ...(filter.collectionUid && {
+          collectionUid: {
+            $eqi: filter.collectionUid,
+          },
+        }),
+        ...(filter.relatedDocumentId && {
+          relatedDocumentId: {
+            $eqi: filter.relatedDocumentId,
+          },
+        }),
+      },
+    });
+
+    const payloadToReturn = {
+      data,
+      meta: {
+        page: query.page,
+        pageSize: query.pageSize,
+        pageCount: Math.max(Math.ceil(total / query.pageSize), 1),
+        total,
+      },
+    };
+    return payloadToReturn;
   },
 });
 

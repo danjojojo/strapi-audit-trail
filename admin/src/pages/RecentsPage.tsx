@@ -1,20 +1,27 @@
-import { ACTION_COLORS } from '../constants';
+import { ErrorPage } from './ErrorPage';
 import { Table } from '../components/ui/Table';
 import { Loader } from '../components/ui/Loader';
+import { ACTION_COLORS, ERROR } from '../constants';
 import { useAuditLogs } from '../hooks/useAuditLogs';
 import { EmptyState } from '../components/ui/EmptyState';
 import { HomepageHeader } from '../components/home/Header';
+import { useCollectionContext } from '../providers/collection.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const RecentsPage = () => {
-  const { auditLogs, auditLogsLoading } = useAuditLogs();
+  const { isCollectionLoading, isInvalidCollection } = useCollectionContext();
+  const { auditLogs, auditLogsLoading, auditLogsMeta } = useAuditLogs();
+
+  if (isInvalidCollection) {
+    return <ErrorPage content={ERROR.INVALID_COLLECTION} />;
+  }
 
   return (
     <LandingContentLayout>
       <HomepageHeader title="Recents" />
-      {auditLogsLoading ? (
+      {auditLogsLoading || isCollectionLoading ? (
         <Loader />
-      ) : auditLogs.length > 0 ? (
+      ) : !auditLogsLoading && auditLogs.length > 0 ? (
         <Table
           data={auditLogs}
           columns={{
@@ -29,6 +36,9 @@ export const RecentsPage = () => {
             },
           }}
           rowLink={['contentTypeKind', 'collectionUid', 'relatedDocumentId']}
+          pagination={{
+            pageCount: auditLogsMeta?.pageCount ?? 1,
+          }}
         />
       ) : (
         <EmptyState

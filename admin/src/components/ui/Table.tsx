@@ -8,6 +8,7 @@ import {
   Typography,
   Table as StrapiTable,
 } from '@strapi/design-system';
+import { Pagination } from './Pagination';
 import { useRouting } from '../../hooks/useRouting';
 import { appendToPluginPath } from '../../utils/routing';
 import { spaceCamelCase } from '../../helpers/audit-logs-formatters';
@@ -20,6 +21,7 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
   data,
   columns,
   rowLink,
+  pagination,
 }: TableProps<T, S>) {
   const { overrideNavigate } = useRouting();
 
@@ -92,6 +94,8 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
           ))}
         </Tbody>
       </StrapiTable>
+
+      {pagination && pagination?.pageCount > 0 && <Pagination pageCount={pagination.pageCount} />}
     </Box>
   );
 }

@@ -1,16 +1,21 @@
 import { Table } from '../components/ui/Table';
+import { Loader } from '../components/ui/Loader';
+import { useAuditLogs } from '../hooks/useAuditLogs';
 import { EmptyState } from '../components/ui/EmptyState';
 import { HomepageHeader } from '../components/home/Header';
-import { useAuditLogsContext } from '../providers/audit-logs.provider';
+import { useCollectionContext } from '../providers/collection.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const LoginSessionsPage = () => {
-  const { auditLogs } = useAuditLogsContext();
+  const { isCollectionLoading } = useCollectionContext();
+  const { auditLogs, auditLogsLoading } = useAuditLogs();
 
   return (
     <LandingContentLayout>
       <HomepageHeader />
-      {auditLogs.length > 0 ? (
+      {auditLogsLoading || isCollectionLoading ? (
+        <Loader />
+      ) : !auditLogsLoading && auditLogs.length > 0 ? (
         <Table
           data={auditLogs}
           columns={{

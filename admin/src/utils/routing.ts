@@ -9,7 +9,7 @@ export const appendToContentManagerPath = (url: string): string => {
 };
 
 export const appendToPluginPath = (url: string): string => {
-  return `${pluginBasePath}/${url}`;
+  return `${pluginBasePath}${url ? `/${url}` : ''}`;
 };
 
 export const appendCollectionPath = (collection: CollectionData): string => {

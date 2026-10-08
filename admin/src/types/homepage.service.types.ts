@@ -6,6 +6,13 @@ export interface CollectionData {
   kind: Struct.ContentTypeSchema['kind'] | 'others' | 'none';
 }
 
+export interface Pagination {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+}
+
 export interface AuditLogsData {
   id: number;
   documentId: string;
@@ -19,5 +26,21 @@ export interface AuditLogsData {
 }
 
 export type GetAllCollectionsResponse = CollectionData[];
-export type GetAuditLogsResponse = AuditLogsData[];
+
+export interface GetAuditLogsResponse {
+  data: AuditLogsData[];
+  meta: Pagination;
+}
+
 export type Columns = keyof AuditLogsData;
+
+export interface GetAuditLogs {
+  collectionUid?: string;
+  documentId?: string;
+  query?: {
+    _q?: string;
+    sort?: string;
+    page?: number;
+    pageSize?: number;
+  };
+}

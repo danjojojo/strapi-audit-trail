@@ -70,3 +70,9 @@ export const LANDING_PAGE_PROPS = {
   paddingRight: '56px',
   paddingBottom: '40px',
 };
+
+// ERROR MESSAGES
+export const ERROR = {
+  INVALID_COLLECTION:
+    'That path is invalid. Please select an available collection from the sidebar.',
+};

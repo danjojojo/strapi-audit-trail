@@ -14,8 +14,6 @@ export function Header({ title, backUrl }: HeaderProps) {
           href={backUrl}
           onClick={(e: MouseEvent<HTMLAnchorElement>) => {
             e.preventDefault();
-            console.log(window.history.state?.idx);
-
             if (window.history.state?.idx > 0) {
               navigate(-1);
             } else {
