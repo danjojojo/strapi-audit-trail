@@ -6,6 +6,8 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
     const { collectionUid, relatedDocumentId } = ctx.params;
     const { _q, sort, page, pageSize } = ctx.request.query;
 
+    console.log('ctx.request.query: ', ctx.request.query);
+
     const currentDateTime = new Date().toISOString();
     const safePage = Math.max(Number(page) || 1, 1);
     const safePageSize = Math.min(Number(pageSize) || 10, 100);

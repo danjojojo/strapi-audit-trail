@@ -4,7 +4,7 @@ import { Typography, Flex, Link } from '@strapi/design-system';
 import type { MouseEvent } from 'react';
 import type { HeaderProps } from '../../types/ui.types';
 
-export function Header({ title, backUrl }: HeaderProps) {
+export function Header({ title, backUrl, count }: HeaderProps) {
   const navigate = useNavigate();
 
   return (
@@ -28,6 +28,11 @@ export function Header({ title, backUrl }: HeaderProps) {
       <Typography variant="alpha" textAlign="left">
         {title}
       </Typography>
+      {count && count > 0 ? (
+        <Typography variant="epsilon" textAlign="left" textColor="neutral400" paddingTop="10px">
+          {count} entries found
+        </Typography>
+      ) : null}
     </Flex>
   );
 }

@@ -18,7 +18,7 @@ export const RecentsPage = () => {
 
   return (
     <LandingContentLayout>
-      <HomepageHeader title="Recents" />
+      <HomepageHeader title="Recents" count={auditLogsMeta?.total} />
       {auditLogsLoading || isCollectionLoading ? (
         <Loader />
       ) : !auditLogsLoading && auditLogs.length > 0 ? (

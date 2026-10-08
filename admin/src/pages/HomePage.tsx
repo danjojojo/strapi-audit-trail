@@ -9,7 +9,7 @@ import { useCollectionContext } from '../providers/collection.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const HomePage = () => {
-  const { auditLogs, auditLogsLoading } = useAuditLogs();
+  const { auditLogs, auditLogsLoading, auditLogsMeta } = useAuditLogs();
   const { isInvalidCollection, isCollectionLoading } = useCollectionContext();
 
   if (isInvalidCollection) {
@@ -18,7 +18,7 @@ export const HomePage = () => {
 
   return (
     <LandingContentLayout>
-      <HomepageHeader />
+      <HomepageHeader count={auditLogsMeta?.total} />
       {auditLogsLoading || isCollectionLoading ? (
         <Loader />
       ) : !auditLogsLoading && auditLogs.length > 0 ? (
@@ -35,6 +35,9 @@ export const HomePage = () => {
             },
           }}
           rowLink={['contentTypeKind', 'collectionUid', 'relatedDocumentId']}
+          pagination={{
+            pageCount: auditLogsMeta?.pageCount ?? 1,
+          }}
         />
       ) : (
         <EmptyState />

@@ -6,10 +6,8 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
     const data = await strapi.documents('plugin::audit-trail.audit-log').findMany({
       _q: query._q,
       sort: query.sort ?? 'createdAt:DESC',
-      pagination: {
-        page: query.page,
-        pageSize: query.pageSize,
-      },
+      start: (query.page - 1) * query.pageSize,
+      limit: query.pageSize,
       filters: {
         retentionUntil: {
           $gte: filter.currentDateTime,
@@ -37,6 +35,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
     });
 
     const total = await strapi.documents('plugin::audit-trail.audit-log').count({
+      _q: query._q,
       filters: {
         retentionUntil: {
           $gte: filter.currentDateTime,

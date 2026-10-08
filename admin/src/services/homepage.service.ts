@@ -23,9 +23,9 @@ export function homepageService() {
       try {
         const paths = [`${PLUGIN_ID}`, 'audit-logs'];
         if (collectionUid) paths.push(collectionUid);
-        if (collectionUid && documentId) paths.push(collectionUid, documentId);
+        if (collectionUid && documentId) paths.push(documentId);
 
-        const res = await get(`/${paths.join('/')}`);
+        const res = await get(`/${paths.join('/')}`, { params: query });
         return res.data as GetAuditLogsResponse;
       } catch (error) {
         console.error(error);
