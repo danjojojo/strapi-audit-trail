@@ -1,3 +1,4 @@
+import { ACTION_COLORS } from '../constants';
 import type { Struct } from '@strapi/strapi';
 
 export interface CollectionData {
@@ -16,7 +17,7 @@ export interface Pagination {
 export interface AuditLogsData {
   id: number;
   documentId: string;
-  action: string;
+  action: keyof typeof ACTION_COLORS;
   collectionName: string;
   collectionUid: string;
   contentTypeKind: string;

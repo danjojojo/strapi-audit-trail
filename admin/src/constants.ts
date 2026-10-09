@@ -58,19 +58,6 @@ export const ACTION_COLORS = {
   },
 };
 
-// Landing page flex props
-export const LANDING_PAGE_PROPS = {
-  direction: 'column',
-  gap: '40px',
-  alignItems: 'flex-start',
-  width: '100%',
-  height: '100%',
-  paddingTop: '40px',
-  paddingLeft: '56px',
-  paddingRight: '56px',
-  paddingBottom: '40px',
-};
-
 // ERROR MESSAGES
 export const ERROR = {
   INVALID_COLLECTION:

@@ -13,6 +13,7 @@ import { useRouting } from '../../hooks/useRouting';
 import { appendToPluginPath } from '../../utils/routing';
 import { spaceCamelCase } from '../../helpers/audit-logs-formatters';
 import type { TableProps } from '../../types/ui.types';
+import { Status } from './Status';
 
 /**
  * When using this, make sure to pass value to `data` prop first before everything else, as this will allow you to fetch the proper values for the columns.
@@ -64,22 +65,7 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
                   const badgeValue = row?.[column];
                   return (
                     <Td key={columnIdx} paddingTop="16px" paddingBottom="16px">
-                      <Box
-                        hasRadius
-                        paddingTop="4px"
-                        paddingBottom="4px"
-                        paddingLeft="8px"
-                        paddingRight="8px"
-                        borderColor="neutral300"
-                        background={columns?.badge?.colors?.[badgeValue]?.backgroundColor}
-                        color={columns?.badge?.colors?.[badgeValue]?.textColor}
-                        textAlign="center"
-                        width="fit-content"
-                      >
-                        <Typography fontWeight="bold">
-                          {spaceCamelCase(badgeValue, 'capitalize')}
-                        </Typography>
-                      </Box>
+                      <Status value={badgeValue} />
                     </Td>
                   );
                 }

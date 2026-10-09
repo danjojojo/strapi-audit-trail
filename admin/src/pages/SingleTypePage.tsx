@@ -5,6 +5,8 @@ import { styled } from 'styled-components';
 import { getActionFrom, getClientDatetime } from '../helpers/audit-logs-formatters';
 import { useAuditLogs } from '../hooks/useAuditLogs';
 import { Status } from '../components/ui/Status';
+import { useCollectionContext } from '../providers/collection.provider';
+import { useCollections } from '../hooks/useCollections';
 
 const VersionsSidebar = styled(Flex)`
   border-left: 1px solid ${({ theme }) => theme.colors.neutral150};
@@ -20,8 +22,9 @@ const VersionButton = styled(Button)`
   padding: 0;
 `;
 
-export const DetailPage = () => {
-  const { auditLogs, auditLogsMeta } = useAuditLogs();
+export const SingleTypePage = () => {
+  const { selectedCollection } = useCollections();
+  const { auditLogs, auditLogsMeta, auditLogsLoading } = useAuditLogs();
   return (
     <Flex gap="20px" height="100%" width="100%">
       <Flex
@@ -35,7 +38,7 @@ export const DetailPage = () => {
         paddingRight="40px"
         paddingBottom="40px"
       >
-        <DetailPageHeader />
+        <DetailPageHeader title={selectedCollection?.name} />
         <EmptyState />
       </Flex>
       <VersionsSidebar direction="column" height="100%" width="400px" background="neutral0">
