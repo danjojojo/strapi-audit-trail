@@ -8,7 +8,7 @@ import { HomepageHeader } from '../components/home/Header';
 import { useCollectionContext } from '../providers/collection.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
-export const CollectionTypePage = () => {
+export const ContentTypePage = () => {
   const { auditLogs, auditLogsLoading, auditLogsMeta } = useAuditLogs();
   const { isInvalidCollection, isCollectionLoading } = useCollectionContext();
 

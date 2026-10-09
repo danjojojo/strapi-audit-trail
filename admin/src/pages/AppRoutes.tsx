@@ -4,8 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { ErrorPage } from './ErrorPage';
 import { DetailPage } from './DetailPage';
 import { RecentsPage } from './RecentsPage';
-import { SingleTypePage } from './SingleTypePage';
-import { CollectionTypePage } from './CollectionTypePage';
+import { ContentTypePage } from './ContentTypePage';
 import { LoginSessionsPage } from './LoginSessionsPage';
 
 export function AppRoutes() {
@@ -18,8 +17,8 @@ export function AppRoutes() {
       <Route path="/?" element={<RecentsPage />} />
 
       {/* CONTENT-TYPES */}
-      <Route path="single-types/:collectionUid?" element={<SingleTypePage />} />
-      <Route path="collection-types/:collectionUid?" element={<CollectionTypePage />} />
+      <Route path="collection-types/:collectionUid?" element={<ContentTypePage />} />
+      <Route path="single-types/:collectionUid?" element={<ContentTypePage />} />
 
       {/* OTHER PAGES */}
       <Route path="others/admin::session" element={<LoginSessionsPage />} />
