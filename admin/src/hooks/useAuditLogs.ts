@@ -81,7 +81,6 @@ export function useAuditLogs() {
   const fetchAuditLog = async ({ collectionUid, documentId, query }: GetAuditLog) => {
     try {
       setAuditLogLoading(true);
-
       const res = await getAuditLog({ collectionUid, documentId, query });
 
       if (res?.auditLog) {
@@ -101,12 +100,16 @@ export function useAuditLogs() {
   };
 
   useEffect(() => {
-    const query = getQuery();
+    const q = getQuery();
 
     if (documentId) {
-      fetchAuditLog({ collectionUid, documentId, query });
+      fetchAuditLog({
+        collectionUid,
+        documentId,
+        query: { action: q.action, createdAt: q.createdAt },
+      });
     } else {
-      fetchAuditLogs({ collectionUid, query });
+      fetchAuditLogs({ collectionUid, query: q });
     }
   }, [collectionUid, documentId, searchParams]);
 
