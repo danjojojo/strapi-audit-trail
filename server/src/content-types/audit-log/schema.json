@@ -38,10 +38,16 @@
     "actionFrom": {
       "type": "text"
     },
-    "schema": {
+    "documentSchema": {
       "type": "text"
     },
-    "layout": {
+    "documentLayout": {
+      "type": "text"
+    },
+    "componentsSchema": {
+      "type": "text"
+    },
+    "componentsLayout": {
       "type": "text"
     }
   }

@@ -90,8 +90,10 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         'actionFrom',
         'createdAt',
         'payload',
-        'schema',
-        'layout',
+        'documentSchema',
+        'documentLayout',
+        'componentsSchema',
+        'componentsLayout',
       ],
     });
 

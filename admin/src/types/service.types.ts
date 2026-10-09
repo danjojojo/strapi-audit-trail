@@ -39,8 +39,10 @@ export interface AuditLogData {
   actionFrom: string;
   createdAt: string;
   payload: string;
-  schema: string;
-  layout: string;
+  documentSchema: string;
+  documentLayout: string;
+  componentsSchema: string;
+  componentsLayout: string;
 }
 
 // METHODS
