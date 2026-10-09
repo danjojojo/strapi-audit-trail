@@ -11,7 +11,7 @@ import {
 import { Pagination } from './Pagination';
 import { useRouting } from '../../hooks/useRouting';
 import { appendToPluginPath } from '../../utils/routing';
-import { spaceCamelCase } from '../../helpers/audit-logs-formatters';
+import { spaceCamelCase, getClientDatetime } from '../../helpers/audit-logs-formatters';
 import type { TableProps } from '../../types/ui.types';
 import { Status } from './Status';
 
@@ -25,6 +25,28 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
   pagination,
 }: TableProps<T, S>) {
   const { overrideNavigate } = useRouting();
+
+  const getRowLink = (row: T) => {
+    if (!rowLink) return null;
+    if (!rowLink.path || rowLink.path.length === 0) return null;
+
+    let url: string = '';
+    for (const path of rowLink.path) {
+      url += `/${row?.[path]}`;
+    }
+
+    if (!rowLink.params || rowLink.params.length === 0) return url;
+
+    const params = rowLink.params;
+    for (let i = 0; i <= params.length - 1; i++) {
+      if (i === 0) {
+        url += `?${params[i]}=${row?.[params[i]]}`;
+      } else {
+        url += `&${params[i]}=${row?.[params[i]]}`;
+      }
+    }
+    return url;
+  };
 
   return (
     <Box width="100%" height="100%">
@@ -49,12 +71,10 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
               height="70px"
               cursor={rowLink ? 'pointer' : undefined}
               onClick={() => {
-                if (rowLink && rowLink.length > 0) {
-                  let url: string = '';
-                  for (const link of rowLink) {
-                    url += `${row?.[link]}/`;
-                  }
-                  overrideNavigate(appendToPluginPath(url));
+                const link = getRowLink(row);
+                console.log({ link });
+                if (link) {
+                  overrideNavigate(appendToPluginPath(link));
                 } else {
                   return;
                 }
@@ -66,6 +86,20 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
                   return (
                     <Td key={columnIdx} paddingTop="16px" paddingBottom="16px">
                       <Status value={badgeValue} />
+                    </Td>
+                  );
+                }
+
+                if (
+                  columns?.datetime &&
+                  columns.datetime?.length > 0 &&
+                  columns.datetime.includes(column)
+                ) {
+                  return (
+                    <Td key={columnIdx}>
+                      <Typography textColor="neutral800">
+                        {getClientDatetime(row?.[column])}
+                      </Typography>
                     </Td>
                   );
                 }

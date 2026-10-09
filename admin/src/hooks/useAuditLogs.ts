@@ -2,7 +2,7 @@ import { useRouting } from './useRouting';
 import { useEffect, useState } from 'react';
 import { stringToNumber } from '../utils/numbers';
 import { homepageService } from '../services/homepage.service';
-import { getClientDatetime, getActionFrom } from '../helpers/audit-logs-formatters';
+import { getActionFrom } from '../helpers/audit-logs-formatters';
 import type { GetAuditLogsResponse, GetAuditLogs } from '../types/homepage.service.types';
 
 export function useAuditLogs() {
@@ -22,7 +22,6 @@ export function useAuditLogs() {
         setAuditLogs(
           res?.data.map((d) => ({
             ...d,
-            createdAt: getClientDatetime(d.createdAt),
             actionFrom: getActionFrom(d.actionFrom),
           }))
         );

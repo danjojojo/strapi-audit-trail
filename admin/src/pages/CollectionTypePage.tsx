@@ -33,8 +33,12 @@ export const CollectionTypePage = () => {
               column: 'action',
               colors: ACTION_COLORS,
             },
+            datetime: ['createdAt'],
           }}
-          rowLink={['contentTypeKind', 'collectionUid', 'relatedDocumentId']}
+          rowLink={{
+            path: ['contentTypeKind', 'collectionUid', 'relatedDocumentId'],
+            params: ['action', 'createdAt'],
+          }}
           pagination={{
             pageCount: auditLogsMeta?.pageCount ?? 1,
           }}

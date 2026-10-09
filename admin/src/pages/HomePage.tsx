@@ -34,7 +34,9 @@ export const HomePage = () => {
               colors: ACTION_COLORS,
             },
           }}
-          rowLink={['contentTypeKind', 'collectionUid', 'relatedDocumentId']}
+          rowLink={{
+            path: ['contentTypeKind', 'collectionUid', 'relatedDocumentId'],
+          }}
           pagination={{
             pageCount: auditLogsMeta?.pageCount ?? 1,
           }}
