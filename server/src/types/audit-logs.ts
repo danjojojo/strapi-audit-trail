@@ -7,6 +7,11 @@ export interface BaseQueryParams {
   pageSize: number;
 }
 
+export interface AuditLogParams {
+  action: string;
+  createdAt: string;
+}
+
 export interface GetAuditLogsFilter {
   currentDateTime: string;
   collectionUid?: string;
@@ -20,4 +25,9 @@ export interface GetAuditLogs {
 
 export interface AllowedParams {
   actions: Context['action'][];
+}
+
+export interface GetAuditLog {
+  query: AuditLogParams;
+  filter: GetAuditLogsFilter;
 }

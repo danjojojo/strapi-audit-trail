@@ -1,6 +1,5 @@
 import { styled } from 'styled-components';
 import { Main } from '@strapi/design-system';
-import { AuditLogsProvider } from './audit-logs.provider';
 import { CollectionProvider } from './collection.provider';
 
 const StyledMain = styled(Main)`
@@ -11,9 +10,7 @@ const StyledMain = styled(Main)`
 export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <StyledMain>
-      <CollectionProvider>
-        <AuditLogsProvider>{children}</AuditLogsProvider>
-      </CollectionProvider>
+      <CollectionProvider>{children}</CollectionProvider>
     </StyledMain>
   );
 }

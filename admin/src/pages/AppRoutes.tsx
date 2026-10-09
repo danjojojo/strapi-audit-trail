@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
 // PAGES
-import { HomePage } from './HomePage';
 import { ErrorPage } from './ErrorPage';
 import { DetailPage } from './DetailPage';
 import { RecentsPage } from './RecentsPage';

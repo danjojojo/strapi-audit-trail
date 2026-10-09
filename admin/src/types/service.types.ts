@@ -7,6 +7,8 @@ export interface CollectionData {
   kind: Struct.ContentTypeSchema['kind'] | 'others' | 'none';
 }
 
+export type Columns = keyof AuditLogsData;
+
 export interface Pagination {
   page: number;
   pageSize: number;
@@ -26,6 +28,44 @@ export interface AuditLogsData {
   createdAt: string;
 }
 
+export interface AuditLogData {
+  id: number;
+  documentId: string;
+  action: keyof typeof ACTION_COLORS;
+  collectionName: string;
+  collectionUid: string;
+  contentTypeKind: string;
+  relatedDocumentId: string;
+  actionFrom: string;
+  createdAt: string;
+  payload: string;
+  schema: string;
+  layout: string;
+}
+
+// METHODS
+
+export interface GetAuditLogs {
+  collectionUid?: string;
+  query?: {
+    _q?: string;
+    sort?: string;
+    page?: number;
+    pageSize?: number;
+  };
+}
+
+export interface GetAuditLog {
+  collectionUid?: string;
+  documentId?: string;
+  query?: {
+    action?: string;
+    createdAt?: string;
+  };
+}
+
+// RESPONSES
+
 export type GetAllCollectionsResponse = CollectionData[];
 
 export interface GetAuditLogsResponse {
@@ -33,15 +73,7 @@ export interface GetAuditLogsResponse {
   meta: Pagination;
 }
 
-export type Columns = keyof AuditLogsData;
-
-export interface GetAuditLogs {
-  collectionUid?: string;
-  documentId?: string;
-  query?: {
-    _q?: string;
-    sort?: string;
-    page?: number;
-    pageSize?: number;
-  };
+export interface GetAuditLogResponse {
+  auditLog: AuditLogData;
+  relatedLogs: AuditLogsData[];
 }

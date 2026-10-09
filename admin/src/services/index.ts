@@ -4,6 +4,8 @@ import type {
   GetAllCollectionsResponse,
   GetAuditLogsResponse,
   GetAuditLogs,
+  GetAuditLogResponse,
+  GetAuditLog,
 } from '../types/service.types';
 
 export function services() {
@@ -19,14 +21,26 @@ export function services() {
       }
     },
 
-    async getAuditLogs({ collectionUid, documentId, query }: GetAuditLogs) {
+    async getAuditLogs({ collectionUid, query }: GetAuditLogs) {
+      try {
+        const paths = [`${PLUGIN_ID}`, 'audit-logs'];
+        if (collectionUid) paths.push(collectionUid);
+
+        const res = await get(`/${paths.join('/')}`, { params: query });
+        return res.data as GetAuditLogsResponse;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async getAuditLog({ collectionUid, documentId, query }: GetAuditLog) {
       try {
         const paths = [`${PLUGIN_ID}`, 'audit-logs'];
         if (collectionUid) paths.push(collectionUid);
         if (collectionUid && documentId) paths.push(documentId);
 
         const res = await get(`/${paths.join('/')}`, { params: query });
-        return res.data as GetAuditLogsResponse;
+        return res.data as GetAuditLogResponse;
       } catch (error) {
         console.error(error);
       }
