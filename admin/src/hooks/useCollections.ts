@@ -1,13 +1,13 @@
+import { services } from '../services';
 import { useRouting } from './useRouting';
 import { useState, useEffect } from 'react';
 import { OTHERS, RECENTS } from '../constants';
 import { appendCollectionPath } from '../utils/routing';
-import { homepageService } from '../services/homepage.service';
-import type { CollectionData } from '../types/homepage.service.types';
+import type { CollectionData } from '../types/service.types';
 
 export function useCollections() {
   const { collectionKind, collectionUid, overrideNavigate } = useRouting();
-  const { getAllCollections } = homepageService();
+  const { getAllCollections } = services();
 
   const [targetCollection, setTargetCollection] = useState<string>('');
   const [allCollections, setAllCollections] = useState<CollectionData[]>([]);

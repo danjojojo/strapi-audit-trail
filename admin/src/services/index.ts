@@ -4,9 +4,9 @@ import type {
   GetAllCollectionsResponse,
   GetAuditLogsResponse,
   GetAuditLogs,
-} from '../types/homepage.service.types';
+} from '../types/service.types';
 
-export function homepageService() {
+export function services() {
   const { get } = useFetchClient();
 
   return {

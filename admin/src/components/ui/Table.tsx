@@ -8,12 +8,12 @@ import {
   Typography,
   Table as StrapiTable,
 } from '@strapi/design-system';
+import { Status } from './Status';
 import { Pagination } from './Pagination';
 import { useRouting } from '../../hooks/useRouting';
 import { appendToPluginPath } from '../../utils/routing';
 import { spaceCamelCase, getClientDatetime } from '../../helpers/audit-logs-formatters';
 import type { TableProps } from '../../types/ui.types';
-import { Status } from './Status';
 
 /**
  * When using this, make sure to pass value to `data` prop first before everything else, as this will allow you to fetch the proper values for the columns.
@@ -72,7 +72,6 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
               cursor={rowLink ? 'pointer' : undefined}
               onClick={() => {
                 const link = getRowLink(row);
-                console.log({ link });
                 if (link) {
                   overrideNavigate(appendToPluginPath(link));
                 } else {

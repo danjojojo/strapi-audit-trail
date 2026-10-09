@@ -1,5 +1,5 @@
 import { PLUGIN_ID } from '../pluginId';
-import { CollectionData } from '../types/homepage.service.types';
+import { CollectionData } from '../types/service.types';
 
 const contentManagerPath = `/admin/content-manager`;
 const pluginBasePath = `/admin/plugins/${PLUGIN_ID}`;

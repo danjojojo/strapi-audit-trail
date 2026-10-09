@@ -1,12 +1,12 @@
+import { services } from '../services';
 import { useRouting } from './useRouting';
 import { useEffect, useState } from 'react';
 import { stringToNumber } from '../utils/numbers';
-import { homepageService } from '../services/homepage.service';
 import { getActionFrom } from '../helpers/audit-logs-formatters';
-import type { GetAuditLogsResponse, GetAuditLogs } from '../types/homepage.service.types';
+import type { GetAuditLogsResponse, GetAuditLogs } from '../types/service.types';
 
 export function useAuditLogs() {
-  const { getAuditLogs } = homepageService();
+  const { getAuditLogs } = services();
   const { collectionUid, documentId, searchParams } = useRouting();
   const [auditLogs, setAuditLogs] = useState<GetAuditLogsResponse['data']>([]);
   const [auditLogsLoading, setAuditLogsLoading] = useState<boolean>(true);
