@@ -1,0 +1,64 @@
+import type { MetadataContent, SchemaContent, SettingsContent } from './container.types';
+
+/** BASE FIELD */
+export interface FieldProps {
+  label: string;
+  children?: React.ReactNode;
+  paddingBottom?: string;
+  type?: string;
+  value?: any;
+}
+
+/** BOOLEAN FIELD */
+export interface BooleanProps {
+  label: string;
+  value: string;
+}
+
+/** RELATION FIELD */
+export interface RelationProps {
+  label: string;
+  value: any;
+  metadata: MetadataContent;
+}
+
+export interface RelationButton {
+  value: string;
+}
+
+export interface ScrollableRelationButtons {
+  itemsLength: number;
+  children: React.ReactNode;
+}
+
+/** MEDIA FIELD */
+export interface MediaProps {
+  label: string;
+  value: any;
+}
+
+/** INPUT FIELD */
+export interface InputFieldProps {
+  label: string;
+  value: any;
+}
+
+/** DOCUMENT VIEW FIELD */
+export interface DocumentViewFieldProps {
+  label: string;
+  type: string;
+  value: any;
+  schema: SchemaContent;
+  metadata: MetadataContent;
+  settings: SettingsContent;
+  componentSchema: string;
+  componentLayout: string;
+}
+
+/** DOCUMENT VIEW FIELD */
+export interface DynamicZoneComponentProps {
+  value: any;
+  componentSchema: string;
+  componentLayout: string;
+  componentNames: string;
+}
