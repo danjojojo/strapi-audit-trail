@@ -43,6 +43,7 @@ export interface AuditLogData {
   documentLayout: string;
   componentsSchema: string;
   componentsLayout: string;
+  componentsNames: string;
 }
 
 // METHODS

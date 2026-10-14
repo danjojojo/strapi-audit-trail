@@ -94,6 +94,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         'documentLayout',
         'componentsSchema',
         'componentsLayout',
+        'componentsNames',
       ],
     });
 
