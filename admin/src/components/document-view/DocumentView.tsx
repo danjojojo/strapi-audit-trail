@@ -1,8 +1,8 @@
 import { Pill } from '../ui/Pill';
+import { Flex } from '@strapi/design-system';
 import { GridRow, GridItem } from '../ui/Grid';
 import { NormalContainer } from '../ui/Container';
 import { DocumentViewField } from './DocumentViewField';
-import { Flex, Typography } from '@strapi/design-system';
 import { DynamicZoneComponent } from './fields/DynamicZoneComponent';
 import { getContainers } from '../../helpers/document-view/container-renderer';
 import type { GetAuditLogResponse } from '../../types/service.types';
