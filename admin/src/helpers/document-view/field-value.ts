@@ -1,17 +1,4 @@
-export interface Relation {
-  id?: number | string;
-  documentId?: string;
-  [key: string]: any;
-}
-
-export interface MediaEntry {
-  id?: number | string;
-  name?: string;
-  url?: string;
-  ext?: string;
-  mime?: string;
-  [key: string]: any;
-}
+import type { Relation, MediaEntry } from '../../types/field-value.types';
 
 export function normalizeRelations(value: any): Relation[] {
   if (!value) return [];
