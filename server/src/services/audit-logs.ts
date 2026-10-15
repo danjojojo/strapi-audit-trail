@@ -56,6 +56,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
   },
   async getAuditLog({ query, filter }: GetAuditLog) {
     const auditLog = await strapi.documents('plugin::audit-trail.audit-log').findFirst({
+      sort: 'createdAt:DESC',
       filters: {
         retentionUntil: {
           $gte: filter.currentDateTime,
