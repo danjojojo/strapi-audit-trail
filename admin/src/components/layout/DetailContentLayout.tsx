@@ -1,28 +1,36 @@
 import { Loader } from '../ui/Loader';
+import { ERROR } from '../../constants';
 import { EmptyState } from '../ui/EmptyState';
+import { ErrorState } from '../ui/ErrorState';
 import { DetailPageHeader } from '../detail/Header';
 import { Flex, ScrollArea } from '@strapi/design-system';
+import { DetailContentLayoutProps } from '../../types/detail.types';
 
 export function DetailContentLayout({
   content,
   rightSidebar,
   isLoading,
   hasError,
-}: {
-  content: React.ReactNode;
-  rightSidebar: React.ReactNode;
-  isLoading: boolean;
-  hasError: boolean;
-}) {
+  isInvalid,
+  isEmpty,
+}: DetailContentLayoutProps) {
   return (
     <Flex height="100%" width="100%">
       {isLoading ? (
         <DetailPageWrapper>
           <Loader />
         </DetailPageWrapper>
+      ) : isInvalid ? (
+        <DetailPageWrapper>
+          <ErrorState content={ERROR.VERSION.INVALID_DETAIL} />
+        </DetailPageWrapper>
       ) : hasError ? (
         <DetailPageWrapper>
-          <EmptyState content="Activities for this document were not yet recorded. Create or publish updates with this entry to record an activity." />
+          <ErrorState content={ERROR.VERSION.ERROR_DETAIL} />
+        </DetailPageWrapper>
+      ) : isEmpty ? (
+        <DetailPageWrapper>
+          <EmptyState content={ERROR.VERSION.EMPTY_DETAIL} />
         </DetailPageWrapper>
       ) : (
         <ScrollArea>

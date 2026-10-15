@@ -1,4 +1,4 @@
-import { Context } from './internal';
+import type { Context, ContentType } from './internal';
 
 export interface BaseQueryParams {
   _q: string;
@@ -14,7 +14,7 @@ export interface AuditLogParams {
 
 export interface GetAuditLogsFilter {
   currentDateTime: string;
-  collectionUid?: string;
+  collectionUid?: ContentType;
   relatedDocumentId?: string;
 }
 

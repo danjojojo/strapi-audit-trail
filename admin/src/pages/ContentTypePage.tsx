@@ -4,16 +4,17 @@ import { Loader } from '../components/ui/Loader';
 import { ACTION_COLORS, ERROR } from '../constants';
 import { useAuditLogs } from '../hooks/useAuditLogs';
 import { EmptyState } from '../components/ui/EmptyState';
+import { ErrorState } from '../components/ui/ErrorState';
 import { HomepageHeader } from '../components/home/Header';
 import { useCollectionContext } from '../providers/collection.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const ContentTypePage = () => {
-  const { auditLogs, auditLogsLoading, auditLogsMeta } = useAuditLogs();
+  const { auditLogs, auditLogsLoading, auditLogsError, auditLogsMeta } = useAuditLogs();
   const { isInvalidCollection, isCollectionLoading } = useCollectionContext();
 
   if (isInvalidCollection) {
-    return <ErrorPage content={ERROR.INVALID_COLLECTION} />;
+    return <ErrorPage content={ERROR.CONTENT_TYPE.INVALID} />;
   }
 
   return (
@@ -21,6 +22,8 @@ export const ContentTypePage = () => {
       <HomepageHeader count={auditLogsMeta?.total} />
       {auditLogsLoading || isCollectionLoading ? (
         <Loader />
+      ) : auditLogsError === 'invalid' ? (
+        <ErrorState content={ERROR.CONTENT_TYPE.ERROR_ANY} />
       ) : !auditLogsLoading && auditLogs.length > 0 ? (
         <Table
           data={auditLogs}

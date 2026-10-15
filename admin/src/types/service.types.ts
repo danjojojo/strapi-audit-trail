@@ -47,7 +47,6 @@ export interface AuditLogData {
 }
 
 // METHODS
-
 export interface GetAuditLogs {
   collectionUid?: string;
   query?: {
@@ -68,6 +67,7 @@ export interface GetAuditLog {
 }
 
 // RESPONSES
+export type ResponseStatus = 'invalid' | 'network-error' | 'none';
 
 export type GetAllCollectionsResponse = CollectionData[];
 
