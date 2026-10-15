@@ -21,28 +21,47 @@ export function services() {
       }
     },
 
-    async getAuditLogs({ collectionUid, query }: GetAuditLogs) {
+    async getAuditLogs({
+      collectionUid,
+      query,
+    }: GetAuditLogs): Promise<GetAuditLogsResponse | number> {
       try {
         const paths = [`${PLUGIN_ID}`, 'audit-logs'];
         if (collectionUid) paths.push(collectionUid);
 
         const res = await get(`/${paths.join('/')}`, { params: query });
+
+        if (res.status && res.status >= 400) {
+          return res.status;
+        }
+
         return res.data as GetAuditLogsResponse;
       } catch (error) {
         console.error(error);
+        return 400;
       }
     },
 
-    async getAuditLog({ collectionUid, documentId, query }: GetAuditLog) {
+    async getAuditLog({
+      collectionUid,
+      documentId,
+      query,
+    }: GetAuditLog): Promise<GetAuditLogResponse | number> {
       try {
         const paths = [`${PLUGIN_ID}`, 'audit-logs'];
         if (collectionUid) paths.push(collectionUid);
         if (collectionUid && documentId) paths.push(documentId);
 
         const res = await get(`/${paths.join('/')}`, { params: query });
+
+        if (res.status && res.status >= 400) {
+          return res.status;
+        }
+
         return res.data as GetAuditLogResponse;
       } catch (error) {
         console.error(error);
+        return 400;
       }
     },
   };

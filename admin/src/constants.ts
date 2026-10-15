@@ -60,6 +60,24 @@ export const ACTION_COLORS = {
 
 // ERROR MESSAGES
 export const ERROR = {
-  INVALID_COLLECTION:
-    'That path is invalid. Please select an available collection from the sidebar.',
+  VERSION: {
+    INVALID_DETAIL:
+      'This version request is invalid. To access actual versions, select any entry from Recents or from any content type in the sidebar, or you may click Content History at the top-right menu options when you visit an entry inside Content Manager.',
+    ERROR_DETAIL:
+      'Experienced an error while fetching this version. Please try again and refresh this page.',
+    EMPTY_DETAIL:
+      'Versions for this document were not yet recorded. Make updates with this entry to record a version.',
+    INVALID_LISTING:
+      'We cannot find versions for this document as this version request is invalid.',
+    ERROR_LISTING:
+      'Experienced an error while fetching the versions. Please try again and refresh this page.',
+  },
+  CONTENT_TYPE: {
+    INVALID:
+      'This content type requst is invalid. Please select an available content type from the sidebar.',
+    ERROR_ANY:
+      'Experienced an error while fetching the audit logs for this content type. Please try again, and refresh this page.',
+    ERROR_RECENTS:
+      'Experienced an error while fetching the most recent audit logs. Please try again, and refresh this page.',
+  },
 };

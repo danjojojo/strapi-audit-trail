@@ -40,6 +40,18 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
       return;
     }
 
+    const isValid = await strapi.plugin('audit-trail').service('auditLogs').isValidAuditLogId({
+      filter: {
+        relatedDocumentId,
+        collectionUid,
+      },
+    });
+    
+    if (!isValid) {
+      ctx.badRequest('Audit log id request is invalid');
+      return;
+    }
+
     const currentDateTime = new Date().toISOString();
 
     ctx.body = await strapi.plugin('audit-trail').service('auditLogs').getAuditLog({

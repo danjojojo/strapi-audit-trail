@@ -4,6 +4,7 @@ import type { AuditLogsData } from './service.types';
 export interface VersionsSidebarProps {
   logs: AuditLogsData[];
   isLoading: boolean;
+  isInvalid?: boolean;
   hasError?: boolean;
 }
 

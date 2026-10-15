@@ -2,12 +2,14 @@ import { services } from '../services';
 import { useRouting } from './useRouting';
 import { useEffect, useState } from 'react';
 import { stringToNumber } from '../utils/numbers';
+import { getResponseStatus } from '../helpers/response-status';
 import { getActionFrom } from '../helpers/audit-logs-formatters';
 import type {
   GetAuditLogsResponse,
   GetAuditLogs,
   GetAuditLogResponse,
   GetAuditLog,
+  ResponseStatus,
 } from '../types/service.types';
 
 export function useAuditLogs() {
@@ -17,11 +19,13 @@ export function useAuditLogs() {
   // FOR LISTING PAGE
   const [auditLogs, setAuditLogs] = useState<GetAuditLogsResponse['data']>([]);
   const [auditLogsLoading, setAuditLogsLoading] = useState<boolean>(true);
+  const [auditLogsError, setAuditLogsError] = useState<ResponseStatus>('none');
   const [auditLogsMeta, setAuditLogsMeta] = useState<GetAuditLogsResponse['meta']>();
 
   // FOR DETAIL PAGE
   const [auditLog, setAuditLog] = useState<GetAuditLogResponse['auditLog']>();
   const [auditLogLoading, setAuditLogLoading] = useState<boolean>(true);
+  const [auditLogError, setAuditLogError] = useState<ResponseStatus>('none');
   const [relatedLogs, setRelatedLogs] = useState<GetAuditLogResponse['relatedLogs']>([]);
 
   const getQuery = () => {
@@ -57,6 +61,11 @@ export function useAuditLogs() {
 
       const res = await getAuditLogs({ collectionUid, query });
 
+      if (typeof res === 'number') {
+        setAuditLogsError(getResponseStatus(res));
+        return;
+      }
+
       if (res?.data) {
         setAuditLogs(
           res?.data.map((d) => ({
@@ -69,8 +78,9 @@ export function useAuditLogs() {
       if (res?.meta) {
         setAuditLogsMeta(res.meta);
       }
+
+      setAuditLogsError('none');
     } catch (error) {
-      setAuditLogsLoading(false);
       console.error(error);
     } finally {
       setAuditLogsLoading(false);
@@ -83,6 +93,11 @@ export function useAuditLogs() {
       setAuditLogLoading(true);
       const res = await getAuditLog({ collectionUid, documentId, query });
 
+      if (typeof res === 'number') {
+        setAuditLogError(getResponseStatus(res));
+        return;
+      }
+
       if (res?.auditLog) {
         setAuditLog(res.auditLog);
       }
@@ -90,8 +105,9 @@ export function useAuditLogs() {
       if (res?.relatedLogs) {
         setRelatedLogs(res.relatedLogs);
       }
+
+      setAuditLogError('none');
     } catch (error) {
-      setAuditLogLoading(false);
       console.error(error);
     } finally {
       setAuditLogLoading(false);
@@ -116,10 +132,12 @@ export function useAuditLogs() {
   return {
     auditLogs,
     auditLogsLoading,
+    auditLogsError,
     auditLogsMeta,
 
     auditLog,
     auditLogLoading,
+    auditLogError,
     relatedLogs,
   };
 }

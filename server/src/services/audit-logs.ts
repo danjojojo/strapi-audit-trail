@@ -54,6 +54,22 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
     };
     return payloadToReturn;
   },
+
+  async isValidAuditLogId({ filter }: GetAuditLog) {
+    const foundInAuditLog = await strapi.documents('plugin::audit-trail.audit-log').findOne({
+      documentId: filter.relatedDocumentId,
+    });
+
+    const foundInContentType = await strapi.documents(filter.collectionUid).findOne({
+      documentId: filter.relatedDocumentId,
+    });
+
+    console.log({ foundInAuditLog });
+    console.log({ foundInContentType });
+
+    return foundInAuditLog || foundInContentType;
+  },
+
   async getAuditLog({ query, filter }: GetAuditLog) {
     const auditLog = await strapi.documents('plugin::audit-trail.audit-log').findFirst({
       sort: 'createdAt:DESC',
