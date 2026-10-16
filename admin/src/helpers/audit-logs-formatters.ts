@@ -15,11 +15,19 @@ export function spaceCamelCase(text: string, textCase: TextCase = 'retain'): str
     case 'capitalize':
       return spaced
         .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(' ');
     default:
       return spaced;
   }
+}
+
+export function getDate(datetime: string) {
+  return new Date(datetime);
+}
+
+export function getTime(time: string): string {
+  return time?.slice(0, 5) ?? '';
 }
 
 export function getClientDatetime(datetime: string): string {
