@@ -1,9 +1,9 @@
 import { Accordion, Flex, Box } from '@strapi/design-system';
-import { DocumentViewField } from '../DocumentViewField';
+import { RenderField } from '../detail/RenderField';
 import { GridFour } from '@strapi/icons';
-import { GridRow, GridItem } from '../../../components/ui/Grid';
-import { getContainers } from '../../../helpers/document-view/container-renderer';
-import type { DynamicZoneComponentProps } from '../../../types/fields.types';
+import { GridRow, GridItem } from '../ui/Grid';
+import { getContainers } from '../../helpers/document-view/container-renderer';
+import type { DynamicZoneComponentProps } from '../../types/fields.types';
 import { styled } from 'styled-components';
 
 const StyledBox = styled(Box)`
@@ -29,12 +29,11 @@ export function DynamicZoneComponent({
           layout: JSON.stringify(parsed.layout?.[v.__component]),
           schema: JSON.stringify(parsed.schema?.[v.__component]),
         });
-        console.log({ containers });
 
         return (
-          <>
+          <div key={idx}>
             <StyledBox width="8px" height="16px" background="neutral200" />
-            <Accordion.Root key={idx} width="100%">
+            <Accordion.Root width="100%">
               {containers?.map((c) => (
                 <Accordion.Item value={`${idx}`} key={idx} width="100%">
                   <Accordion.Header width="100%">
@@ -49,7 +48,7 @@ export function DynamicZoneComponent({
                   <Accordion.Content width="100%">
                     <Flex
                       direction="column"
-                      background="neutral100"
+                      background="neutral0"
                       width="100%"
                       height="100%"
                       padding="24px"
@@ -59,7 +58,7 @@ export function DynamicZoneComponent({
                         <GridRow key={idx} width="100%">
                           {field.map((f) => (
                             <GridItem key={f.id} $size={f.schema.type === 'boolean' ? 3 : f.size}>
-                              <DocumentViewField
+                              <RenderField
                                 label={f.label}
                                 type={f.schema.type}
                                 value={v?.[f.id]}
@@ -79,7 +78,7 @@ export function DynamicZoneComponent({
                 </Accordion.Item>
               ))}
             </Accordion.Root>
-          </>
+          </div>
         );
       })}
     </Flex>

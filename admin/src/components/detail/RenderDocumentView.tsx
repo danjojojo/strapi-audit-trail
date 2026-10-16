@@ -2,12 +2,12 @@ import { Pill } from '../ui/Pill';
 import { Flex } from '@strapi/design-system';
 import { GridRow, GridItem } from '../ui/Grid';
 import { NormalContainer } from '../ui/Container';
-import { DocumentViewField } from './DocumentViewField';
-import { DynamicZoneComponent } from './fields/DynamicZoneComponent';
+import { RenderField } from './RenderField';
+import { DynamicZoneComponent } from '../fields/DynamicZoneComponent';
 import { getContainers } from '../../helpers/document-view/container-renderer';
 import type { GetAuditLogResponse } from '../../types/service.types';
 
-export function DocumentView({ data }: { data: GetAuditLogResponse['auditLog'] }) {
+export function RenderDocumentView({ data }: { data: GetAuditLogResponse['auditLog'] }) {
   const containers = getContainers({
     layout: data.documentLayout,
     schema: data.documentSchema,
@@ -27,7 +27,7 @@ export function DocumentView({ data }: { data: GetAuditLogResponse['auditLog'] }
                 <GridRow key={idx}>
                   {field.map((f) => (
                     <GridItem key={f.id} $size={f.schema.type === 'boolean' ? 3 : f.size}>
-                      <DocumentViewField
+                      <RenderField
                         label={f.label}
                         schema={f.schema}
                         type={f.schema.type}
@@ -48,8 +48,6 @@ export function DocumentView({ data }: { data: GetAuditLogResponse['auditLog'] }
         if (container.type === 'dynamiczone') {
           const payloadId = container.fields[0][0]?.id;
           const dynamiczoneData = payload?.[payloadId] as any[];
-
-          console.log({ dynamiczoneData });
 
           return (
             <Flex

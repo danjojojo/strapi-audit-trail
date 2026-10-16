@@ -1,8 +1,8 @@
 import { Field, Box, Flex, Accordion } from '@strapi/design-system';
 import { styled } from 'styled-components';
-import { DocumentViewField } from '../DocumentViewField';
-import { getContainers } from '../../../helpers/document-view/container-renderer';
-import type { SettingsContent } from '../../../types/container.types';
+import { RenderField } from '../detail/RenderField';
+import { getContainers } from '../../helpers/document-view/container-renderer';
+import type { SettingsContent } from '../../types/container.types';
 
 interface ComponentProps {
   label: string;
@@ -53,7 +53,7 @@ export function Component({
               <Accordion.Item value={`${idx}`} key={idx}>
                 <Accordion.Header>
                   <Accordion.Trigger description="Your personal information">
-                    {String(v?.[settings?.mainField!]) ?? null}
+                    {v?.[settings?.mainField!] ?? null}
                   </Accordion.Trigger>
                 </Accordion.Header>
                 <Accordion.Content>
@@ -69,7 +69,7 @@ export function Component({
                       <GridRow key={idx}>
                         {field.map((f) => (
                           <GridItem key={f.id} $size={f.schema.type === 'boolean' ? 3 : f.size}>
-                            <DocumentViewField
+                            <RenderField
                               label={f.label}
                               type={f.schema.type}
                               value={v?.[f.id]}
@@ -112,7 +112,7 @@ export function Component({
               <GridRow key={idx}>
                 {field.map((f) => (
                   <GridItem key={f.id} $size={f.schema.type === 'boolean' ? 3 : f.size}>
-                    <DocumentViewField
+                    <RenderField
                       label={f.label}
                       type={f.schema.type}
                       value={value?.[f.id]}

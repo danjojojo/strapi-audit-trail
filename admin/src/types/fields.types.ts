@@ -44,7 +44,7 @@ export interface InputFieldProps {
 }
 
 /** DOCUMENT VIEW FIELD */
-export interface DocumentViewFieldProps {
+export interface RenderFieldProps {
   label: string;
   type: string;
   value: any;

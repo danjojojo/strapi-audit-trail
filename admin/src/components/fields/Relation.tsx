@@ -1,12 +1,12 @@
 import { styled } from 'styled-components';
-import { Field } from '../../../components/ui/Field';
-import { normalizeRelations } from '../../../helpers/document-view/field-value';
+import { Field } from '../ui/Field';
+import { normalizeRelations } from '../../helpers/document-view/field-value';
 import { Button, Box, ScrollArea, Flex, Typography } from '@strapi/design-system';
 import type {
   RelationProps,
   RelationButton,
   ScrollableRelationButtons,
-} from '../../../types/fields.types';
+} from '../../types/fields.types';
 
 export function Relation({ label, value, metadata }: RelationProps) {
   const relations = normalizeRelations(value);

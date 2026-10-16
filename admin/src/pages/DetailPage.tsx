@@ -1,6 +1,6 @@
 import { useAuditLogs } from '../hooks/useAuditLogs';
 import { VersionsSidebar } from '../components/layout/VersionsSidebar';
-import { DocumentView } from '../components/document-view/DocumentView';
+import { RenderDocumentView } from '../components/detail/RenderDocumentView';
 import { DetailContentLayout } from '../components/layout/DetailContentLayout';
 
 export const DetailPage = () => {
@@ -12,7 +12,7 @@ export const DetailPage = () => {
       isEmpty={!auditLog}
       isInvalid={auditLogError === 'invalid'}
       hasError={auditLogError === 'network-error'}
-      content={auditLog && <DocumentView data={auditLog} />}
+      content={auditLog && <RenderDocumentView data={auditLog} />}
       rightSidebar={
         <VersionsSidebar
           logs={relatedLogs}

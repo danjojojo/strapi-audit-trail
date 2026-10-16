@@ -1,6 +1,6 @@
-import { useCarouselInput } from '../../../hooks/useCarouselInput';
+import { useCarouselInput } from '../../hooks/useCarouselInput';
 import { CarouselInput, CarouselSlide, CarouselImage, Typography } from '@strapi/design-system';
-import type { MediaProps } from '../../../types/fields.types';
+import type { MediaProps } from '../../types/fields.types';
 
 export function Media({ label, value }: MediaProps) {
   const { selectedSlide, entries, current, onNext, onPrevious } = useCarouselInput(value);
