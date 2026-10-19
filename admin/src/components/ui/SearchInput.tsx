@@ -1,11 +1,16 @@
+import { styled } from 'styled-components';
 import { Search, Cross } from '@strapi/icons';
 import { Field } from '@strapi/design-system';
 import type { SearchInputProps } from '../../types/ui.types';
 
+const FieldInput = styled(Field.Input)`
+  padding-inline-start: 8px !important;
+`;
+
 export function SearchInput({ value, wipeAction, onChangeAction, size = 'S' }: SearchInputProps) {
   return (
     <Field.Root>
-      <Field.Input
+      <FieldInput
         placeholder="Search"
         size={size}
         type="text"
