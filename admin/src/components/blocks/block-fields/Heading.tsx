@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { Typography } from '@strapi/design-system';
-import type { HeadingBlockProps, HeadingTag } from '@/types/block.types';
+import type { HeadingBlockProps, HeadingTag } from '../../../types/block.types';
 
 export function Heading({ children, level }: HeadingBlockProps) {
   const tag = `h${level}` as HeadingTag;

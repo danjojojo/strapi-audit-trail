@@ -3,7 +3,7 @@ import { Dialog } from '@strapi/design-system';
 import { BlocksToolkit } from './BlocksToolkit';
 import { Expand, Collapse } from '@strapi/icons';
 import { BlocksRenderer } from './BlocksRenderer';
-import type { BlocksRendererProps } from '@/types/block.types';
+import type { BlocksRendererProps } from '../../types/block.types';
 
 export function BlocksDialogView({ value }: BlocksRendererProps) {
   const {

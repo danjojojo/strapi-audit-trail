@@ -1,5 +1,5 @@
 import { Typography } from '@strapi/design-system';
-import type { BaseBlock } from '@/types/block.types';
+import type { BaseBlock } from '../../../types/block.types';
 
 export function ListItem({ children }: BaseBlock) {
   return (

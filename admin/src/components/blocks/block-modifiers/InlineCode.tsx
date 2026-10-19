@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import type { BaseBlock } from '@/types/block.types';
+import type { BaseBlock } from '../../../types/block.types';
 
 export function InlineCode({ children }: BaseBlock) {
   return <Code>{children}</Code>;
