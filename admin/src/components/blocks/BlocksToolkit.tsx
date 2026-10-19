@@ -11,7 +11,7 @@ import {
 } from '@strapi/icons';
 import { BlocksLayout } from './BlocksLayout';
 import { SingleSelect, SingleSelectOption } from '@strapi/design-system';
-import type { ToolkitProps } from '@/types/block.types';
+import type { ToolkitProps } from '../../types/block.types';
 
 export function BlocksToolkit() {
   const { Header, ToolkitSeparator, ToolkitIcon, ToolkitIconGroup } = BlocksLayout;
@@ -60,7 +60,7 @@ const modifiers: ToolkitProps[] = [
   },
   {
     icon: <StrikeThrough />,
-    label: 'Strike through',
+    label: 'Strikethrough',
   },
   {
     icon: <Code />,

@@ -7,7 +7,7 @@ import { ListItem } from './block-fields/ListItem';
 import { Paragraph } from './block-fields/Paragraph';
 import { InlineCode } from './block-modifiers/InlineCode';
 import { BlocksRenderer as StrapiBlocksRenderer } from '@strapi/blocks-react-renderer';
-import type { BlocksRendererProps } from '@/types/block.types';
+import type { BlocksRendererProps } from '../../types/block.types';
 
 export function BlocksRenderer({ value }: BlocksRendererProps) {
   return (

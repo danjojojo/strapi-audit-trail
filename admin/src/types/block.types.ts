@@ -1,4 +1,4 @@
-import type { MediaEntry } from '@/types/field-value.types';
+import type { MediaEntry } from './field-value.types';
 
 /** FOR BASE BLOCK */
 export interface BaseBlock {

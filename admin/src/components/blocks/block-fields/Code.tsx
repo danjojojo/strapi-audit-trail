@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { Box } from '@strapi/design-system';
-import type { BaseBlock } from '@/types/block.types';
+import type { BaseBlock } from '../../../types/block.types';
 
 export function Code({ children }: BaseBlock) {
   return (

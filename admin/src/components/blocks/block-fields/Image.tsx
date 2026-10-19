@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { Flex, Box } from '@strapi/design-system';
-import type { ImageBlockProps } from '@/types/block.types';
+import type { ImageBlockProps } from '../../../types/block.types';
 
 const ImageWrapper = styled(Flex)`
   transition-property: box-shadow;

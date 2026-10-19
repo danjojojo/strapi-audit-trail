@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 import { styled, css, type CSSProperties } from 'styled-components';
-import type { ListBlockProps } from '@/types/block.types';
+import type { ListBlockProps } from '../../../types/block.types';
 
 const ListIndentContext = createContext(0);
 

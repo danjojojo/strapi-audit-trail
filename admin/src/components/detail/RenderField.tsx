@@ -6,6 +6,7 @@ import { Integer } from '../fields/Integer';
 import { Boolean } from '../fields/Boolean';
 import { Relation } from '../fields/Relation';
 import { Textarea } from '../fields/Textarea';
+import { Markdown } from '../fields/Markdown';
 import { Component } from '../fields/Component';
 import type { RenderFieldProps } from '../../types/fields.types';
 
@@ -45,6 +46,8 @@ export function RenderField({
       return <Date.TimePicker label={label} value={value} />;
     case 'relation':
       return <Relation label={label} value={value} metadata={metadata} />;
+    case 'richtext':
+      return <Markdown label={label} value={value} />;
     case 'component':
       return (
         <Component

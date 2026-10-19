@@ -1,6 +1,6 @@
 import { Paragraph } from './Paragraph';
 import { styled } from 'styled-components';
-import type { BaseBlock } from '@/types/block.types';
+import type { BaseBlock } from '../../../types/block.types';
 
 export function Quote({ children }: BaseBlock) {
   return (
