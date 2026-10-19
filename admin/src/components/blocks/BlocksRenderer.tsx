@@ -1,11 +1,11 @@
-import { List } from './block-fields/List';
-import { Code } from './block-fields/Code';
-import { Quote } from './block-fields/Quote';
-import { Image } from './block-fields/Image';
-import { Heading } from './block-fields/Heading';
-import { ListItem } from './block-fields/ListItem';
-import { Paragraph } from './block-fields/Paragraph';
-import { InlineCode } from './block-modifiers/InlineCode';
+import { List } from './components/List';
+import { Code } from './components/Code';
+import { Quote } from './components/Quote';
+import { Image } from './components/Image';
+import { Heading } from './components/Heading';
+import { ListItem } from './components/ListItem';
+import { Paragraph } from './components/Paragraph';
+import { InlineCode } from './modifiers/InlineCode';
 import { BlocksRenderer as StrapiBlocksRenderer } from '@strapi/blocks-react-renderer';
 import type { BlocksRendererProps } from '../../types/block.types';
 
