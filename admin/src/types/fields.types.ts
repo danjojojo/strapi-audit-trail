@@ -1,3 +1,4 @@
+import type { GetContainersResult } from './container.types';
 import type { MetadataContent, SchemaContent, SettingsContent } from './container.types';
 
 /** BASE FIELD */
@@ -51,14 +52,45 @@ export interface RenderFieldProps {
   schema: SchemaContent;
   metadata: MetadataContent;
   settings: SettingsContent;
-  componentSchema: string;
-  componentLayout: string;
 }
 
-/** DOCUMENT VIEW FIELD */
-export interface DynamicZoneComponentProps {
-  value: any;
-  componentSchema: string;
-  componentLayout: string;
-  componentNames: string;
+/** DYNAMIC ZONE PROPS */
+export interface DynamiczoneProps {
+  value: any[];
+}
+
+/** COMPONENT PROPS */
+export interface ComponentProps {
+  label: string;
+  value: any | any[];
+  schema: SchemaContent;
+  settings: SettingsContent;
+}
+
+/** SINGLE COMPONENT PROPS */
+export interface SingleComponentProps {
+  containers: GetContainersResult[] | null;
+  renderFields: (fields: GetContainersResult['fields'][number][number]) => React.JSX.Element;
+}
+
+/** REPEATABLE COMPONENT PROPS */
+export interface RepeatableComponentProps {
+  containers: GetContainersResult[] | null;
+  value: any[];
+  renderTitle: (value: any) => string | null;
+  renderFields: (
+    fields: GetContainersResult['fields'][number][number],
+    value: any
+  ) => React.JSX.Element;
+}
+
+/** DYNAMIC ZONE COMPONENT PROPS */
+export interface DynamiczoneComponentProps {
+  value: any[];
+  renderTitle: (value: any, container: GetContainersResult) => string | null;
+  renderContainers: (value: any) => GetContainersResult[] | null;
+  renderFields: (
+    fields: GetContainersResult['fields'][number][number],
+    value: any
+  ) => React.JSX.Element;
 }

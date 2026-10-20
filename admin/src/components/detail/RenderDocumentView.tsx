@@ -1,9 +1,9 @@
 import { Pill } from '../ui/Pill';
-import { Flex } from '@strapi/design-system';
-import { GridRow, GridItem } from '../ui/Grid';
-import { NormalContainer } from '../ui/Container';
+import { Container } from '../ui/Container';
 import { RenderField } from './RenderField';
-import { DynamicZoneComponent } from '../fields/DynamicZoneComponent';
+import { Flex } from '@strapi/design-system';
+import { Dynamiczone } from '../fields/Dynamiczone';
+import { AuditLogsProvider } from '../../providers/audit-logs.provider';
 import { getContainers } from '../../helpers/document-view/container-renderer';
 import type { GetAuditLogResponse } from '../../types/service.types';
 
@@ -18,60 +18,44 @@ export function RenderDocumentView({ data }: { data: GetAuditLogResponse['auditL
   if (!containers) return null;
 
   return (
-    <Flex direction="column" alignItems="flex-start" gap="32px" width="100%">
-      {containers.map((container, idx) => {
-        if (container.type === 'normal') {
-          return (
-            <NormalContainer key={idx}>
-              {container.fields.map((field, idx) => (
-                <GridRow key={idx}>
-                  {field.map((f) => (
-                    <GridItem key={f.id} $size={f.schema.type === 'boolean' ? 3 : f.size}>
-                      <RenderField
-                        label={f.label}
-                        schema={f.schema}
-                        type={f.schema.type}
-                        metadata={f.metadata}
-                        settings={f.settings}
-                        value={payload?.[f.id]}
-                        componentSchema={data.componentsSchema}
-                        componentLayout={data.componentsLayout}
-                      />
-                    </GridItem>
-                  ))}
-                </GridRow>
-              ))}
-            </NormalContainer>
-          );
-        }
-
-        if (container.type === 'dynamiczone') {
-          const payloadId = container.fields[0][0]?.id;
-          const dynamiczoneData = payload?.[payloadId] as any[];
-
-          return (
-            <Flex
-              key={idx}
-              direction="column"
-              background="neutral100"
-              hasRadius={true}
-              justifyContent="center"
-              width="100%"
-              height="100%"
-            >
-              <Pill
-                value={`${container.fields[0][0]?.label}${dynamiczoneData.length > 0 ? ` (${dynamiczoneData.length})` : ''}`}
+    <AuditLogsProvider>
+      <Flex direction="column" alignItems="flex-start" gap="32px" width="100%">
+        {containers.map((container, idx) => {
+          if (container.type === 'normal') {
+            return (
+              <Container.Default
+                key={idx}
+                container={container}
+                renderFields={(field) => (
+                  <RenderField
+                    label={field.label}
+                    schema={field.schema}
+                    type={field.schema.type}
+                    metadata={field.metadata}
+                    settings={field.settings}
+                    value={payload?.[field.id]}
+                  />
+                )}
               />
-              <DynamicZoneComponent
-                value={dynamiczoneData}
-                componentSchema={data.componentsSchema}
-                componentLayout={data.componentsLayout}
-                componentNames={data.componentsNames}
-              />
-            </Flex>
-          );
-        }
-      })}
-    </Flex>
+            );
+          }
+
+          if (container.type === 'dynamiczone') {
+            const dynamiczone = container.fields[0][0];
+            const dynamiczoneId = dynamiczone?.id;
+            const dynamiczoneData = payload?.[dynamiczoneId];
+            const dynamiczoneLength = dynamiczoneData.length;
+            const dynamiczoneTitle = `${dynamiczone?.label} (${dynamiczoneLength})`;
+
+            return (
+              <Container.Dynamiczone key={idx}>
+                <Pill value={dynamiczoneTitle} />
+                <Dynamiczone value={dynamiczoneData} />
+              </Container.Dynamiczone>
+            );
+          }
+        })}
+      </Flex>
+    </AuditLogsProvider>
   );
 }
