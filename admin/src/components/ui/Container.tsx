@@ -1,4 +1,4 @@
-import { FieldLayout } from './FieldLayout';
+import { FieldLayout } from '../styled/FieldLayout';
 import { Flex } from '@strapi/design-system';
 import type { DefaultContainerProps, BaseContainerProps } from 'src/types/fields-container.types';
 

@@ -1,4 +1,4 @@
-import { FieldLayout } from '../../ui/FieldLayout';
+import { FieldLayout } from '../../styled/FieldLayout';
 import type { SingleComponentProps } from '../../../types/fields.types';
 
 export function SingleComponent({ containers, renderFields }: SingleComponentProps) {

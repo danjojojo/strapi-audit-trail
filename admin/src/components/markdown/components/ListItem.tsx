@@ -1,7 +1,7 @@
 import { Typography } from '@strapi/design-system';
-import type { BaseBlock } from '../../../types/block.types';
+import type { MarkdownCompProps } from '../../../types/markdown.types';
 
-export function ListItem({ children }: BaseBlock) {
+export function ListItem({ children }: MarkdownCompProps) {
   return (
     <Typography tag="li" variant="omega">
       {children}

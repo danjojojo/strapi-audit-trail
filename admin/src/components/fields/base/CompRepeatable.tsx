@@ -1,4 +1,4 @@
-import { FieldLayout } from '../../ui/FieldLayout';
+import { FieldLayout } from '../../styled/FieldLayout';
 import { Accordion } from '@strapi/design-system';
 import type { RepeatableComponentProps } from '../../../types/fields.types';
 

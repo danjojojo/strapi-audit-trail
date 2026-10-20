@@ -11,7 +11,7 @@ import {
   Image,
 } from '@strapi/icons';
 import { IconButtonGroup, SingleSelect, SingleSelectOption } from '@strapi/design-system';
-import { MarkdownLayout } from './MarkdownLayout';
+import { MarkdownLayout } from '../styled/MarkdownLayout';
 import { useMarkdownContext } from '../../providers/markdown-mode.provider';
 import type { ToolkitProps } from '../../types/block.types';
 
