@@ -23,9 +23,9 @@ export function getContainers(params: GetContainersParams): GetContainersResult[
 
     const rowFields: GetContainersResult['fields'][number] = row.map((field) => {
       const fieldName = field.name;
-      const fieldSize = field.size;
-      const fieldSettings = layout?.settings;
       const fieldSchema = schema?.[fieldName];
+      const fieldSize = fieldSchema.type === 'boolean' ? 3 : field.size;
+      const fieldSettings = layout?.settings;
       const fieldLabel = metadatas?.[fieldName]?.list?.label;
       const fieldMetadata = metadatas?.[fieldName];
 

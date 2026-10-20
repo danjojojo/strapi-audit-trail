@@ -38,7 +38,12 @@ function ScrollableRelationButtons({ itemsLength, children }: ScrollableRelation
   return (
     <StyledBox width="100%" $overflowing={itemsLength > 4 ? true : false}>
       <ScrollArea>
-        <Flex direction="column" width="100%" gap="4px" paddingRight="16px">
+        <Flex
+          direction="column"
+          width="100%"
+          gap="4px"
+          paddingRight={itemsLength > 4 ? '16px' : undefined}
+        >
           {children}
         </Flex>
       </ScrollArea>

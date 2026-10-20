@@ -1,134 +1,68 @@
-import { Field, Box, Flex, Accordion } from '@strapi/design-system';
-import { styled } from 'styled-components';
+import { Field } from '../ui/Field';
 import { RenderField } from '../detail/RenderField';
+import { SingleComponent } from './base/CompSingle';
+import { RepeatableComponent } from './base/CompRepeatable';
+import { useAuditLogsContext } from '../../providers/audit-logs.provider';
 import { getContainers } from '../../helpers/document-view/container-renderer';
-import type { SettingsContent } from '../../types/container.types';
+import type { SchemaContent, SettingsContent } from '../../types/container.types';
 
 interface ComponentProps {
   label: string;
   value: any;
-  usedComponent: string;
-  componentSchema: string;
-  componentLayout: string;
-  isRepeatable: boolean;
+  schema: SchemaContent;
   settings: SettingsContent;
 }
 
-const GridRow = styled(Box)`
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: ${({ theme }) => theme.spaces[5]};
-  width: 100%;
-`;
+export function Component({ label, value, schema, settings }: ComponentProps) {
+  const { auditLog } = useAuditLogsContext();
 
-const GridItem = styled(Box)<{ $size: number }>`
-  grid-column: span ${({ $size }) => Math.min(Math.max($size, 1), 12)};
-  min-width: 0;
-`;
+  if (!auditLog) return null;
 
-export function Component({
-  label,
-  value,
-  usedComponent,
-  componentSchema,
-  componentLayout,
-  isRepeatable,
-  settings,
-}: ComponentProps) {
-  const schema = JSON.parse(componentSchema);
-  const layout = JSON.parse(componentLayout);
+  const componentsSchema = JSON.parse(auditLog.componentsSchema);
+  const componentsLayout = JSON.parse(auditLog.componentsLayout);
 
   const containers = getContainers({
-    layout: JSON.stringify(layout?.[usedComponent]),
-    schema: JSON.stringify(schema?.[usedComponent]),
+    layout: JSON.stringify(componentsLayout?.[schema.component!]),
+    schema: JSON.stringify(componentsSchema?.[schema.component!]),
   });
 
-  if (isRepeatable) {
+  if (schema.repeatable) {
     return (
-      <Field.Root width="100%">
-        <Field.Label paddingBottom="8px">{`${label} (${value?.length})`}</Field.Label>
-        <Accordion.Root>
-          {value.map((v: any, idx: number) => {
-            return containers?.map((c) => (
-              <Accordion.Item value={`${idx}`} key={idx}>
-                <Accordion.Header>
-                  <Accordion.Trigger description="Your personal information">
-                    {v?.[settings?.mainField!] ?? null}
-                  </Accordion.Trigger>
-                </Accordion.Header>
-                <Accordion.Content>
-                  <Flex
-                    direction="column"
-                    background="neutral100"
-                    width="100%"
-                    height="100%"
-                    padding="24px"
-                    gap="20px"
-                  >
-                    {c.fields.map((field, idx) => (
-                      <GridRow key={idx}>
-                        {field.map((f) => (
-                          <GridItem key={f.id} $size={f.schema.type === 'boolean' ? 3 : f.size}>
-                            <RenderField
-                              label={f.label}
-                              type={f.schema.type}
-                              value={v?.[f.id]}
-                              metadata={f.metadata}
-                              schema={f.schema}
-                              componentSchema={componentSchema}
-                              componentLayout={componentLayout}
-                              settings={settings}
-                              key={idx}
-                            />
-                          </GridItem>
-                        ))}
-                      </GridRow>
-                    ))}
-                  </Flex>
-                </Accordion.Content>
-              </Accordion.Item>
-            ));
-          })}
-        </Accordion.Root>
-      </Field.Root>
+      <Field label={`${label} (${value?.length})`} paddingBottom="8px">
+        <RepeatableComponent
+          value={value}
+          containers={containers}
+          renderTitle={(value) => value?.[settings?.mainField!]}
+          renderFields={(field, value) => (
+            <RenderField
+              label={field.label}
+              type={field.schema.type}
+              value={value?.[field.id]}
+              metadata={field.metadata}
+              schema={field.schema}
+              settings={settings}
+            />
+          )}
+        />
+      </Field>
     );
   }
 
   return (
-    <Field.Root width="100%">
-      <Field.Label paddingBottom="8px">{label}</Field.Label>
-      {containers?.map((container, idx) => {
-        return (
-          <Flex
-            key={idx}
-            direction="column"
-            background="neutral100"
-            width="100%"
-            height="100%"
-            padding="24px"
-            gap="20px"
-          >
-            {container.fields.map((field, idx) => (
-              <GridRow key={idx}>
-                {field.map((f) => (
-                  <GridItem key={f.id} $size={f.schema.type === 'boolean' ? 3 : f.size}>
-                    <RenderField
-                      label={f.label}
-                      type={f.schema.type}
-                      value={value?.[f.id]}
-                      metadata={f.metadata}
-                      schema={f.schema}
-                      componentSchema={componentSchema}
-                      componentLayout={componentLayout}
-                      settings={settings}
-                    />
-                  </GridItem>
-                ))}
-              </GridRow>
-            ))}
-          </Flex>
-        );
-      })}
-    </Field.Root>
+    <Field label={label} paddingBottom="8px">
+      <SingleComponent
+        containers={containers}
+        renderFields={(field) => (
+          <RenderField
+            label={field.label}
+            type={field.schema.type}
+            value={value?.[field.id]}
+            metadata={field.metadata}
+            schema={field.schema}
+            settings={settings}
+          />
+        )}
+      />
+    </Field>
   );
 }

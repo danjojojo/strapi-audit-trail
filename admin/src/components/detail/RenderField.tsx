@@ -10,16 +10,7 @@ import { Markdown } from '../fields/Markdown';
 import { Component } from '../fields/Component';
 import type { RenderFieldProps } from '../../types/fields.types';
 
-export function RenderField({
-  label,
-  type,
-  value,
-  schema,
-  metadata,
-  settings,
-  componentSchema,
-  componentLayout,
-}: RenderFieldProps) {
+export function RenderField({ label, type, value, schema, metadata, settings }: RenderFieldProps) {
   switch (type) {
     case 'string':
     case 'uid':
@@ -49,17 +40,7 @@ export function RenderField({
     case 'richtext':
       return <Markdown label={label} value={value} />;
     case 'component':
-      return (
-        <Component
-          label={label}
-          value={value}
-          settings={settings}
-          isRepeatable={schema.repeatable!}
-          usedComponent={schema.component!}
-          componentSchema={componentSchema}
-          componentLayout={componentLayout}
-        />
-      );
+      return <Component label={label} value={value} settings={settings} schema={schema} />;
     default:
       return null;
   }
