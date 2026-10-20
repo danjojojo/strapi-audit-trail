@@ -54,9 +54,17 @@ export interface RenderFieldProps {
   settings: SettingsContent;
 }
 
-/** DOCUMENT VIEW FIELD */
+/** DYNAMIC ZONE PROPS */
 export interface DynamiczoneProps {
   value: any[];
+}
+
+/** COMPONENT PROPS */
+export interface ComponentProps {
+  label: string;
+  value: any | any[];
+  schema: SchemaContent;
+  settings: SettingsContent;
 }
 
 /** SINGLE COMPONENT PROPS */

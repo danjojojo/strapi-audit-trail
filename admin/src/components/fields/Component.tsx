@@ -4,14 +4,7 @@ import { SingleComponent } from './base/CompSingle';
 import { RepeatableComponent } from './base/CompRepeatable';
 import { useAuditLogsContext } from '../../providers/audit-logs.provider';
 import { getContainers } from '../../helpers/document-view/container-renderer';
-import type { SchemaContent, SettingsContent } from '../../types/container.types';
-
-interface ComponentProps {
-  label: string;
-  value: any;
-  schema: SchemaContent;
-  settings: SettingsContent;
-}
+import type { ComponentProps } from '../../types/fields.types';
 
 export function Component({ label, value, schema, settings }: ComponentProps) {
   const { auditLog } = useAuditLogsContext();
