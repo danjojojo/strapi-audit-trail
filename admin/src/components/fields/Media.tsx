@@ -24,7 +24,7 @@ export function Media({ label, value }: MediaProps) {
         ))
       ) : (
         <CarouselSlide>
-          <Typography textColor="neutral400">No images uploaded.</Typography>
+          <Typography textColor="neutral400">No media uploaded.</Typography>
         </CarouselSlide>
       )}
     </CarouselInput>
