@@ -1,5 +1,5 @@
 import { Expand, Collapse } from '@strapi/icons';
-import { MarkdownLayout } from './MarkdownLayout';
+import { MarkdownLayout } from '../styled/MarkdownLayout';
 import { MarkdownHeader } from './MarkdownHeader';
 import { ParsedMarkdown } from './ParsedMarkdown';
 import { Dialog, Button, Typography } from '@strapi/design-system';

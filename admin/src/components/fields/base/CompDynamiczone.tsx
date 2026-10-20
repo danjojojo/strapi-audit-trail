@@ -1,5 +1,5 @@
 import { GridFour } from '@strapi/icons';
-import { FieldLayout } from '../../ui/FieldLayout';
+import { FieldLayout } from '../../styled/FieldLayout';
 import { Flex, Box, Accordion } from '@strapi/design-system';
 import type { DynamiczoneComponentProps } from '../../../types/fields.types';
 

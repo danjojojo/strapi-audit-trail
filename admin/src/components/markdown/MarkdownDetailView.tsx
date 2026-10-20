@@ -1,5 +1,5 @@
 import { MarkdownValue } from './MarkdownValue';
-import { MarkdownLayout } from './MarkdownLayout';
+import { MarkdownLayout } from '../styled/MarkdownLayout';
 import { MarkdownHeader } from './MarkdownHeader';
 import { MarkdownDialog } from './MarkdownDialogView';
 import { MarkdownProvider } from '../../providers/markdown-mode.provider';

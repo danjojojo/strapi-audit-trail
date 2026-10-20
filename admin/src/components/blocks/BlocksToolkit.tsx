@@ -9,39 +9,37 @@ import {
   NumberList,
   Paragraph,
 } from '@strapi/icons';
-import { BlocksLayout } from './BlocksLayout';
+import { BlocksLayout } from '../styled/BlocksLayout';
 import { SingleSelect, SingleSelectOption } from '@strapi/design-system';
 import type { ToolkitProps } from '../../types/block.types';
 
 export function BlocksToolkit() {
-  const { Header, ToolkitSeparator, ToolkitIcon, ToolkitIconGroup } = BlocksLayout;
-
   return (
-    <Header>
+    <BlocksLayout.Header.Container>
       <SingleSelect disabled value="text" startIcon={<Paragraph />}>
         <SingleSelectOption value="text">Text</SingleSelectOption>
       </SingleSelect>
 
-      <ToolkitSeparator />
+      <BlocksLayout.Header.ToolkitSeparator />
 
-      <ToolkitIconGroup>
+      <BlocksLayout.Header.ToolkitIconGroup>
         {modifiers.map((modifier, idx) => (
-          <ToolkitIcon disabled label={modifier.label} key={idx}>
+          <BlocksLayout.Header.ToolkitIcon disabled label={modifier.label} key={idx}>
             {modifier.icon}
-          </ToolkitIcon>
+          </BlocksLayout.Header.ToolkitIcon>
         ))}
-      </ToolkitIconGroup>
+      </BlocksLayout.Header.ToolkitIconGroup>
 
-      <ToolkitSeparator />
+      <BlocksLayout.Header.ToolkitSeparator />
 
-      <ToolkitIconGroup>
+      <BlocksLayout.Header.ToolkitIconGroup>
         {lists.map((list, idx) => (
-          <ToolkitIcon disabled label={list.label} key={idx}>
+          <BlocksLayout.Header.ToolkitIcon disabled label={list.label} key={idx}>
             {list.icon}
-          </ToolkitIcon>
+          </BlocksLayout.Header.ToolkitIcon>
         ))}
-      </ToolkitIconGroup>
-    </Header>
+      </BlocksLayout.Header.ToolkitIconGroup>
+    </BlocksLayout.Header.Container>
   );
 }
 

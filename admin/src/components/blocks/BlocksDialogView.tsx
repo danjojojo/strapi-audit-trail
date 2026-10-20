@@ -1,4 +1,4 @@
-import { BlocksLayout } from './BlocksLayout';
+import { BlocksLayout } from '../styled/BlocksLayout';
 import { Dialog } from '@strapi/design-system';
 import { BlocksToolkit } from './BlocksToolkit';
 import { Expand, Collapse } from '@strapi/icons';
@@ -6,36 +6,28 @@ import { BlocksRenderer } from './BlocksRenderer';
 import type { BlocksRendererProps } from '../../types/block.types';
 
 export function BlocksDialogView({ value }: BlocksRendererProps) {
-  const {
-    Footer,
-    ToggleViewIcon,
-    DialogViewContent,
-    DialogViewWrapper,
-    DialogViewBlocksRendererWrapper,
-  } = BlocksLayout;
-
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <ToggleViewIcon label="Expand">
+        <BlocksLayout.ToggleViewIcon label="Expand">
           <Expand />
-        </ToggleViewIcon>
+        </BlocksLayout.ToggleViewIcon>
       </Dialog.Trigger>
-      <DialogViewContent>
+      <BlocksLayout.Dialog.Container>
         <BlocksToolkit />
-        <DialogViewWrapper>
-          <DialogViewBlocksRendererWrapper>
+        <BlocksLayout.Dialog.Scrollable>
+          <BlocksLayout.Dialog.BlocksRendererWrapper>
             <BlocksRenderer value={value} />
-          </DialogViewBlocksRendererWrapper>
-        </DialogViewWrapper>
-        <Footer>
+          </BlocksLayout.Dialog.BlocksRendererWrapper>
+        </BlocksLayout.Dialog.Scrollable>
+        <BlocksLayout.Footer>
           <Dialog.Cancel>
-            <ToggleViewIcon label="Collapse">
+            <BlocksLayout.ToggleViewIcon label="Collapse">
               <Collapse />
-            </ToggleViewIcon>
+            </BlocksLayout.ToggleViewIcon>
           </Dialog.Cancel>
-        </Footer>
-      </DialogViewContent>
+        </BlocksLayout.Footer>
+      </BlocksLayout.Dialog.Container>
     </Dialog.Root>
   );
 }
