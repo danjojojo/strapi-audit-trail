@@ -14,8 +14,8 @@ export function RepeatableComponent({
         return containers?.map((container) => (
           <Accordion.Item value={`${idx}`} key={idx}>
             <Accordion.Header>
-              <Accordion.Trigger description={renderTitle(v)}>
-                {renderTitle(v) ?? null}
+              <Accordion.Trigger description={renderTitle(v, container)}>
+                {renderTitle(v, container) ?? null}
               </Accordion.Trigger>
             </Accordion.Header>
             <Accordion.Content>

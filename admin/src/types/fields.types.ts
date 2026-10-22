@@ -77,7 +77,7 @@ export interface SingleComponentProps {
 export interface RepeatableComponentProps {
   containers: GetContainersResult[] | null;
   value: any[];
-  renderTitle: (value: any) => string | null;
+  renderTitle: (value: any, container: GetContainersResult) => string | null;
   renderFields: (
     fields: GetContainersResult['fields'][number][number],
     value: any

@@ -25,17 +25,22 @@ export function Component({ label, value, schema, settings }: ComponentProps) {
         <RepeatableComponent
           value={value}
           containers={containers}
-          renderTitle={(value) => value?.[settings?.mainField!]}
-          renderFields={(field, value) => (
-            <RenderField
-              label={field.label}
-              type={field.schema.type}
-              value={value?.[field.id]}
-              metadata={field.metadata}
-              schema={field.schema}
-              settings={settings}
-            />
-          )}
+          renderTitle={(value, container) =>
+            value?.[settings?.mainField!] ?? value?.[container.fields[0][0].settings?.mainField!]
+          }
+          renderFields={(field, value) => {
+            const settings = componentsLayout?.[field?.schema?.component!]?.settings ?? null;
+            return (
+              <RenderField
+                label={field.label}
+                type={field.schema.type}
+                value={value?.[field.id]}
+                metadata={field.metadata}
+                schema={field.schema}
+                settings={settings}
+              />
+            );
+          }}
         />
       </Field>
     );
