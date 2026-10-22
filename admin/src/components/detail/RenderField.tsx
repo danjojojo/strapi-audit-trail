@@ -1,4 +1,5 @@
 import { Date } from '../fields/Date';
+import { Json } from '../fields/Json';
 import { Media } from '../fields/Media';
 import { Blocks } from '../fields/Blocks';
 import { String } from '../fields/String';
@@ -21,6 +22,8 @@ export function RenderField({ label, type, value, schema, metadata, settings }: 
     case 'biginteger':
     case 'decimal':
       return <Integer label={label} value={value} />;
+    case 'json':
+      return <Json label={label} value={value} />;
     case 'blocks':
       return <Blocks label={label} value={value} />;
     case 'boolean':
