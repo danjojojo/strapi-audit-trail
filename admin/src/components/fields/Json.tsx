@@ -2,9 +2,9 @@ import { Field } from '../ui/Field';
 import { JSONInput } from '@strapi/design-system';
 import type { InputFieldProps } from '../../types/fields.types';
 
-export function Json({ label, value }: InputFieldProps) {
+export function Json({ label, value, schema }: InputFieldProps) {
   return (
-    <Field label={label}>
+    <Field label={label} required={schema.required}>
       <JSONInput
         aria-label={label}
         value={JSON.stringify(value, null, 3)}

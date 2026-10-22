@@ -8,12 +8,14 @@ export interface FieldProps {
   paddingBottom?: string;
   type?: string;
   value?: any;
+  required?: boolean;
 }
 
 /** BOOLEAN FIELD */
 export interface BooleanProps {
   label: string;
   value: string;
+  schema: SchemaContent;
 }
 
 /** RELATION FIELD */
@@ -21,6 +23,7 @@ export interface RelationProps {
   label: string;
   value: any;
   metadata: MetadataContent;
+  schema: SchemaContent;
 }
 
 export interface RelationButton {
@@ -36,12 +39,14 @@ export interface ScrollableRelationButtons {
 export interface MediaProps {
   label: string;
   value: any;
+  schema: SchemaContent;
 }
 
 /** INPUT FIELD */
 export interface InputFieldProps {
   label: string;
   value: any;
+  schema: SchemaContent;
 }
 
 /** DOCUMENT VIEW FIELD */
