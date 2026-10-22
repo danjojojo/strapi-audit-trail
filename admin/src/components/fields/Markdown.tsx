@@ -2,9 +2,9 @@ import { Field } from '../ui/Field';
 import { MarkdownDetailView } from '../markdown/MarkdownDetailView';
 import type { InputFieldProps } from '../../types/fields.types';
 
-export function Markdown({ label, value }: InputFieldProps) {
+export function Markdown({ label, value, schema }: InputFieldProps) {
   return (
-    <Field label={label}>
+    <Field label={label} required={schema.required}>
       <MarkdownDetailView value={value} />
     </Field>
   );

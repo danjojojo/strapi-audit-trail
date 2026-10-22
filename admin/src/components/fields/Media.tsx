@@ -2,7 +2,7 @@ import { useCarouselInput } from '../../hooks/useCarouselInput';
 import { CarouselInput, CarouselSlide, CarouselImage, Typography } from '@strapi/design-system';
 import type { MediaProps } from '../../types/fields.types';
 
-export function Media({ label, value }: MediaProps) {
+export function Media({ label, value, schema }: MediaProps) {
   const { selectedSlide, entries, current, onNext, onPrevious } = useCarouselInput(value);
 
   return (
@@ -15,6 +15,7 @@ export function Media({ label, value }: MediaProps) {
       onNext={onNext}
       onPrevious={onPrevious}
       style={{ width: '100%' }}
+      required={schema.required}
     >
       {entries.length > 0 ? (
         entries.map((entry, idx) => (

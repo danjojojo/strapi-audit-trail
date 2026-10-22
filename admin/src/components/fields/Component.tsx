@@ -21,7 +21,7 @@ export function Component({ label, value, schema, settings }: ComponentProps) {
 
   if (schema.repeatable) {
     return (
-      <Field label={`${label} (${value?.length})`} paddingBottom="8px">
+      <Field label={`${label} (${value?.length})`} paddingBottom="8px" required={schema.required}>
         <RepeatableComponent
           value={value}
           containers={containers}
@@ -47,7 +47,7 @@ export function Component({ label, value, schema, settings }: ComponentProps) {
   }
 
   return (
-    <Field label={label} paddingBottom="8px">
+    <Field label={label} paddingBottom="8px" required={schema.required}>
       <SingleComponent
         containers={containers}
         renderFields={(field) => (

@@ -24,6 +24,7 @@ export interface FieldLayout {
 
 export type SchemaContent = {
   type: string;
+  required?: boolean;
   relation?: string;
   component?: string;
   repeatable?: boolean;

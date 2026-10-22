@@ -7,25 +7,25 @@ import { Field } from '../ui/Field';
 import { getDate, getTime } from '../../helpers/audit-logs-formatters';
 import type { InputFieldProps } from '../../types/fields.types';
 
-export const DateTimePicker = ({ label, value }: InputFieldProps) => {
+export const DateTimePicker = ({ label, value, schema }: InputFieldProps) => {
   return (
-    <Field label={label}>
+    <Field label={label} required={schema.required}>
       <SDateTimePicker initialDate={getDate(value)} disabled />
     </Field>
   );
 };
 
-export const DatePicker = ({ label, value }: InputFieldProps) => {
+export const DatePicker = ({ label, value, schema }: InputFieldProps) => {
   return (
-    <Field label={label}>
+    <Field label={label} required={schema.required}>
       <SDatePicker initialDate={getDate(value)} disabled />
     </Field>
   );
 };
 
-export const TimePicker = ({ label, value }: InputFieldProps) => {
+export const TimePicker = ({ label, value, schema }: InputFieldProps) => {
   return (
-    <Field label={label}>
+    <Field label={label} required={schema.required}>
       <STimePicker value={getTime(value)} disabled />
     </Field>
   );

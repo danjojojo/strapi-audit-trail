@@ -8,11 +8,14 @@ import type {
   ScrollableRelationButtons,
 } from '../../types/fields.types';
 
-export function Relation({ label, value, metadata }: RelationProps) {
+export function Relation({ label, value, metadata, schema }: RelationProps) {
   const relations = normalizeRelations(value);
 
   return (
-    <Field label={`${label}${relations.length > 1 ? ` (${relations.length})` : ''}`}>
+    <Field
+      label={`${label}${relations.length > 1 ? ` (${relations.length})` : ''}`}
+      required={schema.required}
+    >
       <ScrollableRelationButtons itemsLength={value?.length}>
         {relations.length > 0 ? (
           relations.map((v, idx) => (
