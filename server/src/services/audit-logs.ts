@@ -56,16 +56,17 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
   },
 
   async isValidAuditLogId({ filter }: GetAuditLog) {
-    const foundInAuditLog = await strapi.documents('plugin::audit-trail.audit-log').findOne({
-      documentId: filter.relatedDocumentId,
+    const foundInAuditLog = await strapi.documents('plugin::audit-trail.audit-log').findMany({
+      filters: {
+        relatedDocumentId: {
+          $eq: filter.relatedDocumentId,
+        },
+      },
     });
 
     const foundInContentType = await strapi.documents(filter.collectionUid).findOne({
       documentId: filter.relatedDocumentId,
     });
-
-    console.log({ foundInAuditLog });
-    console.log({ foundInContentType });
 
     return foundInAuditLog || foundInContentType;
   },
