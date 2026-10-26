@@ -72,7 +72,7 @@ export function useAuditLogins() {
   useEffect(() => {
     const query = getQuery();
 
-    if (collectionKind === 'others' && collectionUid === 'admin::login.login') {
+    if (collectionKind === 'others' && collectionUid === 'cms-logins') {
       fetchAuditLogins({ query });
     }
   }, [collectionKind, collectionUid, searchParams]);

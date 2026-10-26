@@ -1,6 +1,5 @@
 import type { AdminUser } from '@strapi/strapi/admin';
-
-export type TextCase = 'retain' | 'upper' | 'lower' | 'sentence' | 'capitalize';
+import type { TextCase } from '../types/utils.types';
 
 export function spaceCamelCase(text: string, textCase: TextCase = 'retain'): string {
   const spaced = text.replace(/([a-z])([A-Z])/g, '$1 $2');
