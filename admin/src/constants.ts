@@ -1,3 +1,5 @@
+import type { BadgeColors } from "./types/ui.types";
+
 // Default selected
 export const RECENTS = {
   uid: 'recents',
@@ -8,7 +10,7 @@ export const RECENTS = {
 // Other collections
 export const OTHERS = [
   {
-    uid: 'admin::session',
+    uid: 'admin::login.login',
     name: 'CMS Logins',
     kind: 'others' as const,
   },
@@ -26,8 +28,8 @@ export const EMPTY_STATE = {
 // Hidden columns in the table
 export const HIDDEN_COLUMNS = ['id', 'documentId'];
 
-// Badge colors per action (see https://design-system.strapi.io/?path=/docs/foundations-color--docs)
-export const ACTION_COLORS = {
+// Badge colors (see https://design-system.strapi.io/?path=/docs/foundations-color--docs)
+export const ACTION_COLORS: BadgeColors = {
   create: {
     backgroundColor: 'primary100',
     textColor: 'primary500',
@@ -79,5 +81,21 @@ export const ERROR = {
       'Experienced an error while fetching the audit logs for this content type. Please try again, and refresh this page.',
     ERROR_RECENTS:
       'Experienced an error while fetching the most recent audit logs. Please try again, and refresh this page.',
+  },
+  BASE: {
+    INVALID: 'This request is invalid. Please select an available content type from the sidebar.',
+    ERROR: 'Experienced an error while fetching data. Please try again, and refresh this page.',
+  },
+};
+
+// Audit Logins: Badge colors per result (see https://design-system.strapi.io/?path=/docs/foundations-color--docs)
+export const LOGIN_RESULT_COLORS: BadgeColors = {
+  success: {
+    backgroundColor: 'success100',
+    textColor: 'success500',
+  },
+  failed: {
+    backgroundColor: 'danger100',
+    textColor: 'danger500',
   },
 };

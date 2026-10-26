@@ -10,10 +10,10 @@ import { useCollectionContext } from '../providers/collection.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const ContentTypePage = () => {
-  const { auditLogs, auditLogsLoading, auditLogsError, auditLogsMeta } = useAuditLogs();
   const { isInvalidCollection, isCollectionLoading } = useCollectionContext();
+  const { auditLogs, auditLogsLoading, auditLogsError, auditLogsMeta } = useAuditLogs();
 
-  if (isInvalidCollection) {
+  if (!auditLogsLoading && !isCollectionLoading && isInvalidCollection) {
     return <ErrorPage content={ERROR.CONTENT_TYPE.INVALID} />;
   }
 

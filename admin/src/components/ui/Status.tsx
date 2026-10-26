@@ -1,8 +1,8 @@
-import { ACTION_COLORS } from '../../constants';
 import { Box, Typography } from '@strapi/design-system';
 import { spaceCamelCase } from '../../helpers/audit-logs-formatters';
+import type { StatusProps } from '../../types/ui.types';
 
-export function Status({ value }: { value: keyof typeof ACTION_COLORS }) {
+export function Status({ value, colors }: StatusProps) {
   return (
     <Box
       hasRadius
@@ -11,8 +11,8 @@ export function Status({ value }: { value: keyof typeof ACTION_COLORS }) {
       paddingLeft="8px"
       paddingRight="8px"
       borderColor="neutral300"
-      background={ACTION_COLORS?.[value]?.backgroundColor}
-      color={ACTION_COLORS?.[value]?.textColor}
+      background={colors?.[value]?.backgroundColor}
+      color={colors?.[value]?.textColor}
       textAlign="center"
       width="fit-content"
     >

@@ -1,4 +1,5 @@
 import auditLogs from './audit-logs';
+import auditLogins from './audit-logins';
 
 export default () => ({
   type: 'admin',
@@ -12,5 +13,6 @@ export default () => ({
       },
     },
     ...auditLogs.routes,
+    ...auditLogins.routes,
   ],
 });

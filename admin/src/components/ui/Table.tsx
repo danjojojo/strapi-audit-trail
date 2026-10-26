@@ -10,6 +10,7 @@ import {
 } from '@strapi/design-system';
 import { Status } from './Status';
 import { Pagination } from './Pagination';
+import { ACTION_COLORS } from '../../constants';
 import { useRouting } from '../../hooks/useRouting';
 import { appendToPluginPath } from '../../utils/routing';
 import { spaceCamelCase, getClientDatetime } from '../../helpers/audit-logs-formatters';
@@ -84,7 +85,7 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
                   const badgeValue = row?.[column];
                   return (
                     <Td key={columnIdx} paddingTop="16px" paddingBottom="16px">
-                      <Status value={badgeValue} />
+                      <Status value={badgeValue} colors={columns.badge.colors ?? ACTION_COLORS} />
                     </Td>
                   );
                 }

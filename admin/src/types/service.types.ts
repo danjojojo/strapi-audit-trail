@@ -46,6 +46,19 @@ export interface AuditLogData {
   componentsNames: string;
 }
 
+export interface AuditLoginsData {
+  id: number;
+  documentId: string;
+  emailAddress: string;
+  loginResult: string;
+  requestTime: string;
+  userDetails: string;
+  userClient: string;
+  ipAddress: string;
+  loginErrorReason: string;
+  createdAt: string;
+}
+
 // METHODS
 export interface GetAuditLogs {
   collectionUid?: string;
@@ -66,6 +79,15 @@ export interface GetAuditLog {
   };
 }
 
+export interface GetAuditLogins {
+  query?: {
+    _q?: string;
+    sort?: string;
+    page?: number;
+    pageSize?: number;
+  };
+}
+
 // RESPONSES
 export type ResponseStatus = 'invalid' | 'network-error' | 'none';
 
@@ -79,4 +101,9 @@ export interface GetAuditLogsResponse {
 export interface GetAuditLogResponse {
   auditLog: AuditLogData;
   relatedLogs: AuditLogsData[];
+}
+
+export interface GetAuditLoginsResponse {
+  data: AuditLoginsData[];
+  meta: Pagination;
 }
