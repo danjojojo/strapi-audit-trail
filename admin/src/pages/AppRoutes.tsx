@@ -21,7 +21,7 @@ export function AppRoutes() {
       <Route path="single-types/:collectionUid?" element={<ContentTypePage />} />
 
       {/* OTHER PAGES */}
-      <Route path="others/admin::session" element={<LoginSessionsPage />} />
+      <Route path="others/admin::login.login" element={<LoginSessionsPage />} />
 
       {/* DETAIL PAGES */}
       <Route path="single-types/:collectionUid/:documentId?" element={<DetailPage />} />

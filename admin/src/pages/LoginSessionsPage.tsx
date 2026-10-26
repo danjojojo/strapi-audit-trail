@@ -1,25 +1,47 @@
+import { ErrorPage } from './ErrorPage';
 import { Table } from '../components/ui/Table';
 import { Loader } from '../components/ui/Loader';
-import { useAuditLogs } from '../hooks/useAuditLogs';
+import { ErrorState } from '../components/ui/ErrorState';
 import { EmptyState } from '../components/ui/EmptyState';
+import { useAuditLogins } from '../hooks/useAuditLogins';
+import { ERROR, LOGIN_RESULT_COLORS } from '../constants';
 import { HomepageHeader } from '../components/home/Header';
 import { useCollectionContext } from '../providers/collection.provider';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const LoginSessionsPage = () => {
-  const { isCollectionLoading } = useCollectionContext();
-  const { auditLogs, auditLogsLoading } = useAuditLogs();
+  const { isCollectionLoading, isInvalidCollection } = useCollectionContext();
+  const { auditLogins, auditLoginsError, auditLoginsLoading, auditLoginsMeta } = useAuditLogins();
+
+  if (!auditLoginsLoading && !isCollectionLoading && isInvalidCollection) {
+    return <ErrorPage content={ERROR.BASE.INVALID} />;
+  }
 
   return (
     <LandingContentLayout>
       <HomepageHeader />
-      {auditLogsLoading || isCollectionLoading ? (
+      {auditLoginsLoading || isCollectionLoading ? (
         <Loader />
-      ) : !auditLogsLoading && auditLogs.length > 0 ? (
+      ) : auditLoginsError === 'invalid' ? (
+        <ErrorState content={ERROR.BASE.ERROR} />
+      ) : auditLoginsError === 'network-error' ? (
+        <ErrorState content={ERROR.BASE.ERROR} />
+      ) : !auditLoginsLoading && auditLogins.length > 0 ? (
         <Table
-          data={auditLogs}
+          data={auditLogins}
           columns={{
-            show: ['action', 'relatedDocumentId', 'actionFrom', 'createdAt'],
+            show: ['emailAddress', 'loginResult', 'requestTime', 'userClient'],
+            datetime: ['requestTime'],
+            override: {
+              loginResult: 'Result',
+            },
+            badge: {
+              column: 'loginResult',
+              colors: LOGIN_RESULT_COLORS,
+            },
+          }}
+          pagination={{
+            pageCount: auditLoginsMeta?.pageCount ?? 1,
           }}
         />
       ) : (

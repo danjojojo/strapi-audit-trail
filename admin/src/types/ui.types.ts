@@ -1,3 +1,5 @@
+import { DefaultTheme } from 'styled-components';
+
 export interface SearchInputProps {
   value: string;
   wipeAction: () => void;
@@ -29,10 +31,12 @@ export interface EmptyStateProps {
   action?: React.ReactNode;
 }
 
-export interface BadgeColor {
-  backgroundColor: string;
-  textColor: string;
+export interface Colors {
+  backgroundColor: keyof DefaultTheme['colors'];
+  textColor: keyof DefaultTheme['colors'];
 }
+
+export type BadgeColors = Record<string, Colors>;
 
 export interface TableProps<
   T extends Record<string, any>,
@@ -49,7 +53,7 @@ export interface TableProps<
       /** Set the column which will serve as the badge */
       column: NoInfer<S>;
       /** Pass an object of badge column value and BadgeColor */
-      colors?: Record<string, BadgeColor>;
+      colors?: BadgeColors;
     };
     datetime?: S[];
   };
@@ -61,4 +65,9 @@ export interface TableProps<
   pagination?: {
     pageCount: number;
   };
+}
+
+export interface StatusProps {
+  value: string;
+  colors: BadgeColors;
 }

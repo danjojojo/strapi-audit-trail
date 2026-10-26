@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "audit_logins",
+  "info": {
+    "singularName": "audit-login",
+    "pluralName": "audit-logins",
+    "displayName": "Audit Logins"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "emailAddress": {
+      "type": "string"
+    },
+    "loginResult": {
+      "type": "string"
+    },
+    "requestTime": {
+      "type": "datetime"
+    },
+    "userDetails": {
+      "type": "text"
+    },
+    "userClient": {
+      "type": "string"
+    },
+    "ipAddress": {
+      "type": "string"
+    },
+    "loginErrorReason": {
+      "type": "string"
+    },
+    "retentionUntil": {
+      "type": "datetime"
+    }
+  }
+}

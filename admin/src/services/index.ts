@@ -6,6 +6,8 @@ import type {
   GetAuditLogs,
   GetAuditLogResponse,
   GetAuditLog,
+  GetAuditLoginsResponse,
+  GetAuditLogins,
 } from '../types/service.types';
 
 export function services() {
@@ -59,6 +61,20 @@ export function services() {
         }
 
         return res.data as GetAuditLogResponse;
+      } catch (error) {
+        console.error(error);
+        return 400;
+      }
+    },
+
+    async getAuditLogins({ query }: GetAuditLogins): Promise<GetAuditLoginsResponse | number> {
+      try {
+        const res = await get(`/${PLUGIN_ID}/audit-logins`, { params: query });
+
+        if (res.status && res.status >= 400) {
+          return res.status;
+        }
+        return res.data as GetAuditLoginsResponse;
       } catch (error) {
         console.error(error);
         return 400;
