@@ -65,6 +65,7 @@ export interface TableProps<
   pagination?: {
     pageCount: number;
   };
+  rowDialog?: (data: T, onClose: () => void) => React.JSX.Element;
 }
 
 export interface StatusProps {

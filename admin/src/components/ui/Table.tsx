@@ -11,8 +11,7 @@ import {
 import { Status } from './Status';
 import { Pagination } from './Pagination';
 import { ACTION_COLORS } from '../../constants';
-import { useRouting } from '../../hooks/useRouting';
-import { appendToPluginPath } from '../../utils/routing';
+import { useTable } from '../../hooks/useTable';
 import { spaceCamelCase, getClientDatetime } from '../../helpers/audit-logs-formatters';
 import type { TableProps } from '../../types/ui.types';
 
@@ -23,31 +22,13 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
   data,
   columns,
   rowLink,
+  rowDialog,
   pagination,
 }: TableProps<T, S>) {
-  const { overrideNavigate } = useRouting();
-
-  const getRowLink = (row: T) => {
-    if (!rowLink) return null;
-    if (!rowLink.path || rowLink.path.length === 0) return null;
-
-    let url: string = '';
-    for (const path of rowLink.path) {
-      url += `/${row?.[path]}`;
-    }
-
-    if (!rowLink.params || rowLink.params.length === 0) return url;
-
-    const params = rowLink.params;
-    for (let i = 0; i <= params.length - 1; i++) {
-      if (i === 0) {
-        url += `?${params[i]}=${row?.[params[i]]}`;
-      } else {
-        url += `&${params[i]}=${row?.[params[i]]}`;
-      }
-    }
-    return url;
-  };
+  const { dialogRow, isInteractive, closeDialogRow, interactRow } = useTable<T, S>({
+    rowLink,
+    rowDialog,
+  });
 
   return (
     <Box width="100%" height="100%">
@@ -70,13 +51,15 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
             <Tr
               key={rowIdx}
               height="70px"
-              cursor={rowLink ? 'pointer' : undefined}
-              onClick={() => {
-                const link = getRowLink(row);
-                if (link) {
-                  overrideNavigate(appendToPluginPath(link));
-                } else {
-                  return;
+              cursor={isInteractive ? 'pointer' : undefined}
+              tabIndex={isInteractive ? 0 : undefined}
+              _focusVisible={{ outline: '2px solid', outlineColor: 'primary600' }}
+              onClick={() => interactRow(row)}
+              onKeyDown={(e: React.KeyboardEvent) => {
+                if (!isInteractive) return;
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  interactRow(row);
                 }
               }}
             >
@@ -116,6 +99,8 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
       </StrapiTable>
 
       {pagination && pagination?.pageCount > 0 && <Pagination pageCount={pagination.pageCount} />}
+
+      {rowDialog && dialogRow && rowDialog(dialogRow, closeDialogRow)}
     </Box>
   );
 }

@@ -7,6 +7,7 @@ import { useAuditLogins } from '../hooks/useAuditLogins';
 import { ERROR, LOGIN_RESULT_COLORS } from '../constants';
 import { HomepageHeader } from '../components/home/Header';
 import { useCollectionContext } from '../providers/collection.provider';
+import { AuditLoginDialog } from '../components/audit-logins/AuditLoginDialog';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const LoginSessionsPage = () => {
@@ -40,6 +41,7 @@ export const LoginSessionsPage = () => {
               colors: LOGIN_RESULT_COLORS,
             },
           }}
+          rowDialog={(rowData, onClose) => <AuditLoginDialog data={rowData} onClose={onClose} />}
           pagination={{
             pageCount: auditLoginsMeta?.pageCount ?? 1,
           }}

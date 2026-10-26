@@ -21,12 +21,11 @@ export function AppRoutes() {
       <Route path="single-types/:collectionUid?" element={<ContentTypePage />} />
 
       {/* OTHER PAGES */}
-      <Route path="others/admin::login.login" element={<LoginSessionsPage />} />
+      <Route path="others/cms-logins" element={<LoginSessionsPage />} />
 
       {/* DETAIL PAGES */}
       <Route path="single-types/:collectionUid/:documentId?" element={<DetailPage />} />
       <Route path="collection-types/:collectionUid/:documentId?" element={<DetailPage />} />
-      <Route path="others/:collectionUid/:documentId?" element={<DetailPage />} />
 
       {/* ERROR PAGE */}
       <Route path="*" element={<ErrorPage />} />

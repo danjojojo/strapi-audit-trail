@@ -1,4 +1,4 @@
-import type { BadgeColors } from "./types/ui.types";
+import type { BadgeColors } from './types/ui.types';
 
 // Default selected
 export const RECENTS = {
@@ -10,7 +10,7 @@ export const RECENTS = {
 // Other collections
 export const OTHERS = [
   {
-    uid: 'admin::login.login',
+    uid: 'cms-logins',
     name: 'CMS Logins',
     kind: 'others' as const,
   },
