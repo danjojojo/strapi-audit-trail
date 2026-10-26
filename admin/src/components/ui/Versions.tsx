@@ -1,8 +1,9 @@
 import { Status } from './Status';
 import { styled } from 'styled-components';
+import { ACTION_COLORS } from '../../constants';
 import { Flex, Button, Typography, Badge, ScrollArea } from '@strapi/design-system';
 import { getClientDatetime, getActionFrom } from '../../helpers/audit-logs-formatters';
-import type { Version, VersionButtonProps } from '../../types/versions.types';
+import type { VersionButtonProps } from '../../types/versions.types';
 
 const Sidebar = styled(Flex)`
   border-left: 1px solid ${({ theme }) => theme.colors.neutral150};
@@ -81,11 +82,11 @@ const VersionButton = (props: VersionButtonProps) => {
           {isCurrent && (
             <Typography variant="pi" textColor="primary600" fontWeight={400}>
               {' '}
-              {'(current)'}
+              {'(latest)'}
             </Typography>
           )}
         </Typography>
-        <Status value={version.action} />
+        <Status value={version.action} colors={ACTION_COLORS} />
       </Flex>
     </SidebarButton>
   );
