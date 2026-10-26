@@ -1,7 +1,7 @@
-import { Flex } from '@strapi/design-system';
 import { RECENTS } from '../../../constants';
 import { SidebarListItem } from '../../ui/SidebarListItem';
 import { SidebarListTitle } from '../../ui/SidebarListTitle';
+import { Flex, Box, Typography } from '@strapi/design-system';
 import { useCollectionContext } from '../../../providers/collection.provider';
 import { appendToPluginPath, appendCollectionPath } from '../../../utils/routing';
 
@@ -61,6 +61,12 @@ export function SidebarContent() {
           );
         })}
       </Flex>
+
+      <Box paddingTop="16px" paddingLeft="12px" paddingRight="12px" marginTop="auto">
+        <Typography variant="pi" textColor="neutral600">
+          All logs are kept for 30 days, then removed from view.
+        </Typography>
+      </Box>
     </Flex>
   );
 }
