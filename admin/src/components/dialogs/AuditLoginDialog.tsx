@@ -6,14 +6,9 @@ import { safeParse, spaceSnakeCase } from '../../utils/string';
 import { getClientDatetime } from '../../helpers/audit-logs-formatters';
 import { Box, Dialog, Typography, Flex, IconButton, Grid } from '@strapi/design-system';
 import type { AuditLoginsData } from '../../types/service.types';
+import type { BaseDialogProps, DialogGridItemProps } from '../../types/dialog.types';
 
-export function AuditLoginDialog({
-  data,
-  onClose,
-}: {
-  data: AuditLoginsData;
-  onClose: () => void;
-}) {
+export function AuditLoginDialog({ data, onClose }: BaseDialogProps<AuditLoginsData>) {
   const { overrideNavigate } = useRouting();
   const userDetails = safeParse(data.userDetails);
 
@@ -33,18 +28,18 @@ export function AuditLoginDialog({
         <Box padding="24px" width="100%">
           <Grid.Root gap="24px">
             {data.loginResult === 'failed' && (
-              <GridItem label="Login error reason">
+              <DialogGridItem label="Login error reason">
                 <Typography variant="omega">
                   {spaceSnakeCase(data.loginErrorReason, 'sentence')}
                 </Typography>
-              </GridItem>
+              </DialogGridItem>
             )}
 
-            <GridItem label="Login request time">
+            <DialogGridItem label="Login request time">
               <Typography variant="omega">{getClientDatetime(data.requestTime)}</Typography>
-            </GridItem>
+            </DialogGridItem>
 
-            <GridItem label="User Details">
+            <DialogGridItem label="User Details">
               {userDetails?.id ? (
                 <StyledLinkButton
                   href={`/admin/settings/users/${userDetails.id}`}
@@ -60,15 +55,15 @@ export function AuditLoginDialog({
               ) : (
                 <Typography variant="omega">{data.userDetails}</Typography>
               )}
-            </GridItem>
+            </DialogGridItem>
 
-            <GridItem label="IP Address">
+            <DialogGridItem label="IP Address">
               <Typography variant="omega">{data.ipAddress}</Typography>
-            </GridItem>
+            </DialogGridItem>
 
-            <GridItem label="User Client">
+            <DialogGridItem label="User Client">
               <Typography variant="omega">{data.userClient}</Typography>
-            </GridItem>
+            </DialogGridItem>
           </Grid.Root>
         </Box>
       </StyledDialog.Content>
@@ -76,7 +71,7 @@ export function AuditLoginDialog({
   );
 }
 
-function GridItem({ label, children }: { label: string; children: React.ReactNode }) {
+function DialogGridItem({ label, children }: DialogGridItemProps) {
   return (
     <Grid.Item col={6} s={12}>
       <Flex width="100%" alignItems="start" direction="column" gap="4px">
