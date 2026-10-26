@@ -53,7 +53,6 @@ export function useAuditLogins() {
       }
 
       if (res?.data) {
-        console.log('data: ', res.data);
         setAuditLogins(res.data);
       }
 
