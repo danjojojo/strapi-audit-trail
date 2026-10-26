@@ -7,7 +7,7 @@ import { useAuditLogins } from '../hooks/useAuditLogins';
 import { ERROR, LOGIN_RESULT_COLORS } from '../constants';
 import { HomepageHeader } from '../components/home/Header';
 import { useCollectionContext } from '../providers/collection.provider';
-import { AuditLoginDialog } from '../components/audit-logins/AuditLoginDialog';
+import { AuditLoginDialog } from '../components/dialogs/AuditLoginDialog';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
 export const LoginSessionsPage = () => {

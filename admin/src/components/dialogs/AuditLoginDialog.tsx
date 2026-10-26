@@ -4,7 +4,7 @@ import { StyledDialog } from '../styled/StyledDialog';
 import { StyledLinkButton } from '../styled/StyledLinkButton';
 import { safeParse, spaceSnakeCase } from '../../utils/string';
 import { getClientDatetime } from '../../helpers/audit-logs-formatters';
-import { Box, Dialog, Typography, Flex, IconButton, Grid, LinkButton } from '@strapi/design-system';
+import { Box, Dialog, Typography, Flex, IconButton, Grid } from '@strapi/design-system';
 import type { AuditLoginsData } from '../../types/service.types';
 
 export function AuditLoginDialog({
