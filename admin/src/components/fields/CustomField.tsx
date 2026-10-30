@@ -4,8 +4,6 @@ import { useState, useEffect, ComponentType } from 'react';
 import { StyledCustomField } from '../styled/StyledCustomField';
 import type { InputFieldProps, CustomFieldInputProps } from '../../types/fields.types';
 
-const FIELD_NAME = 'value';
-
 export function CustomField({ label, value, schema }: InputFieldProps) {
   const [CustomFieldComponent, setCustomFieldComponent] = useState<
     ComponentType<CustomFieldInputProps> | undefined
@@ -28,9 +26,9 @@ export function CustomField({ label, value, schema }: InputFieldProps) {
   return (
     <StyledCustomField.ReadOnly>
       <StyledCustomField.ReadOnlyModal />
-      <Form method="PUT" disabled initialValues={{ value: value }} width="100%" height="auto">
+      <Form method="PUT" disabled initialValues={{ customField: value }} width="100%" height="auto">
         <CustomFieldComponent
-          name={FIELD_NAME}
+          name='customField'
           label={label}
           required={schema?.required}
           disabled
