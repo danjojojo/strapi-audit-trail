@@ -1,4 +1,5 @@
 import { Field } from '../ui/Field';
+import { EmptyComponent } from './base/CompEmpty';
 import { RenderField } from '../detail/RenderField';
 import { SingleComponent } from './base/CompSingle';
 import { RepeatableComponent } from './base/CompRepeatable';
@@ -18,6 +19,14 @@ export function Component({ label, value, schema, settings }: ComponentProps) {
     layout: JSON.stringify(componentsLayout?.[schema.component!]),
     schema: JSON.stringify(componentsSchema?.[schema.component!]),
   });
+
+  if (value?.length === 0) {
+    return (
+      <Field label={`${label} (${value?.length})`} paddingBottom="8px" required={schema.required}>
+        <EmptyComponent />
+      </Field>
+    );
+  }
 
   if (schema.repeatable) {
     return (
