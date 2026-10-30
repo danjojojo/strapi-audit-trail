@@ -1,7 +1,7 @@
 import { RECENTS } from '../../../constants';
 import { SidebarListItem } from '../../ui/SidebarListItem';
 import { SidebarListTitle } from '../../ui/SidebarListTitle';
-import { Flex, Box, Typography } from '@strapi/design-system';
+import { Flex, Box, Typography, ScrollArea } from '@strapi/design-system';
 import { useCollectionContext } from '../../../providers/collection.provider';
 import { appendToPluginPath, appendCollectionPath } from '../../../utils/routing';
 
@@ -10,63 +10,59 @@ export function SidebarContent() {
     useCollectionContext();
 
   return (
-    <Flex direction="column" paddingTop="16px" paddingBottom="16px" width="100%" height="100%">
-      <Flex width="100%" paddingBottom="8px" direction="column">
-        <SidebarListItem
-          key={RECENTS.uid}
-          label={RECENTS.name}
-          href={appendToPluginPath('')}
-          active={selectedCollection?.uid === RECENTS.uid}
-        />
-      </Flex>
+    <ScrollArea>
+      <Flex direction="column" paddingTop="16px" paddingBottom="16px" width="100%" height="100%">
+        <Flex width="100%" paddingBottom="8px" direction="column">
+          <SidebarListItem
+            key={RECENTS.uid}
+            label={RECENTS.name}
+            href={appendToPluginPath('')}
+            active={selectedCollection?.uid === RECENTS.uid}
+          />
+        </Flex>
 
-      <SidebarListTitle title="Collection Types" count={collectionTypes.length} />
-      <Flex gap="3px" width="100%" paddingTop="8px" paddingBottom="24px" direction="column">
-        {collectionTypes.map((collection, index) => {
-          return (
-            <SidebarListItem
-              key={index}
-              label={collection.name}
-              href={appendCollectionPath(collection)}
-              active={selectedCollection?.uid === collection.uid}
-            />
-          );
-        })}
-      </Flex>
+        <SidebarListTitle title="Collection Types" count={collectionTypes.length} />
+        <Flex gap="3px" width="100%" paddingTop="8px" paddingBottom="24px" direction="column">
+          {collectionTypes.map((collection, index) => {
+            return (
+              <SidebarListItem
+                key={index}
+                label={collection.name}
+                href={appendCollectionPath(collection)}
+                active={selectedCollection?.uid === collection.uid}
+              />
+            );
+          })}
+        </Flex>
 
-      <SidebarListTitle title="Single Types" count={singleTypes.length} />
-      <Flex gap="3px" width="100%" paddingTop="8px" paddingBottom="24px" direction="column">
-        {singleTypes.map((collection, index) => {
-          return (
-            <SidebarListItem
-              key={index}
-              label={collection.name}
-              href={appendCollectionPath(collection)}
-              active={selectedCollection?.uid === collection.uid}
-            />
-          );
-        })}
-      </Flex>
+        <SidebarListTitle title="Single Types" count={singleTypes.length} />
+        <Flex gap="3px" width="100%" paddingTop="8px" paddingBottom="24px" direction="column">
+          {singleTypes.map((collection, index) => {
+            return (
+              <SidebarListItem
+                key={index}
+                label={collection.name}
+                href={appendCollectionPath(collection)}
+                active={selectedCollection?.uid === collection.uid}
+              />
+            );
+          })}
+        </Flex>
 
-      <SidebarListTitle title="Others" count={otherCollections.length} />
-      <Flex gap="3px" width="100%" paddingTop="8px" paddingBottom="24px" direction="column">
-        {otherCollections.map((collection, index) => {
-          return (
-            <SidebarListItem
-              key={index}
-              label={collection.name}
-              href={appendCollectionPath(collection)}
-              active={selectedCollection?.uid === collection.uid}
-            />
-          );
-        })}
+        <SidebarListTitle title="Others" count={otherCollections.length} />
+        <Flex gap="3px" width="100%" paddingTop="8px" paddingBottom="24px" direction="column">
+          {otherCollections.map((collection, index) => {
+            return (
+              <SidebarListItem
+                key={index}
+                label={collection.name}
+                href={appendCollectionPath(collection)}
+                active={selectedCollection?.uid === collection.uid}
+              />
+            );
+          })}
+        </Flex>
       </Flex>
-
-      <Box paddingTop="16px" paddingLeft="12px" paddingRight="12px" marginTop="auto">
-        <Typography variant="pi" textColor="neutral600">
-          All logs are kept for 30 days, then removed from view.
-        </Typography>
-      </Box>
-    </Flex>
+    </ScrollArea>
   );
 }

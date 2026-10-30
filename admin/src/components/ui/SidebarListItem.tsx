@@ -1,4 +1,3 @@
-import { stripPath } from '../../utils/routing';
 import { useRouting } from '../../hooks/useRouting';
 import { Box, Typography, LinkButton } from '@strapi/design-system';
 import type { MouseEvent } from 'react';

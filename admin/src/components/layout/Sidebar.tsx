@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { Flex } from '@strapi/design-system';
+import { SidebarNote } from './sidebar/SidebarNote';
 import { SidebarHeader } from './sidebar/SidebarHeader';
 import { SidebarSearch } from './sidebar/SidebarSearch';
 import { SidebarContent } from './sidebar/SidebarContent';
@@ -19,6 +20,7 @@ export function Sidebar() {
       <SidebarHeader />
       <SidebarSearch />
       <SidebarContent />
+      <SidebarNote />
     </StyledSidebar>
   );
 }
