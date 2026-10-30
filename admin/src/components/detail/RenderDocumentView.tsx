@@ -47,6 +47,10 @@ export function RenderDocumentView({ data }: { data: GetAuditLogResponse['auditL
             const dynamiczoneLength = dynamiczoneData.length;
             const dynamiczoneTitle = `${dynamiczone?.label} (${dynamiczoneLength})`;
 
+            if (dynamiczoneLength === 0) {
+              return null;
+            }
+
             return (
               <Container.Dynamiczone key={idx}>
                 <Pill value={dynamiczoneTitle} />

@@ -18,7 +18,7 @@ function DefaultContainer({ container, renderFields }: DefaultContainerProps) {
       {container?.fields.map((field, idx) => (
         <FieldLayout.Row key={idx}>
           {field.map((f) => (
-            <FieldLayout.RowItem key={f.id} $size={f.schema.type === 'boolean' ? 3 : f.size}>
+            <FieldLayout.RowItem key={f.id} $size={f.size}>
               {renderFields(f)}
             </FieldLayout.RowItem>
           ))}
