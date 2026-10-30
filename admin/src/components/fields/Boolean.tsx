@@ -1,5 +1,5 @@
-import { Toggle } from '@strapi/design-system';
 import { Field } from '../ui/Field';
+import { Toggle } from '@strapi/design-system';
 import type { BooleanProps } from '../../types/fields.types';
 
 export function Boolean({ label, value, schema }: BooleanProps) {

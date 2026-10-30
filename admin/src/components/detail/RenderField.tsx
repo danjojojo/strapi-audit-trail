@@ -10,8 +10,14 @@ import { Textarea } from '../fields/Textarea';
 import { Markdown } from '../fields/Markdown';
 import { Component } from '../fields/Component';
 import type { RenderFieldProps } from '../../types/fields.types';
+import { CustomField } from '../fields/CustomField';
 
 export function RenderField({ label, type, value, schema, metadata, settings }: RenderFieldProps) {
+  
+  if (schema?.customField) {
+    return <CustomField label={label} value={value} schema={schema} />;
+  }
+
   switch (type) {
     case 'string':
     case 'uid':
