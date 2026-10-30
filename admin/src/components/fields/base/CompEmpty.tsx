@@ -9,6 +9,7 @@ export function EmptyComponent() {
       padding="24px"
       gap="20px"
       borderColor="neutral150"
+      background="neutral100"
       alignItems="center"
       justifyContent="center"
     >
