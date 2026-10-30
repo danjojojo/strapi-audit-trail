@@ -99,3 +99,16 @@ export interface DynamiczoneComponentProps {
     value: any
   ) => React.JSX.Element;
 }
+
+export interface CustomInputFieldProps extends InputFieldProps {
+  customField: string;
+}
+
+export interface CustomFieldInputProps {
+  name: string;
+  value: unknown;
+  disabled?: boolean;
+  attribute?: { type: string; customField: string };
+  onChange?: (event: { target: { name: string; value: unknown; type: string } }) => void;
+  [key: string]: unknown;
+}

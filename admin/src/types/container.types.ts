@@ -29,6 +29,7 @@ export type SchemaContent = {
   component?: string;
   repeatable?: boolean;
   multiple?: boolean;
+  customField?: string;
 };
 
 export type SettingsContent = {
