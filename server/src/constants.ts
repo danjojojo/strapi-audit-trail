@@ -1,6 +1,18 @@
-import type { AllowedParams } from './types/audit-logs';
+import type { Context } from './types/internal';
 
 /** Allowed params for the audit middleware method */
-export const allowedParams: AllowedParams = {
-  actions: ['create', 'delete', 'publish', 'unpublish', 'update', 'clone'],
-};
+export const allowedParams = (() => {
+  const actions: Context['action'][] = [
+    'create',
+    'delete',
+    'publish',
+    'unpublish',
+    'update',
+    'clone',
+    'discardDraft',
+  ];
+
+  return {
+    actions,
+  };
+})();
