@@ -1,7 +1,7 @@
 import { RECENTS } from '../../../constants';
+import { Flex, ScrollArea } from '@strapi/design-system';
 import { SidebarListItem } from '../../ui/SidebarListItem';
 import { SidebarListTitle } from '../../ui/SidebarListTitle';
-import { Flex, Box, Typography, ScrollArea } from '@strapi/design-system';
 import { useCollectionContext } from '../../../providers/collection.provider';
 import { appendToPluginPath, appendCollectionPath } from '../../../utils/routing';
 
@@ -49,19 +49,23 @@ export function SidebarContent() {
           })}
         </Flex>
 
-        <SidebarListTitle title="Others" count={otherCollections.length} />
-        <Flex gap="3px" width="100%" paddingTop="8px" paddingBottom="24px" direction="column">
-          {otherCollections.map((collection, index) => {
-            return (
-              <SidebarListItem
-                key={index}
-                label={collection.name}
-                href={appendCollectionPath(collection)}
-                active={selectedCollection?.uid === collection.uid}
-              />
-            );
-          })}
-        </Flex>
+        {otherCollections && otherCollections?.length > 0 && (
+          <>
+            <SidebarListTitle title="Others" count={otherCollections.length} />
+            <Flex gap="3px" width="100%" paddingTop="8px" paddingBottom="24px" direction="column">
+              {otherCollections.map((collection, index) => {
+                return (
+                  <SidebarListItem
+                    key={index}
+                    label={collection.name}
+                    href={appendCollectionPath(collection)}
+                    active={selectedCollection?.uid === collection.uid}
+                  />
+                );
+              })}
+            </Flex>
+          </>
+        )}
       </Flex>
     </ScrollArea>
   );

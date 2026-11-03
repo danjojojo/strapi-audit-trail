@@ -3,9 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 // PAGES
 import { ErrorPage } from './ErrorPage';
 import { DetailPage } from './DetailPage';
+import { LoginsPage } from './LoginsPage';
 import { RecentsPage } from './RecentsPage';
 import { ContentTypePage } from './ContentTypePage';
-import { LoginSessionsPage } from './LoginSessionsPage';
 
 export function AppRoutes() {
   return (
@@ -21,7 +21,7 @@ export function AppRoutes() {
       <Route path="single-types/:collectionUid?" element={<ContentTypePage />} />
 
       {/* OTHER PAGES */}
-      <Route path="others/cms-logins" element={<LoginSessionsPage />} />
+      <Route path="others/cms-logins" element={<LoginsPage />} />
 
       {/* DETAIL PAGES */}
       <Route path="single-types/:collectionUid/:documentId?" element={<DetailPage />} />
