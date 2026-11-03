@@ -13,7 +13,7 @@ export function BlocksDialogView({ value }: BlocksRendererProps) {
           <Expand />
         </BlocksLayout.ToggleViewIcon>
       </Dialog.Trigger>
-      <BlocksLayout.Dialog.Container>
+      <BlocksLayout.Dialog.Container onOpenAutoFocus={(e: Event) => e.preventDefault()}>
         <BlocksToolkit />
         <BlocksLayout.Dialog.Scrollable>
           <BlocksLayout.Dialog.BlocksRendererWrapper>
