@@ -26,7 +26,19 @@ export function useRouting() {
     });
   };
 
+  // sets multiple params in one navigation to replace the current history entry
+  const replaceParams = (values: Record<string, string>) => {
+    setSearchParams(
+      (prev) => {
+        Object.entries(values).forEach(([key, value]) => prev.set(key, value));
+        return prev;
+      },
+      { replace: true }
+    );
+  };
+
   return {
+    replaceParams,
     collectionKind,
     collectionUid,
     documentId,

@@ -11,7 +11,7 @@ export function VersionsSidebar({
   isInvalid,
   hasError = false,
 }: VersionsSidebarProps) {
-  const { appendParam, currentVersion } = useVersions(logs);
+  const { replaceParams, currentVersion } = useVersions(logs);
 
   return (
     <Versions.Sidebar>
@@ -29,10 +29,9 @@ export function VersionsSidebar({
               key={index}
               version={version}
               isCurrent={index === 0}
-              onClick={() => {
-                appendParam('action', version.action);
-                appendParam('createdAt', version.createdAt);
-              }}
+              onClick={() =>
+                replaceParams({ action: version.action, createdAt: version.createdAt })
+              }
               active={
                 currentVersion?.action === version.action &&
                 currentVersion?.createdAt === version.createdAt

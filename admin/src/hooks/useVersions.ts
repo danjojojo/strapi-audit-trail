@@ -4,7 +4,7 @@ import type { Version } from '../types/versions.types';
 import type { AuditLogsData } from '../types/service.types';
 
 export function useVersions(logs: AuditLogsData[]) {
-  const { appendParam, searchParams } = useRouting();
+  const { replaceParams, searchParams } = useRouting();
   const [currentVersion, setCurrentVersion] = useState<Version>();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export function useVersions(logs: AuditLogsData[]) {
   }, [logs, searchParams]);
 
   return {
-    appendParam,
+    replaceParams,
     currentVersion,
   };
 }
