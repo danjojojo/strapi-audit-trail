@@ -1,4 +1,5 @@
 import { PLUGIN_ID } from './pluginId';
+import { pluginPermissions } from './permissions';
 import { PluginIcon } from './components/PluginIcon';
 import { Initializer } from './components/Initializer';
 import { getTranslation } from './utils/getTranslation';
@@ -19,7 +20,7 @@ const plugin: StrapiApp['appPlugins'][string] = {
         defaultMessage: 'Audit Trail',
       },
       Component: () => import('./pages/App'),
-      permissions: [],
+      permissions: pluginPermissions.accessPluginPage,
     });
 
     app.registerPlugin({

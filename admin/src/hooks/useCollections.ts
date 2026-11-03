@@ -1,11 +1,14 @@
 import { services } from '../services';
 import { useRouting } from './useRouting';
 import { useState, useEffect } from 'react';
+import { useRBAC } from '@strapi/strapi/admin';
 import { OTHERS, RECENTS } from '../constants';
+import { pluginPermissions } from '../permissions';
 import { appendCollectionPath } from '../utils/routing';
 import type { CollectionData } from '../types/service.types';
 
 export function useCollections() {
+  const { isLoading, allowedActions } = useRBAC(pluginPermissions);
   const { collectionKind, collectionUid, overrideNavigate } = useRouting();
   const { getAllCollections } = services();
 
@@ -70,6 +73,14 @@ export function useCollections() {
     }
   }, [collectionKind, collectionUid, allCollections, isInvalidCollection, isCollectionLoading]);
 
+  const getOtherCollections = () => {
+    if (!isLoading && allowedActions.canLoginsPage) {
+      return filteredCollections.filter((c) => c.kind === 'others' && c.uid === 'cms-logins');
+    }
+
+    return [];
+  };
+
   return {
     /** STATES */
     targetCollection,
@@ -78,7 +89,7 @@ export function useCollections() {
     isCollectionLoading,
     collectionTypes: filteredCollections.filter((c) => c.kind === 'collectionType'),
     singleTypes: filteredCollections.filter((c) => c.kind === 'singleType'),
-    otherCollections: filteredCollections.filter((c) => c.kind === 'others'),
+    otherCollections: getOtherCollections(),
 
     /** METHODS */
     selectCollection,

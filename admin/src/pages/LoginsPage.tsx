@@ -1,6 +1,9 @@
 import { ErrorPage } from './ErrorPage';
+import { useRBAC } from '@strapi/strapi/admin';
 import { Table } from '../components/ui/Table';
 import { Loader } from '../components/ui/Loader';
+import { pluginPermissions } from '../permissions';
+import { NoPermissionPage } from './NoPermissionPage';
 import { ErrorState } from '../components/ui/ErrorState';
 import { EmptyState } from '../components/ui/EmptyState';
 import { useAuditLogins } from '../hooks/useAuditLogins';
@@ -10,9 +13,14 @@ import { useCollectionContext } from '../providers/collection.provider';
 import { AuditLoginDialog } from '../components/dialogs/AuditLoginDialog';
 import { LandingContentLayout } from '../components/layout/LandingContentLayout';
 
-export const LoginSessionsPage = () => {
+export const LoginsPage = () => {
+  const { allowedActions, isLoading: isRBACLoading } = useRBAC(pluginPermissions);
   const { isCollectionLoading, isInvalidCollection } = useCollectionContext();
   const { auditLogins, auditLoginsError, auditLoginsLoading, auditLoginsMeta } = useAuditLogins();
+
+  if (!isRBACLoading && !allowedActions.canLoginsPage) {
+    return <NoPermissionPage />;
+  }
 
   if (!auditLoginsLoading && !isCollectionLoading && isInvalidCollection) {
     return <ErrorPage content={ERROR.BASE.INVALID} />;
