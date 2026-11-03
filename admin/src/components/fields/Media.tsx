@@ -24,7 +24,7 @@ export function Media({ label, value, schema }: MediaProps) {
           </CarouselSlide>
         ))
       ) : (
-        <CarouselSlide>
+        <CarouselSlide label="No media uploaded.">
           <Typography textColor="neutral400">No media uploaded.</Typography>
         </CarouselSlide>
       )}

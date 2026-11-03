@@ -82,7 +82,7 @@ export interface SingleComponentProps {
 export interface RepeatableComponentProps {
   containers: GetContainersResult[] | null;
   value: any[];
-  renderTitle: (value: any, container: GetContainersResult) => string | null;
+  renderTitle: (value: any, container: GetContainersResult) => string;
   renderFields: (
     fields: GetContainersResult['fields'][number][number],
     value: any
@@ -92,7 +92,7 @@ export interface RepeatableComponentProps {
 /** DYNAMIC ZONE COMPONENT PROPS */
 export interface DynamiczoneComponentProps {
   value: any[];
-  renderTitle: (value: any, container: GetContainersResult) => string | null;
+  renderTitle: (value: any, container: GetContainersResult) => string;
   renderContainers: (value: any) => GetContainersResult[] | null;
   renderFields: (
     fields: GetContainersResult['fields'][number][number],

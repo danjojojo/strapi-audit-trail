@@ -18,9 +18,9 @@ export function DynamiczoneComponent({
             <FieldLayout.Spacer />
             <Accordion.Root>
               {containers?.map((container) => (
-                <Accordion.Item value={`${idx}`} key={idx} width="100%">
-                  <Accordion.Header icon={GridFour}>
-                    <Accordion.Trigger description={renderTitle(v, container)}>
+                <Accordion.Item value={`${idx}`} key={idx}>
+                  <Accordion.Header>
+                    <Accordion.Trigger icon={GridFour} description={renderTitle(v, container)}>
                       {renderTitle(v, container) ?? null}
                     </Accordion.Trigger>
                   </Accordion.Header>

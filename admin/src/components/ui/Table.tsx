@@ -53,7 +53,6 @@ export function Table<T extends Record<string, any>, S extends keyof T & string>
               height="70px"
               cursor={isInteractive ? 'pointer' : undefined}
               tabIndex={isInteractive ? 0 : undefined}
-              _focusVisible={{ outline: '2px solid', outlineColor: 'primary600' }}
               onClick={() => interactRow(row)}
               onKeyDown={(e: React.KeyboardEvent) => {
                 if (!isInteractive) return;
