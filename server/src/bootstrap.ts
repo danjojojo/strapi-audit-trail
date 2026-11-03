@@ -1,6 +1,6 @@
 import { setPermissions } from './permissions';
 import { auditLogs } from './middlewares/audit-logs';
-import { auditLogins } from './middlewares/audit-logins';
+// import { auditLogins } from './middlewares/audit-logins';
 import type { Core } from '@strapi/strapi';
 
 const bootstrap = async ({ strapi }: { strapi: Core.Strapi }) => {
@@ -9,7 +9,7 @@ const bootstrap = async ({ strapi }: { strapi: Core.Strapi }) => {
 
   // middlewares
   auditLogs(strapi);
-  auditLogins(strapi);
+  // auditLogins(strapi);
 };
 
 export default bootstrap;
