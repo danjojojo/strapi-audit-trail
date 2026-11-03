@@ -107,3 +107,7 @@ export interface GetAuditLoginsResponse {
   data: AuditLoginsData[];
   meta: Pagination;
 }
+
+export interface GetConfigResponse {
+  enableAuditLogins: boolean;
+}

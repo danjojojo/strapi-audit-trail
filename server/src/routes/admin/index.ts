@@ -12,6 +12,14 @@ export default () => ({
         policies: [],
       },
     },
+    {
+      method: 'GET',
+      path: '/config',
+      handler: 'config.getConfig',
+      config: {
+        policies: [],
+      },
+    },
     ...auditLogs.routes,
     ...auditLogins.routes,
   ],

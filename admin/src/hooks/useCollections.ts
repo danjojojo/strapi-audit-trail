@@ -5,9 +5,11 @@ import { useRBAC } from '@strapi/strapi/admin';
 import { OTHERS, RECENTS } from '../constants';
 import { pluginPermissions } from '../permissions';
 import { appendCollectionPath } from '../utils/routing';
+import { useConfigContext } from '../providers/config.provider';
 import type { CollectionData } from '../types/service.types';
 
 export function useCollections() {
+  const { config, isConfigLoading } = useConfigContext();
   const { isLoading, allowedActions } = useRBAC(pluginPermissions);
   const { collectionKind, collectionUid, overrideNavigate } = useRouting();
   const { getAllCollections } = services();
@@ -18,15 +20,23 @@ export function useCollections() {
   const [selectedCollection, setSelectedCollection] = useState<CollectionData | null>(null);
   const [isInvalidCollection, setIsInvalidCollection] = useState<boolean>(false);
   const [isCollectionLoading, setIsCollectionLoading] = useState<boolean>(true);
+  const [areCollectionsFetched, setAreCollectionsFetched] = useState<boolean>(false);
 
   const fetchCollections = async () => {
-    const data = await getAllCollections();
-    if (data) {
-      // TODO: make this plugin config driven
-      // const allData = [...data, ...OTHERS];
-      const allData = [...data];
-      setAllCollections(allData);
-      setFilteredCollections(allData);
+    try {
+      const data = await getAllCollections();
+      if (data) {
+        const allData = [...data];
+
+        if (config?.enableAuditLogins) {
+          allData.push(...OTHERS);
+        }
+
+        setAllCollections(allData);
+        setFilteredCollections(allData);
+      }
+    } finally {
+      setAreCollectionsFetched(true);
     }
   };
 
@@ -48,17 +58,22 @@ export function useCollections() {
   };
 
   useEffect(() => {
+    if (isConfigLoading) return;
     fetchCollections();
-  }, []);
+  }, [isConfigLoading, config]);
 
   useEffect(() => {
+    if (isConfigLoading || !areCollectionsFetched) {
+      setIsCollectionLoading(true);
+      setIsInvalidCollection(false);
+      return;
+    }
+
     setIsInvalidCollection(false);
-    setIsCollectionLoading(true);
 
     if (!collectionUid && collectionKind === '') {
       /** Navigate to Recents */
       setSelectedCollection(RECENTS);
-      setIsInvalidCollection(false);
       setIsCollectionLoading(false);
       return;
     }
@@ -67,13 +82,13 @@ export function useCollections() {
 
     if (matched) {
       /** Just set the collection as selected to make the list item active */
-      setIsCollectionLoading(false);
       setSelectedCollection(matched);
     } else {
-      setIsCollectionLoading(false);
       setIsInvalidCollection(true);
     }
-  }, [collectionKind, collectionUid, allCollections, isInvalidCollection, isCollectionLoading]);
+
+    setIsCollectionLoading(false);
+  }, [collectionKind, collectionUid, allCollections, isConfigLoading, areCollectionsFetched]);
 
   const getOtherCollections = () => {
     if (!isLoading && allowedActions.canLoginsPage) {

@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { Main } from '@strapi/design-system';
 import { CollectionProvider } from './collection.provider';
+import { ConfigProvider } from './config.provider';
 
 const StyledMain = styled(Main)`
   overflow-x: hidden;
@@ -10,7 +11,9 @@ const StyledMain = styled(Main)`
 export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <StyledMain>
-      <CollectionProvider>{children}</CollectionProvider>
+      <ConfigProvider>
+        <CollectionProvider>{children}</CollectionProvider>
+      </ConfigProvider>
     </StyledMain>
   );
 }
