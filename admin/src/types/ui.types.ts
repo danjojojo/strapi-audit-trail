@@ -22,6 +22,11 @@ export interface HeaderProps {
   title: string | null | undefined;
   count?: number;
   backUrl?: string | null;
+  rightAction?: {
+    icon: React.ReactNode;
+    label: string;
+    url: string;
+  };
 }
 
 export interface EmptyStateProps {
