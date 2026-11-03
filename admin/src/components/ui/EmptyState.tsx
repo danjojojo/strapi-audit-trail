@@ -1,9 +1,9 @@
 import { ArrowLeft } from '@strapi/icons';
-import { styled } from 'styled-components';
 import { EMPTY_STATE } from '../../constants';
 import { useRouting } from '../../hooks/useRouting';
 import { EmptyDocuments } from '@strapi/icons/symbols';
-import { Flex, Box, Typography, LinkButton } from '@strapi/design-system';
+import { StyledLinkButton } from '../styled/StyledLinkButton';
+import { Flex, Box, Typography } from '@strapi/design-system';
 import type { EmptyStateProps } from '../../types/ui.types';
 import type { MouseEvent } from 'react';
 
@@ -40,7 +40,7 @@ export function EmptyState({ content, icon, action, hideAction = false }: EmptyS
 
         {!hideAction
           ? (action ?? (
-              <LinkButton
+              <StyledLinkButton
                 variant="secondary"
                 href={contentTypePath}
                 startIcon={<ArrowLeft />}
@@ -49,7 +49,7 @@ export function EmptyState({ content, icon, action, hideAction = false }: EmptyS
                 }
               >
                 {EMPTY_STATE.action.label}
-              </LinkButton>
+              </StyledLinkButton>
             ))
           : null}
       </Flex>
