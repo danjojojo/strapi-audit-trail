@@ -38,7 +38,7 @@ export function Header({ title, backUrl, count, rightAction }: HeaderProps) {
       {rightAction && (
         <IconButton
           label={rightAction.label ?? 'Go back to entry'}
-          onClick={(e: MouseEvent<HTMLAnchorElement>) => {
+          onClick={(e: MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
             if (rightAction.url) navigate(rightAction.url);
           }}
