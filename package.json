@@ -66,7 +66,7 @@
     "displayName": "Audit Trail",
     "description": "A custom Strapi plugin for recording activities within the app."
   },
-  "name": "danjojojo/strapi-audit-trail",
+  "name": "@danjojojo/strapi-audit-trail",
   "description": "A custom Strapi plugin for recording activities within the app.",
   "license": "MIT",
   "repository": {
