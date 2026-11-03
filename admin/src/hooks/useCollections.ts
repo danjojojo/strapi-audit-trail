@@ -22,7 +22,9 @@ export function useCollections() {
   const fetchCollections = async () => {
     const data = await getAllCollections();
     if (data) {
-      const allData = [...data, ...OTHERS];
+      // TODO: make this plugin config driven
+      // const allData = [...data, ...OTHERS];
+      const allData = [...data];
       setAllCollections(allData);
       setFilteredCollections(allData);
     }
