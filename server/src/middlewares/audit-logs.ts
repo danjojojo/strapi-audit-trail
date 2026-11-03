@@ -47,11 +47,20 @@ const excludeCollection: Context['uid'][] = [
   'plugin::audit-trail.audit-login',
 ];
 
+const supersededActions: Context['action'][] = ['clone', 'create', 'update'];
+
 export const auditLogs = async (strapi: Strapi) => {
   strapi.documents.use(async (ctx: Context, next) => {
     if (!excludeCollection.includes(ctx.uid) && allowedParams.actions.includes(ctx.action)) {
       const context = strapi.requestContext.get();
       const ctxUser = context?.state.user;
+
+      if (
+        supersededActions.includes(ctx.action) &&
+        context.request.url.split('?')[0].endsWith('/actions/publish')
+      ) {
+        return await next();
+      }
 
       const user = {
         id: ctxUser.id,
