@@ -5,6 +5,10 @@ const RETENTION_DAYS = 30;
 const DAY_IN_MS = 24 * 60 * 60 * 1000;
 
 export const auditLogins = async (strapi: Strapi) => {
+  const isEnabled = strapi.plugin('audit-trail').config('enableAuditLogins');
+  
+  if (!isEnabled) return;
+
   strapi.eventHub.on('admin.auth.success', async (data) => {
     const context = strapi.requestContext.get();
     const userAgent = context?.request?.header['user-agent'];

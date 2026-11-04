@@ -76,7 +76,7 @@ export const ERROR = {
   },
   CONTENT_TYPE: {
     INVALID:
-      'This content type requst is invalid. Please select an available content type from the sidebar.',
+      'This content type request is invalid. Please select an available content type from the sidebar.',
     ERROR_ANY:
       'Experienced an error while fetching the audit logs for this content type. Please try again, and refresh this page.',
     ERROR_RECENTS:

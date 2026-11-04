@@ -8,6 +8,7 @@ import type {
   GetAuditLog,
   GetAuditLoginsResponse,
   GetAuditLogins,
+  GetConfigResponse,
 } from '../types/service.types';
 
 export function services() {
@@ -18,6 +19,15 @@ export function services() {
       try {
         const res = await get(`/${PLUGIN_ID}/collections`);
         return res.data as GetAllCollectionsResponse;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async getConfig() {
+      try {
+        const res = await get(`/${PLUGIN_ID}/config`);
+        return res.data as GetConfigResponse;
       } catch (error) {
         console.error(error);
       }

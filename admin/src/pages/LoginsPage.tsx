@@ -32,7 +32,7 @@ export const LoginsPage = () => {
       {auditLoginsLoading || isCollectionLoading ? (
         <Loader />
       ) : auditLoginsError === 'invalid' ? (
-        <ErrorState content={ERROR.BASE.ERROR} />
+        <ErrorState content={ERROR.BASE.INVALID} />
       ) : auditLoginsError === 'network-error' ? (
         <ErrorState content={ERROR.BASE.ERROR} />
       ) : !auditLoginsLoading && auditLogins.length > 0 ? (

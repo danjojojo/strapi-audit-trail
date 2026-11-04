@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
 import { services } from '../services';
 import { useRouting } from './useRouting';
+import { useEffect, useState } from 'react';
 import { stringToNumber } from '../utils/numbers';
 import { getResponseStatus } from '../helpers/response-status';
+import { useConfigContext } from '../providers/config.provider';
 import type {
   GetAuditLoginsResponse,
   GetAuditLogins,
@@ -11,6 +12,7 @@ import type {
 
 export function useAuditLogins() {
   const { getAuditLogins } = services();
+  const { config, isConfigLoading } = useConfigContext();
   const { collectionKind, collectionUid, searchParams } = useRouting();
 
   const [auditLogins, setAuditLogins] = useState<GetAuditLoginsResponse['data']>([]);
@@ -70,12 +72,20 @@ export function useAuditLogins() {
   };
 
   useEffect(() => {
+    if (!isConfigLoading && !config?.enableAuditLogins) {
+      return setAuditLoginsLoading(false);
+    }
+
     const query = getQuery();
 
-    if (collectionKind === 'others' && collectionUid === 'cms-logins') {
+    if (
+      collectionKind === 'others' &&
+      collectionUid === 'cms-logins' &&
+      config?.enableAuditLogins
+    ) {
       fetchAuditLogins({ query });
     }
-  }, [collectionKind, collectionUid, searchParams]);
+  }, [collectionKind, collectionUid, searchParams, isConfigLoading, config]);
 
   return {
     auditLogins,
