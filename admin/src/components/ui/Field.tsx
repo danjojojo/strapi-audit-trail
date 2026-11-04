@@ -1,6 +1,6 @@
-import { Field as StrapiField } from '@strapi/design-system';
+import { styled } from 'styled-components';
+import { Field as StrapiField, Typography } from '@strapi/design-system';
 import type { FieldProps } from '../../types/fields.types';
-import { Typography } from '@strapi/design-system';
 
 export function Field({
   label,
@@ -20,7 +20,25 @@ export function Field({
           </Typography>
         )}
       </StrapiField.Label>
-      {children ? children : <StrapiField.Input type={type} placeholder={value} disabled />}
+      {children ? (
+        children
+      ) : (
+        <ReadOnlyInput
+          type={type}
+          placeholder={value ?? 'No available data.'}
+          readOnly
+          value={value ?? 'No available data.'}
+        />
+      )}
     </StrapiField.Root>
   );
 }
+
+const ReadOnlyInput = styled(StrapiField.Input)`
+  background: ${({ theme }) => theme.colors.neutral150};
+
+  input {
+    color: ${({ theme }) => theme.colors.neutral600};
+    cursor: text;
+  }
+`;

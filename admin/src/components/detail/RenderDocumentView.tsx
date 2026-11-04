@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Pill } from '../ui/Pill';
 import { Container } from '../ui/Container';
 import { RenderField } from './RenderField';
@@ -8,12 +9,12 @@ import { getContainers } from '../../helpers/document-view/container-renderer';
 import type { GetAuditLogResponse } from '../../types/service.types';
 
 export function RenderDocumentView({ data }: { data: GetAuditLogResponse['auditLog'] }) {
-  const containers = getContainers({
-    layout: data.documentLayout,
-    schema: data.documentSchema,
-  });
+  const containers = useMemo(
+    () => getContainers({ layout: data.documentLayout, schema: data.documentSchema }),
+    [data.documentLayout, data.documentSchema]
+  );
 
-  const payload = JSON.parse(data.payload);
+  const payload = useMemo(() => JSON.parse(data.payload), [data.payload]);
 
   if (!containers) return null;
 

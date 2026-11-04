@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Date } from '../fields/Date';
 import { Json } from '../fields/Json';
 import { Media } from '../fields/Media';
@@ -9,11 +10,11 @@ import { Relation } from '../fields/Relation';
 import { Textarea } from '../fields/Textarea';
 import { Markdown } from '../fields/Markdown';
 import { Component } from '../fields/Component';
-import type { RenderFieldProps } from '../../types/fields.types';
 import { CustomField } from '../fields/CustomField';
+import type { RenderFieldProps } from '../../types/fields.types';
 
-export function RenderField({ label, type, value, schema, metadata, settings }: RenderFieldProps) {
-  
+function RenderFieldBase({ label, type, value, schema, metadata, settings }: RenderFieldProps) {
+
   if (schema?.customField) {
     return <CustomField label={label} value={value} schema={schema} />;
   }
@@ -27,6 +28,7 @@ export function RenderField({ label, type, value, schema, metadata, settings }: 
     case 'integer':
     case 'biginteger':
     case 'decimal':
+    case 'float':
       return <Integer label={label} value={value} schema={schema} />;
     case 'json':
       return <Json label={label} value={value} schema={schema} />;
@@ -54,3 +56,5 @@ export function RenderField({ label, type, value, schema, metadata, settings }: 
       return null;
   }
 }
+
+export const RenderField = memo(RenderFieldBase);
