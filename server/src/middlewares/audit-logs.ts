@@ -53,7 +53,7 @@ export const auditLogs = async (strapi: Strapi) => {
   strapi.documents.use(async (ctx: Context, next) => {
     if (!excludeCollection.includes(ctx.uid) && allowedParams.actions.includes(ctx.action)) {
       const context = strapi.requestContext.get();
-      const ctxUser = context?.state.user;
+      const ctxUser = context?.state?.user;
 
       if (
         supersededActions.includes(ctx.action) &&
@@ -63,12 +63,12 @@ export const auditLogs = async (strapi: Strapi) => {
       }
 
       const user = {
-        id: ctxUser.id,
-        documentId: ctxUser.documentId,
-        firstname: ctxUser.firstname,
-        lastname: ctxUser.lastname,
-        username: ctxUser.username ?? null,
-        email: ctxUser.email,
+        id: ctxUser?.id ?? null,
+        documentId: ctxUser?.documentId ?? null,
+        firstname: ctxUser?.firstname ?? null,
+        lastname: ctxUser?.lastname ?? null,
+        username: ctxUser?.username ?? null,
+        email: ctxUser?.email ?? 'system process',
       };
 
       (ctx.params as any).populate = getDeepPopulate(ctx.uid);
