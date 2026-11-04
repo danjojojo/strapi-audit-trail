@@ -43,8 +43,8 @@ npm install
    - Navigate to your Strapi project directory, open terminal, and run:
 
    ```bash
-   yalc add strapi-audit-trail
-   yalc link strapi-audit-trail
+   yalc add @danjojojo/strapi-audit-trail
+   yalc link @danjojojo/strapi-audit-trail
    npm install
    ```
 
