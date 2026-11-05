@@ -21,7 +21,7 @@ export function RenderDocumentView({ data }: { data: GetAuditLogResponse['auditL
   return (
     <AuditLogsProvider>
       <Flex direction="column" alignItems="flex-start" gap="32px" width="100%">
-        {containers.map((container, idx) => {
+        {containers?.map((container, idx) => {
           if (container.type === 'normal') {
             return (
               <Container.Default
@@ -45,7 +45,7 @@ export function RenderDocumentView({ data }: { data: GetAuditLogResponse['auditL
             const dynamiczone = container.fields[0][0];
             const dynamiczoneId = dynamiczone?.id;
             const dynamiczoneData = payload?.[dynamiczoneId];
-            const dynamiczoneLength = dynamiczoneData.length;
+            const dynamiczoneLength = dynamiczoneData?.length;
             const dynamiczoneTitle = `${dynamiczone?.label} (${dynamiczoneLength})`;
 
             if (dynamiczoneLength === 0) {
