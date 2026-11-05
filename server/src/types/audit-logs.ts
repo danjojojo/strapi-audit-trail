@@ -31,3 +31,8 @@ export interface GetAuditLog {
   query: AuditLogParams;
   filter: GetAuditLogsFilter;
 }
+
+export interface GetDocumentParams {
+  ctx: Context;
+  populate: Record<string, any>;
+}

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { RenderField } from '../detail/RenderField';
 import { DynamiczoneComponent } from './base/CompDynamiczone';
 import { useAuditLogsContext } from '../../providers/audit-logs.provider';
@@ -7,13 +8,20 @@ import type { DynamiczoneProps } from '../../types/fields.types';
 export function Dynamiczone({ value }: DynamiczoneProps) {
   const { auditLog } = useAuditLogsContext();
 
-  if (!auditLog) return null;
+  const layoutRaw = auditLog?.componentsLayout;
+  const schemaRaw = auditLog?.componentsSchema;
+  const namesRaw = auditLog?.componentsNames;
 
-  const parsed = {
-    layout: JSON.parse(auditLog.componentsLayout),
-    schema: JSON.parse(auditLog.componentsSchema),
-    componentNames: JSON.parse(auditLog.componentsNames),
-  };
+  const parsed = useMemo(
+    () => ({
+      layout: layoutRaw ? JSON.parse(layoutRaw) : null,
+      schema: schemaRaw ? JSON.parse(schemaRaw) : null,
+      componentNames: namesRaw ? JSON.parse(namesRaw) : null,
+    }),
+    [layoutRaw, schemaRaw, namesRaw]
+  );
+
+  if (!auditLog) return null;
 
   return (
     <DynamiczoneComponent

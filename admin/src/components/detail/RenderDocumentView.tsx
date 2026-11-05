@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Pill } from '../ui/Pill';
 import { Container } from '../ui/Container';
 import { RenderField } from './RenderField';
@@ -8,19 +9,19 @@ import { getContainers } from '../../helpers/document-view/container-renderer';
 import type { GetAuditLogResponse } from '../../types/service.types';
 
 export function RenderDocumentView({ data }: { data: GetAuditLogResponse['auditLog'] }) {
-  const containers = getContainers({
-    layout: data.documentLayout,
-    schema: data.documentSchema,
-  });
+  const containers = useMemo(
+    () => getContainers({ layout: data.documentLayout, schema: data.documentSchema }),
+    [data.documentLayout, data.documentSchema]
+  );
 
-  const payload = JSON.parse(data.payload);
+  const payload = useMemo(() => JSON.parse(data.payload), [data.payload]);
 
   if (!containers) return null;
 
   return (
     <AuditLogsProvider>
       <Flex direction="column" alignItems="flex-start" gap="32px" width="100%">
-        {containers.map((container, idx) => {
+        {containers?.map((container, idx) => {
           if (container.type === 'normal') {
             return (
               <Container.Default
@@ -44,7 +45,7 @@ export function RenderDocumentView({ data }: { data: GetAuditLogResponse['auditL
             const dynamiczone = container.fields[0][0];
             const dynamiczoneId = dynamiczone?.id;
             const dynamiczoneData = payload?.[dynamiczoneId];
-            const dynamiczoneLength = dynamiczoneData.length;
+            const dynamiczoneLength = dynamiczoneData?.length;
             const dynamiczoneTitle = `${dynamiczone?.label} (${dynamiczoneLength})`;
 
             if (dynamiczoneLength === 0) {

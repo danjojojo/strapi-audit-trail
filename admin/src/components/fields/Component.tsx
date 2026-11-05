@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Field } from '../ui/Field';
 import { EmptyComponent } from './base/CompEmpty';
 import { RenderField } from '../detail/RenderField';
@@ -10,15 +11,28 @@ import type { ComponentProps } from '../../types/fields.types';
 export function Component({ label, value, schema, settings }: ComponentProps) {
   const { auditLog } = useAuditLogsContext();
 
+  const componentsSchemaRaw = auditLog?.componentsSchema;
+  const componentsLayoutRaw = auditLog?.componentsLayout;
+
+  const componentsSchema = useMemo(
+    () => (componentsSchemaRaw ? JSON.parse(componentsSchemaRaw) : null),
+    [componentsSchemaRaw]
+  );
+  const componentsLayout = useMemo(
+    () => (componentsLayoutRaw ? JSON.parse(componentsLayoutRaw) : null),
+    [componentsLayoutRaw]
+  );
+
+  const containers = useMemo(
+    () =>
+      getContainers({
+        layout: JSON.stringify(componentsLayout?.[schema.component!]),
+        schema: JSON.stringify(componentsSchema?.[schema.component!]),
+      }),
+    [componentsLayout, componentsSchema, schema.component]
+  );
+
   if (!auditLog) return null;
-
-  const componentsSchema = JSON.parse(auditLog.componentsSchema);
-  const componentsLayout = JSON.parse(auditLog.componentsLayout);
-
-  const containers = getContainers({
-    layout: JSON.stringify(componentsLayout?.[schema.component!]),
-    schema: JSON.stringify(componentsSchema?.[schema.component!]),
-  });
 
   if (value?.length === 0) {
     return (
