@@ -1,10 +1,20 @@
 import { memo } from 'react';
+import { Link } from '@strapi/icons';
 import { useCarouselInput } from '../../hooks/useCarouselInput';
-import { CarouselInput, CarouselSlide, CarouselImage, Typography } from '@strapi/design-system';
+import {
+  CarouselInput,
+  CarouselSlide,
+  CarouselImage,
+  Typography,
+  CarouselActions,
+  IconButton,
+} from '@strapi/design-system';
+import { useNotification } from '@strapi/strapi/admin';
 import type { MediaProps } from '../../types/fields.types';
 
 function MediaBase({ label, value, schema }: MediaProps) {
-  const { selectedSlide, entries, current, onNext, onPrevious } = useCarouselInput(value);
+  const { selectedSlide, entries, current, currentUrl, onNext, onPrevious } = useCarouselInput(value);
+  const { toggleNotification } = useNotification();
 
   return (
     <CarouselInput
@@ -17,6 +27,25 @@ function MediaBase({ label, value, schema }: MediaProps) {
       onPrevious={onPrevious}
       style={{ width: '100%' }}
       required={schema.required}
+      actions={
+        current?.url && (
+          <CarouselActions>
+            <IconButton
+              onClick={() => {
+                navigator.clipboard.writeText(currentUrl ?? '');
+                toggleNotification({
+                  type: 'success',
+                  message: 'Link copied to clipboard',
+                });
+              }}
+              label="Copy link"
+              id="copy-link"
+            >
+              <Link />
+            </IconButton>
+          </CarouselActions>
+        )
+      }
     >
       {entries.length > 0 ? (
         entries.map((entry, idx) => (

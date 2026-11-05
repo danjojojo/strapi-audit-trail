@@ -75,22 +75,22 @@ function Toolkit({ hideModeBtn = false }: { hideModeBtn?: boolean }) {
 
       <MarkdownLayout.Header.ToolkitRow>
         <IconButtonGroup>
-          {leftToolkit.map((t) => (
-            <MarkdownLayout.Header.ToolkitIcon label={t.label} disabled>
+          {leftToolkit.map((t, idx) => (
+            <MarkdownLayout.Header.ToolkitIcon label={t.label} disabled key={idx}>
               {t.icon}
             </MarkdownLayout.Header.ToolkitIcon>
           ))}
         </IconButtonGroup>
         <IconButtonGroup>
-          {centerToolkit.map((t) => (
-            <MarkdownLayout.Header.ToolkitIcon label={t.label} disabled>
+          {centerToolkit.map((t, idx) => (
+            <MarkdownLayout.Header.ToolkitIcon label={t.label} disabled key={idx}>
               {t.icon}
             </MarkdownLayout.Header.ToolkitIcon>
           ))}
         </IconButtonGroup>
         <IconButtonGroup>
-          {rightToolkit.map((t) => (
-            <MarkdownLayout.Header.ToolkitIcon label={t.label} disabled>
+          {rightToolkit.map((t, idx) => (
+            <MarkdownLayout.Header.ToolkitIcon label={t.label} disabled key={idx}>
               {t.icon}
             </MarkdownLayout.Header.ToolkitIcon>
           ))}

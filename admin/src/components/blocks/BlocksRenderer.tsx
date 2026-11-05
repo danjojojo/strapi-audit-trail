@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { List } from './components/List';
 import { Code } from './components/Code';
 import { Quote } from './components/Quote';
@@ -9,7 +10,11 @@ import { InlineCode } from './modifiers/InlineCode';
 import { BlocksRenderer as StrapiBlocksRenderer } from '@strapi/blocks-react-renderer';
 import type { BlocksRendererProps } from '../../types/block.types';
 
-export function BlocksRenderer({ value }: BlocksRendererProps) {
+function BlocksRendererBase({ value }: BlocksRendererProps) {
+  if (!Array.isArray(value)) {
+    return null;
+  }
+  
   return (
     <StrapiBlocksRenderer
       content={value}
@@ -44,3 +49,5 @@ export function BlocksRenderer({ value }: BlocksRendererProps) {
     />
   );
 }
+
+export const BlocksRenderer = memo(BlocksRendererBase);

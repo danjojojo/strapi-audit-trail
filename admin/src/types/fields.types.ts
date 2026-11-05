@@ -14,7 +14,7 @@ export interface FieldProps {
 /** BOOLEAN FIELD */
 export interface BooleanProps {
   label: string;
-  value: string;
+  value: string  | boolean;
   schema: SchemaContent;
 }
 

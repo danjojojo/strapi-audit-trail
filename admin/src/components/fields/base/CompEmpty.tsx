@@ -14,7 +14,7 @@ export function EmptyComponent() {
       justifyContent="center"
     >
       <Typography variant="omega" textColor="neutral500">
-        No available data yet.
+        No available data.
       </Typography>
     </Flex>
   );

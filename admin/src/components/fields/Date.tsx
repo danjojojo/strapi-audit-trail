@@ -1,9 +1,9 @@
+import { memo } from 'react';
 import {
-  DateTimePicker as SDateTimePicker,
   DatePicker as SDatePicker,
   TimePicker as STimePicker,
+  DateTimePicker as SDateTimePicker,
 } from '@strapi/design-system';
-import { memo } from 'react';
 import { Field } from '../ui/Field';
 import { getDate, getTime } from '../../helpers/audit-logs-formatters';
 import type { InputFieldProps } from '../../types/fields.types';
@@ -11,7 +11,7 @@ import type { InputFieldProps } from '../../types/fields.types';
 const DateTimePickerBase = ({ label, value, schema }: InputFieldProps) => {
   return (
     <Field label={label} required={schema.required}>
-      <SDateTimePicker initialDate={getDate(value)} disabled />
+      <SDateTimePicker initialDate={value ? getDate(value) : undefined} disabled />
     </Field>
   );
 };
@@ -21,7 +21,7 @@ export const DateTimePicker = memo(DateTimePickerBase);
 const DatePickerBase = ({ label, value, schema }: InputFieldProps) => {
   return (
     <Field label={label} required={schema.required}>
-      <SDatePicker initialDate={getDate(value)} disabled />
+      <SDatePicker initialDate={value ? getDate(value) : undefined} disabled />
     </Field>
   );
 };

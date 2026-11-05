@@ -34,9 +34,9 @@ function ComponentBase({ label, value, schema, settings }: ComponentProps) {
 
   if (!auditLog) return null;
 
-  if (value?.length === 0) {
+  if (!value || value.length === 0) {
     return (
-      <Field label={`${label} (${value?.length})`} paddingBottom="8px" required={schema.required}>
+      <Field label={label} paddingBottom="8px" required={schema.required}>
         <EmptyComponent />
       </Field>
     );

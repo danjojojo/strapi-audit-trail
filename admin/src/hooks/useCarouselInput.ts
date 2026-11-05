@@ -16,11 +16,16 @@ export function useCarouselInput(value: any) {
     setSelectedSlide((prev) => Math.max(prev - 1, prev === 0 ? entries.length - 1 : 0));
   };
 
+  const currentUrl = current?.url?.startsWith('/')
+    ? `${window.location.origin}${current?.url}`
+    : current?.url;
+
   return {
     current,
     entries,
     onNext,
     onPrevious,
     selectedSlide,
+    currentUrl,
   };
 }
