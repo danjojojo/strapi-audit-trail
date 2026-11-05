@@ -34,7 +34,7 @@ export function Pagination({ pageCount }: { pageCount: number }) {
   });
 
   return (
-    <Flex paddingTop="40px" width="100%" justifyContent="flex-end">
+    <Flex paddingTop="40px" paddingBottom="40px" width="100%" justifyContent="flex-end">
       {pageCount > 1 ? (
         <StrapiPagination activePage={activePage === 0 ? 1 : activePage} pageCount={pageCount}>
           <PreviousLink
