@@ -25,9 +25,9 @@ export function Field({
       ) : (
         <ReadOnlyInput
           type={type}
-          placeholder={value ?? 'No available data.'}
+          placeholder={value ?? ''}
           readOnly
-          value={value ?? 'No available data.'}
+          value={value ?? ''}
         />
       )}
     </StrapiField.Root>

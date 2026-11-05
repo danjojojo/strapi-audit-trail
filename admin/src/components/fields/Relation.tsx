@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { styled } from 'styled-components';
 import { Field } from '../ui/Field';
 import { normalizeRelations } from '../../helpers/document-view/field-value';
@@ -8,7 +9,7 @@ import type {
   ScrollableRelationButtons,
 } from '../../types/fields.types';
 
-export function Relation({ label, value, metadata, schema }: RelationProps) {
+function RelationBase({ label, value, metadata, schema }: RelationProps) {
   const relations = normalizeRelations(value);
 
   return (
@@ -28,6 +29,8 @@ export function Relation({ label, value, metadata, schema }: RelationProps) {
     </Field>
   );
 }
+
+export const Relation = memo(RelationBase);
 
 function RelationButton({ value }: RelationButton) {
   return (

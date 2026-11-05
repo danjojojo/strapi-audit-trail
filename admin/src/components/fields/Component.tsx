@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Field } from '../ui/Field';
 import { EmptyComponent } from './base/CompEmpty';
 import { RenderField } from '../detail/RenderField';
@@ -8,7 +8,7 @@ import { useAuditLogsContext } from '../../providers/audit-logs.provider';
 import { getContainers } from '../../helpers/document-view/container-renderer';
 import type { ComponentProps } from '../../types/fields.types';
 
-export function Component({ label, value, schema, settings }: ComponentProps) {
+function ComponentBase({ label, value, schema, settings }: ComponentProps) {
   const { auditLog } = useAuditLogsContext();
 
   const componentsSchemaRaw = auditLog?.componentsSchema;
@@ -87,3 +87,5 @@ export function Component({ label, value, schema, settings }: ComponentProps) {
     </Field>
   );
 }
+
+export const Component = memo(ComponentBase);

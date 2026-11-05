@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Status } from './Status';
 import { styled } from 'styled-components';
 import { ACTION_COLORS } from '../../constants';
@@ -93,8 +94,8 @@ const VersionButton = (props: VersionButtonProps) => {
 };
 
 export const Versions = {
-  Sidebar: VersionSidebar,
-  SidebarHeader: VersionHeader,
-  SidebarContent: VersionContent,
-  SidebarButton: VersionButton,
+  Sidebar: memo(VersionSidebar),
+  SidebarHeader: memo(VersionHeader),
+  SidebarContent: memo(VersionContent),
+  SidebarButton: memo(VersionButton),
 };

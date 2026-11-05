@@ -1,11 +1,14 @@
+import { memo } from 'react';
 import { Field } from '../ui/Field';
 import { Toggle } from '@strapi/design-system';
 import type { BooleanProps } from '../../types/fields.types';
 
-export function Boolean({ label, value, schema }: BooleanProps) {
+function BooleanBase({ label, value, schema }: BooleanProps) {
   return (
     <Field label={label} required={schema.required}>
-      <Toggle checked={value ? true : false} disabled={true} onLabel="True" offLabel="False" />
+      <Toggle checked={value ?? null} disabled={true} onLabel="True" offLabel="False" />
     </Field>
   );
 }
+
+export const Boolean = memo(BooleanBase);

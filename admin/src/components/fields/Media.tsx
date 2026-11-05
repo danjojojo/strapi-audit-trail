@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { useCarouselInput } from '../../hooks/useCarouselInput';
 import { CarouselInput, CarouselSlide, CarouselImage, Typography } from '@strapi/design-system';
 import type { MediaProps } from '../../types/fields.types';
 
-export function Media({ label, value, schema }: MediaProps) {
+function MediaBase({ label, value, schema }: MediaProps) {
   const { selectedSlide, entries, current, onNext, onPrevious } = useCarouselInput(value);
 
   return (
@@ -31,3 +32,5 @@ export function Media({ label, value, schema }: MediaProps) {
     </CarouselInput>
   );
 }
+
+export const Media = memo(MediaBase);

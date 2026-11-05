@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { RenderField } from '../detail/RenderField';
 import { DynamiczoneComponent } from './base/CompDynamiczone';
 import { useAuditLogsContext } from '../../providers/audit-logs.provider';
 import { getContainers } from '../../helpers/document-view/container-renderer';
 import type { DynamiczoneProps } from '../../types/fields.types';
 
-export function Dynamiczone({ value }: DynamiczoneProps) {
+function DynamiczoneBase({ value }: DynamiczoneProps) {
   const { auditLog } = useAuditLogsContext();
 
   const layoutRaw = auditLog?.componentsLayout;
@@ -53,3 +53,5 @@ export function Dynamiczone({ value }: DynamiczoneProps) {
     />
   );
 }
+
+export const Dynamiczone = memo(DynamiczoneBase);

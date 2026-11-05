@@ -1,9 +1,9 @@
+import { memo, type MouseEvent } from 'react';
 import { useRouting } from '../../hooks/useRouting';
 import { Box, Typography, LinkButton } from '@strapi/design-system';
-import type { MouseEvent } from 'react';
 import type { SidebarListItemProps } from '../../types/ui.types';
 
-export function SidebarListItem({ active, href, label }: SidebarListItemProps) {
+function SidebarListItemBase({ active, href, label }: SidebarListItemProps) {
   const { overrideNavigate } = useRouting();
 
   return (
@@ -36,3 +36,5 @@ export function SidebarListItem({ active, href, label }: SidebarListItemProps) {
     </Box>
   );
 }
+
+export const SidebarListItem = memo(SidebarListItemBase);

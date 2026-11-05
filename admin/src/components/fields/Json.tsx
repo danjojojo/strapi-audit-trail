@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { Field } from '../ui/Field';
 import { JSONInput } from '@strapi/design-system';
 import type { InputFieldProps } from '../../types/fields.types';
 
-export function Json({ label, value, schema }: InputFieldProps) {
+function JsonBase({ label, value, schema }: InputFieldProps) {
   return (
     <Field label={label} required={schema.required}>
       <JSONInput
@@ -14,3 +15,5 @@ export function Json({ label, value, schema }: InputFieldProps) {
     </Field>
   );
 }
+
+export const Json = memo(JsonBase);

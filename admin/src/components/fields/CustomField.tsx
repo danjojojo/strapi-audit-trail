@@ -1,10 +1,10 @@
 import { PLUGIN_ID } from '../../pluginId';
 import { Form, useStrapiApp } from '@strapi/strapi/admin';
-import { useState, useEffect, ComponentType } from 'react';
+import { useState, useEffect, memo, ComponentType } from 'react';
 import { StyledCustomField } from '../styled/StyledCustomField';
 import type { InputFieldProps, CustomFieldInputProps } from '../../types/fields.types';
 
-export function CustomField({ label, value, schema }: InputFieldProps) {
+function CustomFieldBase({ label, value, schema }: InputFieldProps) {
   const [CustomFieldComponent, setCustomFieldComponent] = useState<
     ComponentType<CustomFieldInputProps> | undefined
   >(undefined);
@@ -39,3 +39,5 @@ export function CustomField({ label, value, schema }: InputFieldProps) {
     </StyledCustomField.ReadOnly>
   );
 }
+
+export const CustomField = memo(CustomFieldBase);
