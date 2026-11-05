@@ -1,18 +1,23 @@
+import { styled } from 'styled-components';
 import { Flex } from '@strapi/design-system';
+
+const StyledFlex = styled(Flex)`
+  position: fixed;
+  top: 0;
+  left: calc(231px + 56px);
+  width: calc(100vw - (231px + 56px));
+`;
 
 export function ContentLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Flex
+    <StyledFlex
       direction="column"
-      width="100%"
       height="100%"
       gap="4px"
       alignItems="flex-start"
-      flex="1"
       minWidth="0"
-      marginLeft="231px"
     >
       {children}
-    </Flex>
+    </StyledFlex>
   );
 }
