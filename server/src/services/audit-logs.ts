@@ -12,11 +12,13 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         retentionUntil: {
           $gte: filter.currentDateTime,
         },
-        ...(filter.collectionUid && {
-          collectionUid: {
-            $eqi: filter.collectionUid,
-          },
-        }),
+        collectionUid: filter.collectionUid
+          ? {
+              $eqi: filter.collectionUid,
+            }
+          : {
+              $in: strapi.plugin('audit-trail').service('collection').getVisibleCollections(),
+            },
       },
       fields: [
         'action',
