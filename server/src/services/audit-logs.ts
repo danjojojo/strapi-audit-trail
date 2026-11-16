@@ -3,6 +3,18 @@ import type { GetAuditLog, GetAuditLogs } from '../types/audit-logs';
 
 const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
   async getAuditLogs({ query, filter }: GetAuditLogs) {
+    const collectionFilter = filter.collectionUid
+      ? {
+          collectionUid: {
+            $eqi: filter.collectionUid,
+          },
+        }
+      : {
+          collectionUid: {
+            $in: strapi.plugin('audit-trail').service('collection').getVisibleCollections(),
+          },
+        };
+
     const data = await strapi.documents('plugin::audit-trail.audit-log').findMany({
       _q: query._q,
       sort: query.sort ?? 'createdAt:DESC',
@@ -12,13 +24,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         retentionUntil: {
           $gte: filter.currentDateTime,
         },
-        collectionUid: filter.collectionUid
-          ? {
-              $eqi: filter.collectionUid,
-            }
-          : {
-              $in: strapi.plugin('audit-trail').service('collection').getVisibleCollections(),
-            },
+        ...collectionFilter,
       },
       fields: [
         'action',
@@ -37,11 +43,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         retentionUntil: {
           $gte: filter.currentDateTime,
         },
-        ...(filter.collectionUid && {
-          collectionUid: {
-            $eqi: filter.collectionUid,
-          },
-        }),
+        ...collectionFilter,
       },
     });
 
