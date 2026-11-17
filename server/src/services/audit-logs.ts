@@ -2,11 +2,11 @@ import type { Core } from '@strapi/strapi';
 import type { GetAuditLog, GetAuditLogs } from '../types/audit-logs';
 
 const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
-  async getAuditLogs({ query, filter }: GetAuditLogs) {
-    const collectionFilter = filter.collectionUid
+  getCollectionsFilter(targetCollectionUid: string | undefined) {
+    return targetCollectionUid
       ? {
           collectionUid: {
-            $eqi: filter.collectionUid,
+            $eqi: targetCollectionUid,
           },
         }
       : {
@@ -14,7 +14,9 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
             $in: strapi.plugin('audit-trail').service('collection').getVisibleCollections(),
           },
         };
-
+  },
+  
+  async getAuditLogs({ query, filter }: GetAuditLogs) {
     const data = await strapi.documents('plugin::audit-trail.audit-log').findMany({
       _q: query._q,
       sort: query.sort ?? 'createdAt:DESC',
@@ -24,7 +26,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         retentionUntil: {
           $gte: filter.currentDateTime,
         },
-        ...collectionFilter,
+        ...this.getCollectionsFilter(filter.collectionUid)
       },
       fields: [
         'action',
@@ -43,7 +45,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         retentionUntil: {
           $gte: filter.currentDateTime,
         },
-        ...collectionFilter,
+        ...this.getCollectionsFilter(filter.collectionUid)
       },
     });
 
@@ -82,11 +84,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         retentionUntil: {
           $gte: filter.currentDateTime,
         },
-        ...(filter.collectionUid && {
-          collectionUid: {
-            $eqi: filter.collectionUid,
-          },
-        }),
+        ...this.getCollectionsFilter(filter.collectionUid),
         ...(filter.relatedDocumentId && {
           relatedDocumentId: {
             $eqi: filter.relatedDocumentId,
@@ -126,11 +124,7 @@ const auditLogs = ({ strapi }: { strapi: Core.Strapi }) => ({
         retentionUntil: {
           $gte: filter.currentDateTime,
         },
-        ...(filter.collectionUid && {
-          collectionUid: {
-            $eqi: filter.collectionUid,
-          },
-        }),
+        ...this.getCollectionsFilter(filter.collectionUid),
         ...(filter.relatedDocumentId && {
           relatedDocumentId: {
             $eqi: filter.relatedDocumentId,
