@@ -1,4 +1,4 @@
-# strapi-audit-trail
+# @danjojojo/strapi-audit-trail
 
 A custom Strapi plugin for recording activities within the app.
 
@@ -54,3 +54,25 @@ npm install
 npm run build
 npm run develop
 ```
+
+## Changelog
+
+### 1.0.4
+- Added plugin config
+
+### 1.0.5
+- Memoized component fields
+- Record audit log from _system process_ for document event caused by APIs
+
+### 1.0.7
+- Deduped bulkDelete documentIds for older Strapi versions
+
+### 1.0.8
+- Removed fallback value for text fields if data is null
+- Memoized all input fields
+- Added `Copy Link` to Media field
+- Fixed boolean field value display
+- Fixed display of null and undefined values
+
+### 1.0.9
+- Updated pagination component to clamp page numbers
